@@ -1,7 +1,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap'); */
 
-:root {
+/* :root {
     --indigo: #6610f2;
     --main-black: #000;
     --main-white: #fff;
@@ -12,7 +12,7 @@
 * {
     margin: 0;
     box-sizing: border-box;
-}
+} */
 
 body {
     padding: 15px;

@@ -1,19 +1,15 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <style><?php include './css/colors.css'; ?></style>
+    <style><?php include './css/common-styles.css'; ?></style>
     <style><?php include './css/signup.css'; ?></style>
-
-    <?php
-    function set_session($full_name) {
-        session_start();
-        $_SESSION["user_name"] = $full_name;
-        echo "session is SET";
-    }
-    ?>
 
     <script defer>
         window.history.forward(); 
@@ -59,7 +55,7 @@
             commonMsgArea.innerHTML = "Login Successful!!";
 
             setTimeout(() => {
-                window.location.replace("index.php");
+                window.location.replace("bookshelf.php");
             }, 1400);
         }
 
@@ -157,10 +153,16 @@
                     // echo "<script>checkPwdFun('$original_pwd', '$email');</script>";
 
                     if (password_verify($passone, $original_pwd)) {
+                        $pos_of_a = strpos($email, "@");
+                        $extracted_part_of_email = substr($email, 0, $pos_of_a);
+                        
+                        $db_name = $extracted_part_of_email . "_user";
+
                         $full_name = $row["name"];
 
-                        session_start();
                         $_SESSION["user_name"] = $full_name;
+                        $_SESSION["db_name"] = $db_name;
+                        echo "session is set";
                         echo "<script>loginSuccess();</script>";
                     } else {
                         echo "<script>pwdErr();</script>";

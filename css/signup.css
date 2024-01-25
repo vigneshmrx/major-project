@@ -4,15 +4,25 @@ body {
 }
 
 .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
 .left-area, 
 .right-area {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     height: 100vh;
 }
 
@@ -24,7 +34,8 @@ body {
 
 .form-area {
     width: 60%;
-    box-shadow: 11px 11px 5px 5px var(--main-black);
+    -webkit-box-shadow: 11px 11px 5px 5px var(--main-black);
+            box-shadow: 11px 11px 5px 5px var(--main-black);
     border: 2px solid var(--main-black);
 }
 
@@ -33,9 +44,15 @@ form {
 }
 
 .flex-line {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: space-between
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between
 }
 
 .line {
@@ -53,7 +70,9 @@ form {
 
 .fname,
 .lname {
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
 }
 
 .fname {
