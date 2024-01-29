@@ -3,7 +3,12 @@ session_start();
 
 include './connect.php';
 
-mysqli_select_db($con, $_SESSION["db_name"]);
+if (!isset($_SESSION["db_name"])) {
+    header("location: login.php");
+} else {
+    mysqli_select_db($con, $_SESSION["db_name"]);
+}
+
 
 // echo $_SESSION["db_name"];
 ?>
@@ -30,11 +35,11 @@ mysqli_select_db($con, $_SESSION["db_name"]);
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        const gridToggle = () => {
-            let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
-            toReadContentArea.classList.toggle("grid-toggle"); 
-            //this is to toggle grid mode for items that do not have anything added yet
-        }
+    const gridToggle = () => {
+        let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
+        toReadContentArea.classList.toggle("grid-toggle");
+        //this is to toggle grid mode for items that do not have anything added yet
+    }
     </script>
 </head>
 
@@ -43,9 +48,9 @@ mysqli_select_db($con, $_SESSION["db_name"]);
 
     <div id="add-book-popup-pg">
         <div id="add-book-popup-box">
-            <div id="add-book-heading-area">
-                <div id="add-book-heading">ADD BOOK</div>
-                <div id="close-pop-up-icon-area" onclick="removePopUp(this);">
+            <div class="add-book-heading-area">
+                <div class="add-book-heading">ADD BOOK</div>
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -55,13 +60,31 @@ mysqli_select_db($con, $_SESSION["db_name"]);
                 <input type="text" name="bkName" id="bkName" required> <br><br>
                 <label for="author">Author:</label> <br>
                 <input type="text" name="author" id="author" required> <br><br>
-                <input type="button" value="ADD"
+                <label for="bkYear">Year (optional):</label> <br>
+                <input type="text" name="bkYear" id="bkYear" required>
+                <br><br>
+                <input type="button" value="ADD" id="addBtnOne"
                     style="width: 100px; margin-left: auto; margin-right: auto; display: block"
-                    onclick="addBooktoDB();">
+                    onclick="addBooktoDB('to read');">
+                <input type="button" value="ADD" id="addBtnTwo"
+                    style="width: 100px; margin-left: auto; margin-right: auto; display: block"
+                    onclick="addBooktoDB('completed');">
             </form>
         </div>
     </div>
 
+    <div id="add-book-popup-pg-two">
+        <div id="add-book-popup-box-two">
+            <div class="add-book-heading-area">
+                <div class="add-book-heading">ADD BOOK</div>
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
+                    <img src="./icons/icons8-close-32.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEFT AREA - THE NAVIGATION ~~~~ -->
     <div id="page-left-area">
         <div id="logo">
             <!-- <lord-icon src="https://cdn.lordicon.com/abwrkdvl.json" trigger="in" delay="1500" state="in-growth"
@@ -87,13 +110,16 @@ mysqli_select_db($con, $_SESSION["db_name"]);
             <a href="#">
                 <div class="nav-items">Settings</div>
             </a>
-            <a href="#">
-                <div class="nav-items">Log Out</div>
-            </a>
+            <div class="nav-items" onclick="showLogOutBox();">Log Out</div>
+            <!-- <a href="" onclick="showLogOutBox();">
+                
+            </a> -->
         </nav>
 
         <hr>
     </div>
+
+    <!-- RIGHT AREA - THE CONTENT ~~~~ -->
     <div id="page-right-area">
         <div id="main-heading">
             <?php echo $_SESSION["user_name"]; ?>'s Bookshelf
@@ -111,7 +137,7 @@ mysqli_select_db($con, $_SESSION["db_name"]);
                     <div class="right-box">
                         <div class="to-read-heading-area">
                             <!-- THis is flex -->
-                            <div class="to-read-title">TO READ</div>
+                            <div class="to-read-title">READLIST</div>
                             <div class="to-read-year">
                                 <?php echo date("Y"); ?>
                             </div>
@@ -127,21 +153,29 @@ mysqli_select_db($con, $_SESSION["db_name"]);
 
                             if ($books_to_read_q->num_rows > 0) {
                                 while ($row = mysqli_fetch_assoc($books_to_read_q)) {
+                                    if (strlen($row["BookName"]) >= 45) {
+                                        $book_name_updated = substr($row["BookName"], 0, 45) . "...";
+                                    } else {
+                                        $book_name_updated = $row["BookName"];
+                                    }
+                                    
                                     echo '<div class="book-info-box">
                                     <div class="book-info">
-                                        <div class="book-info-name">' . $row['BookName'] . '</div>
+                                        <div class="book-info-name">' . $book_name_updated . '</div>
                                         <div class="book-info-author">' . $row["Author"] . '</div>
                                     </div>
                                     <div class="book-info-action">
-                                        <div class="done-reading-icon" onclick="changeStatusToCompleted(this);">
+                                        <div class="done-reading-icon" onclick="changeStatusToCompleted(this);" style="height: 30px;">
                                             <img src="./icons/icons8-tick-50.png" alt="" width="30">
                                         </div>
-                                        <div class="remove-book-icon" onclick="removeThisFromDb(this);">
+                                        <div class="remove-book-icon" onclick="removeThisFromDb(this);" style="height: 30px;">
                                             <img src="./icons/icons8-close-64.png" alt="" width="30">
                                         </div>
                                     </div>
                                 </div>';
                                 }
+                            } else {
+                                echo "No books to read!!";
                             }
                             }
 
@@ -151,7 +185,7 @@ mysqli_select_db($con, $_SESSION["db_name"]);
                         </div>
 
                         <div class="to-read-btn-area">
-                            <input type="button" value="ADD BOOK" onclick="showAddBookPopUp();"
+                            <input type="button" value="ADD BOOK" onclick="showAddBookPopUp('one');"
                                 style="font-size: 12px; padding: 5px 10px;">
                         </div>
                     </div>
@@ -162,18 +196,19 @@ mysqli_select_db($con, $_SESSION["db_name"]);
                     <div class="left-box">
                         <div class="already-read-heading-area">
                             <!-- THis is flex -->
-                            <div class="already-read-title">READ</div>
+                            <div class="already-read-title">COMPLETED READING</div>
                             <div class="already-read-year">
                                 <?php echo date("Y"); ?>
                             </div>
                         </div>
 
                         <div class="already-read-content-area">
-                        <?php
+                            <?php
 
                         function load_already_read_books() {
                             GLOBAL $con;
-                            $books_already_read_q = mysqli_query($con, "select * from bookshelf where Status = 'completed';");
+                            $cur_year = date("Y");
+                            $books_already_read_q = mysqli_query($con, "select * from bookshelf where Status = 'completed' and Year = $cur_year;");
 
                             if ($books_already_read_q->num_rows > 0) {
                                 while ($row = mysqli_fetch_assoc($books_already_read_q)) {
@@ -183,32 +218,80 @@ mysqli_select_db($con, $_SESSION["db_name"]);
                                         <div class="book-info-author">' . $row["Author"] . '</div>
                                     </div>
                                     <div class="book-info-action" style="width: 5%;">
-                                        <div class="remove-book-icon" onclick="removeThisFromDb(this);">
-                                            <img src="./icons/icons8-close-64.png" alt="" width="30">
+                                        <div class="remove-book-icon" onclick="removeThisFromDb(this);" style="height: 30px;">
+                                            <img src="./icons/icons8-close-64.png" alt="" width="30" height="30">
                                         </div>
                                     </div>
                                 </div>';
                                 }
                             } else {
-                                echo 'No books read yet';
+                                echo 'No books read yet!!';
                             }
                         }
 
                         load_already_read_books();
 
                         ?>
-                    </div>
-                    </div>
+                        </div>
 
-                    
+                        <div class="already-read-btn-area">
+                            <input type="button" value="ADD BOOK" onclick="showAddBookPopUp('two');"
+                                style="font-size: 12px; padding: 5px 10px;">
+                        </div>
+                    </div>
                 </div>
-                <div class="section-two-right"></div>
+
+                <div class="section-two-right">
+                    <div class="right-box" style="padding-bottom: 0px;">
+                        <div class="calendar">
+                            <div class="calendar-header">
+                                <span class="month-picker" id="month-picker">April</span>
+                                <div class="year-picker">
+                                    <span class="year-change" id="prev-year">
+                                        <pre><</pre>
+                                    </span>
+                                    <span id="year">2022</span>
+                                    <span class="year-change" id="next-year">
+                                        <pre>></pre>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="calendar-body">
+                                <div class="calendar-week-day">
+                                    <div>Sun</div>
+                                    <div>Mon</div>
+                                    <div>Tue</div>
+                                    <div>Wed</div>
+                                    <div>Thu</div>
+                                    <div>Fri</div>
+                                    <div>Sat</div>
+                                </div>
+                                <div class="calendar-days"></div>
+                            </div>
+
+                            <div class="month-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="log-out-page">
+        <div id="log-out-box">
+            <div id="log-out-text">
+                Are you sure you want to log out?
+            </div>
+            <div id="logout-action-area">
+                <input type="button" value="LOG OUT">
+                <input type="button" value="CANCEL">
             </div>
         </div>
     </div>
 
 
     <script src="./js/common-script.js"></script>
+    
     <script>
     let quotesObj = [{
         "Quote": "The best and most beautiful things in this world cannot be seen or even heard, but must be felt with the heart",
@@ -230,13 +313,13 @@ mysqli_select_db($con, $_SESSION["db_name"]);
         "By": "Ankur Warikoo"
     }];
 
-    displayQuote(quotesObj);
+    displayQuote(quotesObj, "bookshelfPage");
 
     let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
     // toReadContentArea.classList.toggle("grid-toggle"); 
     //this is to toggle grid mode for items that do not have anything added yet
 
-    const showAddBookPopUp = () => {
+    const showAddBookPopUp = (btnToShow) => {
         // showPopUpBg();
         popUpBgFun();
 
@@ -244,9 +327,32 @@ mysqli_select_db($con, $_SESSION["db_name"]);
 
         addBookPopupPage.style.visibility = "visible";
         addBookPopupPage.style.zIndex = 150;
+
+        if (btnToShow == "one") {
+            document.getElementById("addBtnTwo").style.display = "none";
+
+            let bkYearInputField = document.getElementById("bkYear");
+
+            // bkYearInputField.style.display = "none";
+            // bkYearInputField.previousElementSibling.previousElementSibling.style.display = "none";
+            // bkYearInputField.previousElementSibling.style.display = "none";
+            // bkYearInputField.nextElementSibling.nextElementSibling.style.display = "none";
+            // bkYearInputField.nextElementSibling.style.dislay = "none";
+
+            bkYearInputField.style.display = bkYearInputField.previousElementSibling.previousElementSibling.style.display = bkYearInputField.previousElementSibling.style.display = bkYearInputField.nextElementSibling.nextElementSibling.style.display =  bkYearInputField.nextElementSibling.style.dislay = "none";
+
+        } else {
+            document.getElementById("addBtnOne").style.display = "none";
+        }
     }
 
-    const addBooktoDB = () => {
+    // const showAddBookPopUpTwo = () => {
+    //     popUpBgFun();
+
+
+    // }
+
+    const addBooktoDB = (bookStatus) => {
         let bookName = document.getElementById("bkName");
         let bookAuthor = document.getElementById("author");
 
@@ -255,16 +361,25 @@ mysqli_select_db($con, $_SESSION["db_name"]);
             return;
         }
 
+        let bookYear = document.getElementById("bkYear");
+
+        if (bookYear.value == "" || bookYear.value == null || bookYear.value == undefined) {
+            bookYear = new Date().getFullYear();
+        }
+
         $.ajax({
             type: "POST",
             url: "./add_book.php",
             data: {
                 book_name: bookName.value,
-                book_author: bookAuthor.value
+                book_author: bookAuthor.value,
+                status: bookStatus,
+                year: bookYear.value
             },
-            success: function(response) {
+            success: function() {
                 bookName.value = "";
                 bookAuthor.value = "";
+                bookYear.value = "";
             }
         }); //ajax call to add book to the database using php
 
@@ -284,15 +399,30 @@ mysqli_select_db($con, $_SESSION["db_name"]);
                 book_name: bookName,
                 book_author: bookAuthor
             },
-            success: function(response) {
-                console.log(response);
+            success: function() {
+                location.reload();
             }
         }); //ajax call to change book status to 'completed' in the database
-
-        location.reload();
     }
 
-    const removeThisFromDb = (objRef) => {}
+    const removeThisFromDb = (objRef) => {
+        let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
+        let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
+
+        $.ajax({
+            type: "POST",
+            url: "./remove_book_from_db.php",
+            data: {
+                book_name: bookName,
+                book_author: bookAuthor
+            },
+            success: function () {
+                location.reload();
+            }
+        }); //ajax call to change book status to 'completed' in the database
+    }
+
+    
     </script>
 </body>
 

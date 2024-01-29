@@ -23,7 +23,7 @@ session_start();
         console.log("Call error has been called with " + errorNo);
         switch (errorNo) {
             case 1:
-                usernameErr();
+                emailErr();
                 break;
 
             case 2:
@@ -43,10 +43,10 @@ session_start();
         errorMsgArea.innerHTML = "Some error occured. Please try again later";
     }
 
-    // function usernameErr() {
-    //     let usrnamArea = document.getElementsByClassName("username-error")[0];
-    //     usrnamArea.innerHTML = "Username already taken";
-    // }
+    function emailErr() {
+        let usrnamArea = document.getElementsByClassName("email-error")[0];
+        usrnamArea.innerHTML = "Email already in use";
+    }
 
     // function usernameMistake() {
     //     let usrnamArea = document.getElementsByClassName("username-error")[0];
@@ -111,7 +111,7 @@ session_start();
                         <input type="email" name="email" value="<?php echo $email; ?>" required>
                     </div>
 
-                    <div class="line username-error">
+                    <div class="line email-error">
                         <!-- User-name-error -->
                     </div>
 
@@ -167,20 +167,25 @@ session_start();
             //     die("<script>callErr(4);</script>");
             // }
 
+            try {
+                mysqli_select_db($con, "prodo_db");
+            } catch (Exception $e2) {
+                die("<script>callErr(3);</script>");
+            }
 
-            //username checking
-            // $username_query = "select * from user_details where username='$username'";
-            // $username_res = mysqli_query($con, $username_query); //result is an associative array
+            //email checking
+            $email_query = "select * from users where email='$email'";
+            $email_res = mysqli_query($con, $email_query); //result is an associative array
             
-            // try {
-            //     $row = mysqli_fetch_assoc($username_res);
-            //     if ($row != NULL) {
-            //         if ($row["username"] != NULL) {
-            //             die("<script>callErr(1);</script>");
-            //         }
-            //     }
+            try {
+                $row = mysqli_fetch_assoc($email_res);
+                if ($row != NULL) {
+                    if ($row["email"] != NULL) {
+                        die("<script>callErr(1);</script>");
+                    }
+                }
                 
-            // } catch (Exception $e) {}
+            } catch (Exception $e) {}
 
 
             //password checking

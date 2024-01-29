@@ -117,7 +117,7 @@ input[type=submit] {
     background-color: #8094d4;
 } */
 
-.username-error,
+.email-error,
 .pwd-error,
 .repeat-pwd-error,
 .common-error {
