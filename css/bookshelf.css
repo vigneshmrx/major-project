@@ -1,12 +1,12 @@
 .main-content-area {
     width: 100%;
-    border: 1px solid var(--main-black);
+    /* border: 1px solid var(--main-black); */
 }
 
 .section-one, 
 .section-two {
     display: flex;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .section-one-left,
@@ -14,7 +14,7 @@
 .section-two-left,
 .section-two-right {
     flex: 1;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 300px;
     padding: var(--common-value);
 }
@@ -24,7 +24,7 @@
     border: 2px solid black;
     padding: var(--common-value);
     border-radius: var(--common-value);
-    box-shadow: 11px 11px var(--main-black);
+    box-shadow: -11px -11px var(--main-black);
     font-family: 'Josefin Sans', sans-serif;
     height: 100%;
     position: relative;
@@ -149,4 +149,16 @@
 .done-reading-icon:hover,
 .remove-book-icon:hover {
     background-color: grey;
+}
+
+#year-select-drop-down {
+    /* background-color: var(--main-black); */
+    color: var(--main-black);
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+}
+
+#year-select-drop-down option {
+    font-weight: bold;
 }

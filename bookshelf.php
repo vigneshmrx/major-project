@@ -73,7 +73,7 @@ if (!isset($_SESSION["db_name"])) {
         </div>
     </div>
 
-    <div id="add-book-popup-pg-two">
+    <!-- <div id="add-book-popup-pg-two">
         <div id="add-book-popup-box-two">
             <div class="add-book-heading-area">
                 <div class="add-book-heading">ADD BOOK</div>
@@ -82,7 +82,7 @@ if (!isset($_SESSION["db_name"])) {
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- LEFT AREA - THE NAVIGATION ~~~~ -->
     <div id="page-left-area">
@@ -110,7 +110,7 @@ if (!isset($_SESSION["db_name"])) {
             <a href="#">
                 <div class="nav-items">Settings</div>
             </a>
-            <div class="nav-items" onclick="showLogOutBox();">Log Out</div>
+            <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
             <!-- <a href="" onclick="showLogOutBox();">
                 
             </a> -->
@@ -132,7 +132,11 @@ if (!isset($_SESSION["db_name"])) {
 
         <div class="main-content-area">
             <div class="section-one">
-                <div class="section-one-left"></div>
+                <div class="section-one-left">
+                    <div class="left-box">
+                        Yearly Goal
+                    </div>
+                </div>
                 <div class="section-one-right">
                     <div class="right-box">
                         <div class="to-read-heading-area">
@@ -198,40 +202,13 @@ if (!isset($_SESSION["db_name"])) {
                             <!-- THis is flex -->
                             <div class="already-read-title">COMPLETED READING</div>
                             <div class="already-read-year">
-                                <?php echo date("Y"); ?>
+                                <!-- Values inserted using JS -->
                             </div>
                         </div>
 
                         <div class="already-read-content-area">
-                            <?php
-
-                        function load_already_read_books() {
-                            GLOBAL $con;
-                            $cur_year = date("Y");
-                            $books_already_read_q = mysqli_query($con, "select * from bookshelf where Status = 'completed' and Year = $cur_year;");
-
-                            if ($books_already_read_q->num_rows > 0) {
-                                while ($row = mysqli_fetch_assoc($books_already_read_q)) {
-                                    echo '<div class="book-info-box">
-                                    <div class="book-info" style="width: 95%;">
-                                        <div class="book-info-name">' . $row['BookName'] . '</div>
-                                        <div class="book-info-author">' . $row["Author"] . '</div>
-                                    </div>
-                                    <div class="book-info-action" style="width: 5%;">
-                                        <div class="remove-book-icon" onclick="removeThisFromDb(this);" style="height: 30px;">
-                                            <img src="./icons/icons8-close-64.png" alt="" width="30" height="30">
-                                        </div>
-                                    </div>
-                                </div>';
-                                }
-                            } else {
-                                echo 'No books read yet!!';
-                            }
-                        }
-
-                        load_already_read_books();
-
-                        ?>
+                            <!-- php function : load_already_read_books() -->
+                            <!-- Values here are inserted using JS + PHP (AJAX) -->
                         </div>
 
                         <div class="already-read-btn-area">
@@ -277,21 +254,10 @@ if (!isset($_SESSION["db_name"])) {
         </div>
     </div>
 
-    <div id="log-out-page">
-        <div id="log-out-box">
-            <div id="log-out-text">
-                Are you sure you want to log out?
-            </div>
-            <div id="logout-action-area">
-                <input type="button" value="LOG OUT">
-                <input type="button" value="CANCEL">
-            </div>
-        </div>
-    </div>
+    
 
 
     <script src="./js/common-script.js"></script>
-    
     <script>
     let quotesObj = [{
         "Quote": "The best and most beautiful things in this world cannot be seen or even heard, but must be felt with the heart",
@@ -422,8 +388,63 @@ if (!isset($_SESSION["db_name"])) {
         }); //ajax call to change book status to 'completed' in the database
     }
 
-    
+    const loadAlreadyReadBooks = () => {
+        //this function loads already read books based on the year sleected in the drop down menu. The list of books changes if the selected year is changed
+
+        //adding year manually to #already-read-year
+        let alreadyReadYearBar = document.getElementsByClassName("already-read-year")[0];
+        let presentYear = new Date().getFullYear();
+
+        let theContent = `<select id='year-select-drop-down'>`;
+
+        //setting session storage for selected year if not set
+
+        if (sessionStorage.getItem("selected-drop-down-year") == null || sessionStorage.getItem("selected-drop-down-year") == undefined) {
+            sessionStorage.setItem("selected-drop-down-year", presentYear);
+        }
+
+        let selectedDropDownYear = sessionStorage.getItem("selected-drop-down-year");
+
+        for (let i = presentYear - 2; i <= presentYear; i++) {
+            if (i == selectedDropDownYear) {
+                theContent += `<option value=${i} selected>${i}</option>`; 
+            } else {
+                theContent += `<option value=${i}>${i}</option>`;
+            }
+        }
+
+        theContent += `</select>`;
+
+        alreadyReadYearBar.innerHTML = theContent; //the current year is automatically selected here
+
+        $.ajax({
+            type: "POST", 
+            url: "./load_already_read_books.php",
+            data: {
+                selected_drop_down_year : selectedDropDownYear
+            },
+            success: function(response) {
+                document.getElementsByClassName("already-read-content-area")[0].innerHTML = response;
+            }
+        });
+    }
+
+    loadAlreadyReadBooks();
+
+
+    //year change event listener for already read books
+    let selectedYear = document.getElementById("year-select-drop-down");
+
+    selectedYear.addEventListener("change", (e) => {
+        // console.log(this.value);
+        console.log(e.target.value);
+        sessionStorage.setItem("selected-drop-down-year", e.target.value);
+        // loadAlreadyReadBooks(); // function call everytime is not working, so the only other way is refresh
+        location.reload(); 
+    })
+
     </script>
+    <script src="./js/calendar.js"></script>
 </body>
 
 </html>

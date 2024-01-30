@@ -162,6 +162,7 @@ session_start();
 
                         $_SESSION["user_name"] = $full_name;
                         $_SESSION["db_name"] = $db_name;
+                        $_SESSION["email"] = $email;
                         echo "session is set";
                         echo "<script>loginSuccess();</script>";
                     } else {

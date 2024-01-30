@@ -233,7 +233,7 @@ session_start();
             if ($adding_user_success) {
                 $_SESSION["user_name"] = $full_name;
                 $_SESSION["db_name"] = $db_name;
-
+                $_SESSION["email"] = $email;
                 
                 die("<script>loginSuccess();</script>");
             } else {
