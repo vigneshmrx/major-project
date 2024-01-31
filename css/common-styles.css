@@ -40,7 +40,8 @@ input[type=button]:active {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-input[type=text] {
+input[type=text],
+input[type=number] {
     margin-top: 5px;
     margin-bottom: 10px;
     width: 100%;

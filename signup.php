@@ -227,7 +227,7 @@ session_start();
             }
 
             //creating account for the user
-            $adding_user_query = "insert into users (name, email, password, role) values('$full_name', '$email', '$hashed_pwd', 'user')";
+            $adding_user_query = "insert into users (name, email, password, role, reading_goals) values('$full_name', '$email', '$hashed_pwd', 'user', 0)";
             $adding_user_success = mysqli_query($con, $adding_user_query);
 
             if ($adding_user_success) {

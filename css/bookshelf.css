@@ -41,6 +41,12 @@
     height: 15%;
 }
 
+.content-area {
+    height: 85%;
+    padding: 10px;
+    font-weight: bold;
+}
+
 .to-read-content-area,
 .already-read-content-area {
     overflow: auto;
@@ -48,13 +54,15 @@
     padding: 10px;
 }
 
+
 .to-read-content-area::-webkit-scrollbar,
 .already-read-content-area::-webkit-scrollbar {
     display: none;
 }
 
 .to-read-btn-area,
-.already-read-btn-area {
+.already-read-btn-area,
+.individual-element-btn-area {
     /* border-top: 1px solid var(--main-black); */
     /* padding-top: 10px; */
     /* position: absolute;
@@ -71,7 +79,8 @@
 }
 
 #add-book-popup-pg,
-#add-book-popup-pg-two {
+#add-book-popup-pg-two,
+#modify-read-goals-popup-pg {
     z-index: -150;
     position: fixed;
     visibility: hidden;
@@ -82,7 +91,8 @@
 }
 
 #add-book-popup-box,
-#add-book-popup-box-two {
+#add-book-popup-box-two,
+#modify-read-goals-popup-box {
     width: 400px;
     background-color: var(--main-white);
     box-shadow: 11px 11px  var(--main-black);
@@ -91,7 +101,8 @@
     /* border-radius: var(--common-value); */
 }
 
-.add-book-heading-area {
+.add-book-heading-area,
+.modify-read-goals-heading-area {
     /* /* text-align: center; */
     padding-bottom: 5px;
     display: flex;
@@ -104,10 +115,17 @@
     border-top-right-radius: var(--common-value); */
 }
 
-.add-book-heading {
+.add-book-heading,
+.modify-read-goals-heading {
     font-weight: bold;
     font-size: 20px;
 }
+
+/* change this later `````````````````````````````````````````````````````````++++++++*/
+/* #modify-read-goals-popup-pg {
+    visibility: visible;
+    z-index: 150;
+} */
 
 .book-info-box {
     padding: 5px 10px;
@@ -161,4 +179,53 @@
 
 #year-select-drop-down option {
     font-weight: bold;
+}
+
+#goals-counter {
+    /* width: 15%; */
+    height: 30%;
+    font-size: 30px;
+    /* border: 1px solid; */
+    margin: 10px 0px 10px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#goal-progress-bar-area {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    /* place-items: center; */
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid; */
+    margin: 10px 0px 10px 20px;
+}
+
+#progress-bar {
+    width: 80%;
+    height: 15px;
+    border: 2px solid;
+    /* background-color: var(--main-white); */
+}
+
+#progress-bar-value-count {
+    width: 20%;
+    display: grid;
+    place-items: center;
+}
+
+#progress-bar-value {
+    background-color: var(--main-black);
+    /* width: 55.5%; */
+    height: 100%;
+}
+
+.popup-box-hr {
+    width: 50%; 
+    margin-bottom: 10px; 
+    background: var(--main-black); 
+    height: 5px; 
+    border: none;
 }

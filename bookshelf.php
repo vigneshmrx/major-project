@@ -54,7 +54,7 @@ if (!isset($_SESSION["db_name"])) {
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
-            <hr style="width: 50%; margin-bottom: 10px; background: var(--main-black); height: 5px; border: none;">
+            <hr class="popup-box-hr">
             <form action="#">
                 <label for="bkName">Book Name:</label> <br>
                 <input type="text" name="bkName" id="bkName" required> <br><br>
@@ -70,6 +70,23 @@ if (!isset($_SESSION["db_name"])) {
                     style="width: 100px; margin-left: auto; margin-right: auto; display: block"
                     onclick="addBooktoDB('completed');">
             </form>
+        </div>
+    </div>
+
+    <div id="modify-read-goals-popup-pg">
+        <div id="modify-read-goals-popup-box">
+        <div class="modify-read-goals-heading-area">
+                <div class="modify-read-goals-heading">MODIFY READING GOALS</div>
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
+                    <img src="./icons/icons8-close-32.png" alt="">
+                </div>
+            </div>
+            <hr class="popup-box-hr">
+            <br>
+            
+            <label for="bkReadingGoals">Set Goal / Target:</label> <br>
+            <input type="number" name="bkReadingGoals" id="bkReadingGoals" required> <br><br>
+            <input type="button" value="MODIFY" id="bkReadingGoalModifyBtn" onclick="modifyReadingTarget();" style="width: 100px; margin-left: auto; margin-right: auto; display: block;">
         </div>
     </div>
 
@@ -132,11 +149,33 @@ if (!isset($_SESSION["db_name"])) {
 
         <div class="main-content-area">
             <div class="section-one">
+
+
                 <div class="section-one-left">
                     <div class="left-box">
-                        Yearly Goal
+                        <div class="content-area">
+                            <!-- YEARLY GOALS:
+                            <div id="goals-counter"> -->
+                                <!-- 10 / 15 -->
+                                <!-- This is filled by AJAX CALL -->
+                            <!-- </div>
+
+                            PROGRESS:
+                            <div id="goal-progress-bar-area">
+                                <div id="progress-bar">
+                                    <div id="progress-bar-value"></div>
+                                </div>
+                                <div id="progress-bar-value-count">50.5%</div>
+                            </div> -->
+                        </div>
+                        <div class="individual-element-btn-area">
+                            <input type="button" value="MODIFY" style="font-size: 12px; padding: 5px 10px;" onclick="showModifyReadingTargetBox();">
+                        </div>
                     </div>
+                    
                 </div>
+
+
                 <div class="section-one-right">
                     <div class="right-box">
                         <div class="to-read-heading-area">
@@ -188,7 +227,7 @@ if (!isset($_SESSION["db_name"])) {
                             ?>
                         </div>
 
-                        <div class="to-read-btn-area">
+                        <div class="individual-element-btn-area">
                             <input type="button" value="ADD BOOK" onclick="showAddBookPopUp('one');"
                                 style="font-size: 12px; padding: 5px 10px;">
                         </div>
@@ -211,7 +250,7 @@ if (!isset($_SESSION["db_name"])) {
                             <!-- Values here are inserted using JS + PHP (AJAX) -->
                         </div>
 
-                        <div class="already-read-btn-area">
+                        <div class="individual-element-btn-area">
                             <input type="button" value="ADD BOOK" onclick="showAddBookPopUp('two');"
                                 style="font-size: 12px; padding: 5px 10px;">
                         </div>
@@ -387,6 +426,58 @@ if (!isset($_SESSION["db_name"])) {
             }
         }); //ajax call to change book status to 'completed' in the database
     }
+
+    const modifyReadingTarget = () => {
+        let targetCount = document.getElementById("bkReadingGoals");
+
+        if (targetCount.value == null || targetCount.value == "") {
+            alert("Please enter the required details before submitting");
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "./modify_reading_target.php",
+            data: {
+                target_count: targetCount.value
+            },
+            async: true,
+            success: function(response) {
+                targetCount.value = "";
+                alert(response);
+            }, 
+            error: function(error) {
+                alert(error);
+            }
+        });
+    }
+
+    const showModifyReadingTargetBox = () => {
+        popUpBgFun();
+
+        let modifyReadingTargetBox = document.getElementById("modify-read-goals-popup-pg");
+
+        modifyReadingTargetBox.style.visibility = "visible";
+        modifyReadingTargetBox.style.zIndex = 150;
+    }
+
+    const readingGoalModifierFun = () => {
+        let goalsContentArea = document.getElementsByClassName("content-area")[0];
+
+        //call to display the modified yearly reading goal along wiht progress bar
+        $.ajax({
+            type: "POST",
+            url: "./reflect_yearly_reading_goals.php",
+            success: function (response) {
+                goalsContentArea.innerHTML = response;
+                // alert(response);
+            }
+        });
+
+    }
+
+    readingGoalModifierFun();
+
 
     const loadAlreadyReadBooks = () => {
         //this function loads already read books based on the year sleected in the drop down menu. The list of books changes if the selected year is changed
