@@ -29,7 +29,7 @@ const popUpBgFun = () => {
     }
 }
 
-const removePopUp = (closeBtnObjRef) => {
+const removePopUp = (closeBtnObjRef, boxName) => {
     // console.log(closeBtnObjRef.parentElement.parentElement.parentElement);
 
     let topParent = closeBtnObjRef.parentElement.parentElement.parentElement;
@@ -39,7 +39,11 @@ const removePopUp = (closeBtnObjRef) => {
 
     popUpBgFun(); // to get the bg page back to -100 z index
 
-    location.reload();
+    // location.reload();
+    readingGoalModifierFun();
+    loadToReadContentArea();
+    loadAlreadyReadBooks();
+    
 }
 
 
@@ -53,11 +57,11 @@ const logOutBoxFun = () => {
     if (logOutPage.style.visibility == "visible") {
         logOutPage.style.visibility = "hidden";
         logOutPage.style.zIndex = -150;
-        console.log("INSIDE IF");
+        // console.log("INSIDE IF");
     } else {
         logOutPage.style.zIndex = 150;
         logOutPage.style.visibility = "visible";
-        console.log("INSIDE ELSE");
+        // console.log("INSIDE ELSE");
     }
 }
 
@@ -76,3 +80,22 @@ const logoutFromHere = () => {
 
 //adding logout box to every page:
 document.body.innerHTML += '<div id="log-out-page"><div id="log-out-box"><div id="log-out-text">Are you sure you want to log out?</div><div id="logout-action-area"><input type="button" value="LOG OUT" onclick="logoutFromHere();"><input type="button" value="CANCEL" onclick="logOutBoxFun();"></div></div></div>';
+
+document.body.innerHTML += '<div id="alert"><div id="alert-message"></div></div>';
+
+
+const showAlert = (message) => {
+    let alert = document.getElementById("alert");
+
+    let alertMessage = document.getElementById("alert-message");
+
+    alertMessage.innerHTML = message;
+
+    alert.style.zIndex = 300;
+    alert.style.display = "block";
+
+    setTimeout(() => {
+        alert.style.zIndex = -300;
+        alert.style.display = "none";
+    }, 2100);
+}

@@ -13,9 +13,16 @@
 
     if ($books_already_read_q->num_rows > 0) {
         while ($row = mysqli_fetch_assoc($books_already_read_q)) {
+
+            // if (strlen($row["BookName"]) >= 45) {
+            //     $book_name_updated = substr($row["BookName"], 0, 45) . "...";
+            // } else {
+            //     $book_name_updated = $row["BookName"];
+            // }
+
             echo '<div class="book-info-box">
             <div class="book-info" style="width: 95%;">
-                <div class="book-info-name">' . $row['BookName'] . '</div>
+                <div class="book-info-name">' . $row["BookName"] . '</div>
                 <div class="book-info-author">' . $row["Author"] . '</div>
             </div>
             <div class="book-info-action" style="width: 5%;">

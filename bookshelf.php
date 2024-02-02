@@ -50,7 +50,7 @@ if (!isset($_SESSION["db_name"])) {
         <div id="add-book-popup-box">
             <div class="add-book-heading-area">
                 <div class="add-book-heading">ADD BOOK</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'book-box');">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -77,7 +77,7 @@ if (!isset($_SESSION["db_name"])) {
         <div id="modify-read-goals-popup-box">
         <div class="modify-read-goals-heading-area">
                 <div class="modify-read-goals-heading">MODIFY READING GOALS</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'target-box');">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -188,43 +188,8 @@ if (!isset($_SESSION["db_name"])) {
 
                         <div class="to-read-content-area">
                             <!-- No books added yet <br> -->
-                            <?php
 
-                            function load_to_read_books() {
-                                GLOBAL $con;
-                                $books_to_read_q = mysqli_query($con, "select * from bookshelf where Status = 'to read';");
-
-                            if ($books_to_read_q->num_rows > 0) {
-                                while ($row = mysqli_fetch_assoc($books_to_read_q)) {
-                                    if (strlen($row["BookName"]) >= 45) {
-                                        $book_name_updated = substr($row["BookName"], 0, 45) . "...";
-                                    } else {
-                                        $book_name_updated = $row["BookName"];
-                                    }
-                                    
-                                    echo '<div class="book-info-box">
-                                    <div class="book-info">
-                                        <div class="book-info-name">' . $book_name_updated . '</div>
-                                        <div class="book-info-author">' . $row["Author"] . '</div>
-                                    </div>
-                                    <div class="book-info-action">
-                                        <div class="done-reading-icon" onclick="changeStatusToCompleted(this);" style="height: 30px;">
-                                            <img src="./icons/icons8-tick-50.png" alt="" width="30">
-                                        </div>
-                                        <div class="remove-book-icon" onclick="removeThisFromDb(this);" style="height: 30px;">
-                                            <img src="./icons/icons8-close-64.png" alt="" width="30">
-                                        </div>
-                                    </div>
-                                </div>';
-                                }
-                            } else {
-                                echo "No books to read!!";
-                            }
-                            }
-
-                            load_to_read_books();
-
-                            ?>
+                            <!-- php function : load_to_read_books(); -->
                         </div>
 
                         <div class="individual-element-btn-area">
@@ -295,8 +260,12 @@ if (!isset($_SESSION["db_name"])) {
 
     
 
+    
+
 
     <script src="./js/common-script.js"></script>
+    <script src="./js/bookshelf_ajax.js"></script>
+
     <script>
     let quotesObj = [{
         "Quote": "The best and most beautiful things in this world cannot be seen or even heard, but must be felt with the heart",
@@ -318,6 +287,7 @@ if (!isset($_SESSION["db_name"])) {
         "By": "Ankur Warikoo"
     }];
 
+    //to display quote
     displayQuote(quotesObj, "bookshelfPage");
 
     let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
@@ -333,10 +303,13 @@ if (!isset($_SESSION["db_name"])) {
         addBookPopupPage.style.visibility = "visible";
         addBookPopupPage.style.zIndex = 150;
 
-        if (btnToShow == "one") {
-            document.getElementById("addBtnTwo").style.display = "none";
+        let addBtnOne = document.getElementById("addBtnOne");
+        let addBtnTwo = document.getElementById("addBtnTwo");
 
-            let bkYearInputField = document.getElementById("bkYear");
+        let bkYearInputField = document.getElementById("bkYear");
+
+        if (btnToShow == "one") {
+            addBtnTwo.style.display = "none";
 
             // bkYearInputField.style.display = "none";
             // bkYearInputField.previousElementSibling.previousElementSibling.style.display = "none";
@@ -344,10 +317,22 @@ if (!isset($_SESSION["db_name"])) {
             // bkYearInputField.nextElementSibling.nextElementSibling.style.display = "none";
             // bkYearInputField.nextElementSibling.style.dislay = "none";
 
-            bkYearInputField.style.display = bkYearInputField.previousElementSibling.previousElementSibling.style.display = bkYearInputField.previousElementSibling.style.display = bkYearInputField.nextElementSibling.nextElementSibling.style.display =  bkYearInputField.nextElementSibling.style.dislay = "none";
+            bkYearInputField.style.display = bkYearInputField.previousElementSibling.previousElementSibling.style.display = bkYearInputField.previousElementSibling.style.display = bkYearInputField.nextElementSibling.nextElementSibling.style.display =  bkYearInputField.nextElementSibling.style.display = "none";
+
+            if (addBtnOne.style.display == "none") {
+                addBtnOne.style.display = "block";
+            }
 
         } else {
             document.getElementById("addBtnOne").style.display = "none";
+
+            if (addBtnTwo.style.display == "none") {
+                addBtnTwo.style.display = "block";
+            }
+
+            if (bkYearInputField.style.display == "none") {
+                bkYearInputField.style.display = bkYearInputField.previousElementSibling.previousElementSibling.style.display = bkYearInputField.previousElementSibling.style.display = bkYearInputField.nextElementSibling.nextElementSibling.style.display =  bkYearInputField.nextElementSibling.style.display = "block";
+            }
         }
     }
 
@@ -357,100 +342,121 @@ if (!isset($_SESSION["db_name"])) {
 
     // }
 
-    const addBooktoDB = (bookStatus) => {
-        let bookName = document.getElementById("bkName");
-        let bookAuthor = document.getElementById("author");
+    // const addBooktoDB = (bookStatus) => {
+    //     let bookName = document.getElementById("bkName");
+    //     let bookAuthor = document.getElementById("author");
 
-        if (bookName.value == "" || bookName.value == null || bookAuthor.value == "" || bookAuthor.value == null) {
-            alert("Please enter valid details before submitting");
-            return;
-        }
+    //     if (bookName.value == "" || bookName.value == null || bookAuthor.value == "" || bookAuthor.value == null) {
+    //         alert("Please enter valid details before submitting");
+    //         return;
+    //     }
 
-        let bookYear = document.getElementById("bkYear");
+    //     let bookYear = document.getElementById("bkYear");
 
-        if (bookYear.value == "" || bookYear.value == null || bookYear.value == undefined) {
-            bookYear = new Date().getFullYear();
-        }
+    //     if (bookYear.value == "" || bookYear.value == null || bookYear.value == undefined) {
+    //         bookYear = new Date().getFullYear();
+    //     }
 
-        $.ajax({
-            type: "POST",
-            url: "./add_book.php",
-            data: {
-                book_name: bookName.value,
-                book_author: bookAuthor.value,
-                status: bookStatus,
-                year: bookYear.value
-            },
-            success: function() {
-                bookName.value = "";
-                bookAuthor.value = "";
-                bookYear.value = "";
-            }
-        }); //ajax call to add book to the database using php
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "./add_book.php",
+    //         data: {
+    //             book_name: bookName.value,
+    //             book_author: bookAuthor.value,
+    //             status: bookStatus,
+    //             year: bookYear.value
+    //         },
+    //         success: function() {
+    //             showAlert("The book: <i>" + bookName.value + "</i>, added successfully");
+    //             bookName.value = "";
+    //             bookAuthor.value = "";
+    //             bookYear.value = "";
+    //         }
+    //     }); //ajax call to add book to the database using php
 
-    }
+    // }
 
-    const changeStatusToCompleted = (objRef) => {
-        let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-        let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
+    // const loadToReadContentArea = () => {
+    //     let toReadContentAreaDiv = document.getElementsByClassName("to-read-content-area")[0];
 
-        console.log("BOOk Name: " + bookName);
-        console.log("Author: " + bookAuthor);
+    //     //ajax call to load the to read content area
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "./load_to_read_books.php",
+    //         success: function(response) {
+    //             toReadContentAreaDiv.innerHTML = response;
+    //         }
+    //     });
+    // }
 
-        $.ajax({
-            type: "POST",
-            url: "./change_book_status.php",
-            data: {
-                book_name: bookName,
-                book_author: bookAuthor
-            },
-            success: function() {
-                location.reload();
-            }
-        }); //ajax call to change book status to 'completed' in the database
-    }
+    // loadToReadContentArea();
 
-    const removeThisFromDb = (objRef) => {
-        let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-        let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
+    // const changeStatusToCompleted = (objRef) => {
+    //     let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
+    //     let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
 
-        $.ajax({
-            type: "POST",
-            url: "./remove_book_from_db.php",
-            data: {
-                book_name: bookName,
-                book_author: bookAuthor
-            },
-            success: function () {
-                location.reload();
-            }
-        }); //ajax call to change book status to 'completed' in the database
-    }
+    //     console.log("BOOk Name: " + bookName);
+    //     console.log("Author: " + bookAuthor);
 
-    const modifyReadingTarget = () => {
-        let targetCount = document.getElementById("bkReadingGoals");
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "./change_book_status.php",
+    //         data: {
+    //             book_name: bookName,
+    //             book_author: bookAuthor
+    //         },
+    //         success: function() {
+    //             location.reload();
+    //         }
+    //     }); //ajax call to change book status to 'completed' in the database
+    // }
 
-        if (targetCount.value == null || targetCount.value == "") {
-            alert("Please enter the required details before submitting");
-            return;
-        }
+    // const removeThisFromDb = (objRef) => {
+    //     // let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
+    //     let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
+    //     let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
 
-        $.ajax({
-            type: "POST",
-            url: "./modify_reading_target.php",
-            data: {
-                target_count: targetCount.value
-            },
-            async: true,
-            success: function(response) {
-                targetCount.value = "";
-                alert(response);
-            }, 
-            error: function(error) {
-                alert(error);
-            }
-        });
-    }
+    //     console.log(bookName);
+
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "./remove_book_from_db.php",
+    //         data: {
+    //             book_name: bookName,
+    //             book_author: bookAuthor
+    //         },
+    //         success: function () {
+    //             location.reload();
+    //             // console.log();
+    //         }
+    //     }); //ajax call to change book status to 'completed' in the database
+    // }
+
+    // const modifyReadingTarget = () => {
+    //     let targetCount = document.getElementById("bkReadingGoals");
+
+    //     if (targetCount.value == null || targetCount.value == "") {
+    //         alert("Please enter the required details before submitting");
+    //         return;
+    //     }
+
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "./modify_reading_target.php",
+    //         data: {
+    //             target_count: targetCount.value
+    //         },
+    //         async: true,
+    //         success: function(response) {
+    //             targetCount.value = "";
+    //             showAlert("Yearly reading goal modified successfully!");
+    //             // alert(response);
+    //         }, 
+    //         error: function(error) {
+    //             alert(error);
+    //         }
+    //     });
+    // }
 
     const showModifyReadingTargetBox = () => {
         popUpBgFun();
@@ -461,78 +467,78 @@ if (!isset($_SESSION["db_name"])) {
         modifyReadingTargetBox.style.zIndex = 150;
     }
 
-    const readingGoalModifierFun = () => {
-        let goalsContentArea = document.getElementsByClassName("content-area")[0];
+    // const readingGoalModifierFun = () => {
+    //     let goalsContentArea = document.getElementsByClassName("content-area")[0];
 
-        //call to display the modified yearly reading goal along wiht progress bar
-        $.ajax({
-            type: "POST",
-            url: "./reflect_yearly_reading_goals.php",
-            success: function (response) {
-                goalsContentArea.innerHTML = response;
-                // alert(response);
-            }
-        });
+    //     //call to display the modified yearly reading goal along wiht progress bar
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "./reflect_yearly_reading_goals.php",
+    //         success: function (response) {
+    //             goalsContentArea.innerHTML = response;
+    //             // alert(response);
+    //         }
+    //     });
 
-    }
+    // }
 
-    readingGoalModifierFun();
+    // readingGoalModifierFun();
 
 
-    const loadAlreadyReadBooks = () => {
-        //this function loads already read books based on the year sleected in the drop down menu. The list of books changes if the selected year is changed
+    // const loadAlreadyReadBooks = () => {
+    //     //this function loads already read books based on the year sleected in the drop down menu. The list of books changes if the selected year is changed (THIS IS AN IIFE FUNCTION)
 
-        //adding year manually to #already-read-year
-        let alreadyReadYearBar = document.getElementsByClassName("already-read-year")[0];
-        let presentYear = new Date().getFullYear();
+    //     //adding year manually to #already-read-year
+    //     let alreadyReadYearBar = document.getElementsByClassName("already-read-year")[0];
+    //     let presentYear = new Date().getFullYear();
 
-        let theContent = `<select id='year-select-drop-down'>`;
+    //     let theContent = `<select id='year-select-drop-down'>`;
 
-        //setting session storage for selected year if not set
+    //     //setting session storage for selected year if not set
 
-        if (sessionStorage.getItem("selected-drop-down-year") == null || sessionStorage.getItem("selected-drop-down-year") == undefined) {
-            sessionStorage.setItem("selected-drop-down-year", presentYear);
-        }
+    //     if (sessionStorage.getItem("selected-drop-down-year") == null || sessionStorage.getItem("selected-drop-down-year") == undefined) {
+    //         sessionStorage.setItem("selected-drop-down-year", presentYear);
+    //     }
 
-        let selectedDropDownYear = sessionStorage.getItem("selected-drop-down-year");
+    //     let selectedDropDownYear = sessionStorage.getItem("selected-drop-down-year");
 
-        for (let i = presentYear - 2; i <= presentYear; i++) {
-            if (i == selectedDropDownYear) {
-                theContent += `<option value=${i} selected>${i}</option>`; 
-            } else {
-                theContent += `<option value=${i}>${i}</option>`;
-            }
-        }
+    //     for (let i = presentYear - 2; i <= presentYear; i++) {
+    //         if (i == selectedDropDownYear) {
+    //             theContent += `<option value=${i} selected>${i}</option>`; 
+    //         } else {
+    //             theContent += `<option value=${i}>${i}</option>`;
+    //         }
+    //     }
 
-        theContent += `</select>`;
+    //     theContent += `</select>`;
 
-        alreadyReadYearBar.innerHTML = theContent; //the current year is automatically selected here
+    //     alreadyReadYearBar.innerHTML = theContent; //the current year is automatically selected here
 
-        $.ajax({
-            type: "POST", 
-            url: "./load_already_read_books.php",
-            data: {
-                selected_drop_down_year : selectedDropDownYear
-            },
-            success: function(response) {
-                document.getElementsByClassName("already-read-content-area")[0].innerHTML = response;
-            }
-        });
-    }
+    //     $.ajax({
+    //         type: "POST", 
+    //         url: "./load_already_read_books.php",
+    //         data: {
+    //             selected_drop_down_year : selectedDropDownYear
+    //         },
+    //         success: function(response) {
+    //             document.getElementsByClassName("already-read-content-area")[0].innerHTML = response;
+    //         }
+    //     });
+    // };
 
-    loadAlreadyReadBooks();
+    // loadAlreadyReadBooks();
 
 
     //year change event listener for already read books
-    let selectedYear = document.getElementById("year-select-drop-down");
+    // let selectedYear = document.getElementById("year-select-drop-down");
 
-    selectedYear.addEventListener("change", (e) => {
-        // console.log(this.value);
-        console.log(e.target.value);
-        sessionStorage.setItem("selected-drop-down-year", e.target.value);
-        // loadAlreadyReadBooks(); // function call everytime is not working, so the only other way is refresh
-        location.reload(); 
-    })
+    // selectedYear.addEventListener("change", (e) => {
+    //     // console.log(this.value);
+    //     console.log(e.target.value);
+    //     sessionStorage.setItem("selected-drop-down-year", e.target.value);
+    //     loadAlreadyReadBooks(); // function call everytime is not working, so the only other way is refresh
+    //     // location.reload(); 
+    // });
 
     </script>
     <script src="./js/calendar.js"></script>

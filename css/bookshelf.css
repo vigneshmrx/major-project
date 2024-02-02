@@ -207,6 +207,7 @@
     width: 80%;
     height: 15px;
     border: 2px solid;
+    overflow: hidden;
     /* background-color: var(--main-white); */
 }
 

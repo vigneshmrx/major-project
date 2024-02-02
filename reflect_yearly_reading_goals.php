@@ -28,7 +28,13 @@ $completed_books_count = $get_count_of_completed_books_this_year -> num_rows;
 
 // echo "goal: $yearly_reading_goal, completed count: $completed_books_count";
 
-$width_of_progress_bar = round($completed_books_count / $yearly_reading_goal * 100);
+if ($yearly_reading_goal == 0) {
+    $width_of_progress_bar = 0;
+} else {
+    $width_of_progress_bar = round($completed_books_count / $yearly_reading_goal * 100);
+}
+
+
 
 echo "YEARLY GOALS: " . "<div id='goals-counter'> $completed_books_count / $yearly_reading_goal </div>" . 
     "PROGRESS: " . "<div id='goal-progress-bar-area'>" . "<div id='progress-bar'>" . 

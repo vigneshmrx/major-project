@@ -347,3 +347,16 @@ label {
     display: flex;
     justify-content: space-evenly;
 }
+
+#alert {
+    position: fixed;
+    z-index: -300;
+    background-color: var(--main-black);
+    color: var(--main-white);
+    top: var(--common-value);
+    right: var(--common-value);
+    padding: var(--common-value);
+    text-transform: uppercase;
+    /* font-weight: bold; */
+    display: none;
+}
