@@ -6,6 +6,7 @@
 
 * {
     font-family: 'Roboto', sans-serif;
+    scroll-behavior: smooth;
 }
 
 .nav-bar {
@@ -19,6 +20,7 @@
     position: fixed;
     top: 0;
     width: 100%;
+    background-color: var(--main-white);
 }
 
 #nav-action-links {
@@ -63,7 +65,8 @@ button {
 
 #same-page-links {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
 }
 
 #same-page-links a {
@@ -139,8 +142,115 @@ section {
     margin-top: 150px;
 }
 
-#finance-area {
-    margin-top: 50px;
+#finance-area,
+#bookshelf-area,
+#blog-area {
+    margin-top: 80px;
     font-size: 40px;
     font-weight: 700;
+}
+
+.underline-box {
+    width: 70px;
+    height: 5px;
+    background-color: var(--main-black);
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
+.finance-group,
+.bookshelf-group,
+.blog-group {
+    display: flex;
+}
+
+.finance-group .left-area,
+.finance-group .right-area,
+.bookshelf-group .left-area,
+.bookshelf-group .right-area,
+.blog-group .left-area,
+.blog-group .right-area {
+    flex: 1;
+    /* border: 1px solid; */
+}
+
+.finance-group img,
+.bookshelf-group img,
+.blog-group img {
+    width: 100%;
+}
+
+.finance-group .right-area,
+.blog-group .right-area {
+    padding-left: 30px;
+    padding-right: 10px;
+    display: grid;
+    place-items: center;
+}
+
+.bookshelf-group .left-area {
+    padding-left: 10px;
+    padding-right: 30px;
+    display: grid;
+    place-items: center;
+}
+
+/* .right-area h1 {
+    font-size: 40px;
+} */
+
+/* .right-area p {
+    font-size: 20px;
+    font-weight: 400;
+} */
+
+.finance-group h1,
+.bookshelf-group h1,
+.blog-group h1 {
+    font-size: 40px;
+}
+
+.finance-group p,
+.bookshelf-group p,
+.blog-group p {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+/* .bookshelf-group .left-area {
+
+} */
+
+.to-top {
+    background: var(--main-black);
+    position: fixed;
+    bottom: 16px;
+    right: 32px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: var(--main-white);
+    text-decoration: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s;
+}
+
+.active {
+    bottom: 32px;
+    pointer-events: auto;
+    opacity: 1;
+}
+
+footer {
+    height: 60px;
+    display: grid;
+    place-items: center;
+    border-top: 1px solid grey;
+    font-size: 20px;
+    font-weight: 400;
 }
