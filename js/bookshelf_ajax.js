@@ -24,7 +24,7 @@ const addBooktoDB = (bookStatus) => {
             year: bookYear.value
         },
         success: function() {
-            showAlert("The book: <i>" + bookName.value + "</i>, added successfully");
+            showAlert("The book: <i>" + bookName.value.toUpperCase() + "</i>, added successfully");
             bookName.value = "";
             bookAuthor.value = "";
             bookYear.value = "";
@@ -47,7 +47,7 @@ const loadToReadContentArea = () => {
     });
 }
 
-loadToReadContentArea();
+// loadToReadContentArea();
 
 //to load the already-read content area
 const loadAlreadyReadBooks = () => {
@@ -92,7 +92,7 @@ const loadAlreadyReadBooks = () => {
     });
 };
 
-loadAlreadyReadBooks();
+// loadAlreadyReadBooks();
 
 //to show the default / updated yearly reading goal
 const readingGoalModifierFun = () => {
@@ -110,7 +110,7 @@ const readingGoalModifierFun = () => {
 
 }
 
-readingGoalModifierFun();
+// readingGoalModifierFun();
 
 //to change ths status of a 'to-read' book to 'completed'
 const changeStatusToCompleted = (objRef) => {
@@ -188,12 +188,20 @@ const modifyReadingTarget = () => {
     });
 }
 
+//Initial page loading function calls
+loadToReadContentArea();
+loadAlreadyReadBooks();
+readingGoalModifierFun();
+
 let selectedYear = document.getElementById("year-select-drop-down");
 
 selectedYear.addEventListener("change", (e) => {
     // console.log(this.value);
     console.log(e.target.value);
     sessionStorage.setItem("selected-drop-down-year", e.target.value);
-    loadAlreadyReadBooks(); // function call everytime is not working, so the only other way is refresh
+    loadAlreadyReadBooks();
+    location.reload(); // function call everytime is not working, so the only other way is refresh
     // location.reload(); 
 });
+
+

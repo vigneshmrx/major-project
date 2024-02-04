@@ -356,7 +356,7 @@ label {
     top: var(--common-value);
     right: var(--common-value);
     padding: var(--common-value);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     /* font-weight: bold; */
     display: none;
 }
