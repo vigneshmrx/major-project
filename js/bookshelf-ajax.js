@@ -57,7 +57,7 @@ const loadAlreadyReadBooks = () => {
     let alreadyReadYearBar = document.getElementsByClassName("already-read-year")[0];
     let presentYear = new Date().getFullYear();
 
-    let theContent = `<select id='year-select-drop-down'>`;
+    let theContent = `<select id='year-select-drop-down' onchange='yearChangeFun(event)'>`;
 
     //setting session storage for selected year if not set
 
@@ -195,13 +195,18 @@ readingGoalModifierFun();
 
 let selectedYear = document.getElementById("year-select-drop-down");
 
-selectedYear.addEventListener("change", (e) => {
-    // console.log(this.value);
-    console.log(e.target.value);
-    sessionStorage.setItem("selected-drop-down-year", e.target.value);
+const yearChangeFun = (event) => {
+    sessionStorage.setItem("selected-drop-down-year", event.target.value);
     loadAlreadyReadBooks();
-    location.reload(); // function call everytime is not working, so the only other way is refresh
+}
+
+// selectedYear.addEventListener("change", (e) => {
+    // console.log(this.value);
+    // console.log(e.target.value);
+    // sessionStorage.setItem("selected-drop-down-year", e.target.value);
+    // loadAlreadyReadBooks();
+    // location.reload(); // function call everytime is not working, so the only other way is refresh
     // location.reload(); 
-});
+// });
 
 

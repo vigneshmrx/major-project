@@ -39,5 +39,5 @@ if ($yearly_reading_goal == 0) {
 echo "YEARLY GOALS: " . "<div id='goals-counter'> $completed_books_count / $yearly_reading_goal </div>" . 
     "PROGRESS: " . "<div id='goal-progress-bar-area'>" . "<div id='progress-bar'>" . 
     "<div id='progress-bar-value' style='width: $width_of_progress_bar%;'>" . "</div></div>" . 
-    "<div id='progress-bar-value-count'>$width_of_progress_bar%" . "</div></div>";
+    "<div id='progress-bar-value-count'>" . ($width_of_progress_bar >= 10? $width_of_progress_bar : "0" . $width_of_progress_bar) . "%" . "</div></div>";
 ?>

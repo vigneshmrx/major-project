@@ -6,6 +6,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
+/* index.html font: */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap');
+
 :root {
     --indigo: #6610f2;
     --main-black: #000;
@@ -21,19 +24,23 @@
             box-sizing: border-box;
     
             font-family: "Roboto Mono";
+    /* font-family: 'Roboto', sans-serif; */
 }
 
 input[type=button] {
     background-color: var(--main-black);
+    /* background-color: var(--indigo); */
     color: var(--main-white);
     /* font-family: 'Josefin Sans', sans-serif; */
     font-family: "Roboto Mono";
+    /* font-family: 'Roboto', sans-serif; */
     /* font-weight: bold; */
     letter-spacing: 1.2px;
     padding: 7px 15px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    /* font-size: 15px; */
 }
 
 input[type=button]:active {
@@ -48,7 +55,7 @@ input[type=number] {
     padding: 5px var(--common-value);
     font-weight: bold;
     border-radius: 5px;
-    font-family: "Roboto Mono";
+    /* font-family: "Roboto Mono"; */
     background-color: var(--secondary-white);
     /* font-family: 'Josefin Sans', sans-serif; */
     font-size: 15px;
@@ -359,4 +366,9 @@ label {
     /* text-transform: uppercase; */
     /* font-weight: bold; */
     display: none;
+}
+
+.main-content-area {
+    width: 100%;
+    border: 1px solid var(--main-black);
 }

@@ -19,7 +19,8 @@ body {
     width: 80%;
     height: 100vh;
     padding: 10px 30px 0px 30px;
-    background-color: #FBF9F1;
+    /* background-color: #FBF9F1; */
+    background-color: var(--main-white);
     overflow: auto;
 }
 
@@ -97,13 +98,17 @@ a {
 #quote-box {
     width: auto;
     /* max-width: 80%; */
-    width: 98%;
+    /* width: 98%; */
+    width: 88%;
     margin: 25px auto;
     border-left: 5px solid var(--main-black);
     padding-left: 25px;
     position: relative;
     /* font-family: 'Josefin Sans', sans-serif; */
     font-family: "Roboto Mono";
+    /* font-family: 'Roboto', sans-serif; */
+    /* font-size: 20px; */
+    /* font-weight: bold; */
 }
 
 .by-line {

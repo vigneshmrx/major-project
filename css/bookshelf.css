@@ -149,13 +149,15 @@
 .book-info-name {
     font-size: 17px;
     letter-spacing: -2px;
+    /* font-family: 'Roboto', sans-serif; */
+    /* font-weight: 500; */
+    /* font-style: italic; */
 }
 
 .book-info-author {
     font-size: 12px;
     font-weight: bolder;
     text-transform: uppercase;
-    
 }
 
 .book-info-action {
@@ -196,6 +198,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    color: green;
 }
 
 #goal-progress-bar-area {
@@ -214,17 +217,18 @@
     height: 15px;
     border: 2px solid;
     overflow: hidden;
-    /* background-color: var(--main-white); */
+    /* background-color: var(--indigo); */
 }
 
 #progress-bar-value-count {
     width: 20%;
     display: grid;
     place-items: center;
+    color: green;
 }
 
 #progress-bar-value {
-    background-color: var(--main-black);
+    background-color: var(--main-black );
     /* width: 55.5%; */
     height: 100%;
 }

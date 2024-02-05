@@ -44,7 +44,7 @@ if (!isset($_SESSION["db_name"])) {
 </head>
 
 <body>
-    <div id="pop-up-menu-bg"></div>
+    <!-- <div id="pop-up-menu-bg"></div> -->
 
     <div id="add-book-popup-pg">
         <div id="add-book-popup-box">
@@ -264,11 +264,11 @@ if (!isset($_SESSION["db_name"])) {
 
 
     <script src="./js/common-script.js"></script>
-    <script src="./js/bookshelf_ajax.js"></script>
+    <script src="./js/bookshelf-ajax.js"></script>
 
     <script>
     let quotesObj = [{
-        "Quote": "The best and most beautiful things in this world cannot be seen or even heard, but must be felt with the heart",
+        "Quote": "The best and most beautiful things in this world cannot be seen or even heard, but must be felt with the heart.",
         "By": "Helen keller"
     }, {
         "Quote": "No matter how busy you may think you are, you must find time for reading, or surrender yourself to self-chosen ignorance.",

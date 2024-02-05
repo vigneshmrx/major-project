@@ -81,7 +81,10 @@ const logoutFromHere = () => {
 //adding logout box to every page:
 document.body.innerHTML += '<div id="log-out-page"><div id="log-out-box"><div id="log-out-text">Are you sure you want to log out?</div><div id="logout-action-area"><input type="button" value="LOG OUT" onclick="logoutFromHere();"><input type="button" value="CANCEL" onclick="logOutBoxFun();"></div></div></div>';
 
+//adding alert box to every page (this will be invisible by default)
 document.body.innerHTML += '<div id="alert"><div id="alert-message"></div></div>';
+
+document.body.innerHTML += '<div id="pop-up-menu-bg"></div>';
 
 
 const showAlert = (message) => {
