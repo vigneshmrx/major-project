@@ -51,7 +51,7 @@ session_start();
             <a href="#">
                 <div class="nav-items">Settings</div>
             </a>
-            <div class="nav-items" onclick="logOutboxFun();">Log Out</div>
+            <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
             <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
         </nav>
 
@@ -109,14 +109,14 @@ session_start();
                             AFTER SPENDING DIVISION
 
                             <div id="af-exp-income-div-amt">
-                                50%: 7.5K <br>
-                                30%: 4.5K <br>
-                                20%: 3K
+                                50%: + 7.5K <br>
+                                30%: + 4.5K <br>
+                                20%: + 3K
                             </div>
                         </div>
                     </div> <br>
 
-                    <div class="calendar-box">
+                    <div class="calendar-box" style="padding: 5px;">
                         <div class="calendar">
                             <div class="calendar-header">
                                 <span class="month-picker" id="month-picker">April</span>
@@ -147,10 +147,163 @@ session_start();
                             <div class="month-list">
                             </div>
                         </div>
-                    </div>
+                    </div> <br>
+
+                    <div id="graph-box"></div> <br><br><br><br><br><br><br>
                 </div>
 
-                <div class="right-section"></div>
+                <div class="right-section">
+                    <div id="exp-notes-area">
+                        <div id="exp-track-box">
+                            <div id="exp-track-header">
+                                <div>NOTE MONTHLY EXPENSES</div>
+                                <div><?php echo strtoupper(date("M")) . " - " . date("Y"); ?></div>
+                            </div>
+
+                            <div id="exp-track-content">
+                                <div class="exp-info-box">
+                                    <div class="exp-info-date">
+                                        <div class="date-box">06-02-24 TUE</div>
+                                    </div>
+                                    <div class="exp-info-area">
+                                        <div class="exp-info-left-area">
+                                            Bought JET AIRWAYS 25Q @55.6
+
+                                            <div class="cost-box">
+                                                2.3k
+                                            </div>
+                                        </div>
+                                        <div class="exp-info-right-area">
+                                            <div class="modify-exp-icon" style="height: 30px;">
+                                                <abbr title="edit"><img src="./icons/icons8-edit-60.png" alt="" style="width: 30px;"></abbr>
+                                            </div>
+                                            <div class="remove-exp-icon" style="height: 30px;">
+                                                <abbr title="delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="exp-info-box">
+                                    <div class="exp-info-date">
+                                        <div class="date-box">06-02-24 TUE</div>
+                                    </div>
+                                    <div class="exp-info-area">
+                                        <div class="exp-info-left-area">
+                                            Bought JET AIRWAYS 25Q @55.6
+
+                                            <div class="cost-box">
+                                                2.3k
+                                            </div>
+                                        </div>
+                                        <div class="exp-info-right-area">
+                                            <div class="modify-exp-icon" style="height: 30px;">
+                                                <abbr title="edit"><img src="./icons/icons8-edit-60.png" alt="" style="width: 30px;"></abbr>
+                                            </div>
+                                            <div class="remove-exp-icon" style="height: 30px;">
+                                                <abbr title="delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="exp-info-box">
+                                    <div class="exp-info-date">
+                                        <div class="date-box">06-02-24 TUE</div>
+                                    </div>
+                                    <div class="exp-info-area">
+                                        <div class="exp-info-left-area">
+                                            Bought JET AIRWAYS 25Q @55.6
+
+                                            <div class="cost-box">
+                                                2.3k
+                                            </div>
+                                        </div>
+                                        <div class="exp-info-right-area">
+                                            <div class="modify-exp-icon" style="height: 30px;">
+                                                <abbr title="edit"><img src="./icons/icons8-edit-60.png" alt="" style="width: 30px;"></abbr>
+                                            </div>
+                                            <div class="remove-exp-icon" style="height: 30px;">
+                                                <abbr title="delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="exp-info-box">
+                                    <div class="exp-info-date">
+                                        <div class="date-box">06-02-24 TUE</div>
+                                    </div>
+                                    <div class="exp-info-area">
+                                        <div class="exp-info-left-area">
+                                            Bought JET AIRWAYS 25Q @55.6
+
+                                            <div class="cost-box">
+                                                2.3k
+                                            </div>
+                                        </div>
+                                        <div class="exp-info-right-area">
+                                            <div class="modify-exp-icon" style="height: 30px;">
+                                                <abbr title="edit"><img src="./icons/icons8-edit-60.png" alt="" style="width: 30px;"></abbr>
+                                            </div>
+                                            <div class="remove-exp-icon" style="height: 30px;">
+                                                <abbr title="delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="exp-info-box">
+                                    <div class="exp-info-date">
+                                        <div class="date-box">06-02-24 TUE</div>
+                                    </div>
+                                    <div class="exp-info-area">
+                                        <div class="exp-info-left-area">
+                                            Bought JET AIRWAYS 25Q @55.6
+
+                                            <div class="cost-box">
+                                                2.3k
+                                            </div>
+                                        </div>
+                                        <div class="exp-info-right-area">
+                                            <div class="modify-exp-icon" style="height: 30px;">
+                                                <abbr title="edit"><img src="./icons/icons8-edit-60.png" alt="" style="width: 30px;"></abbr>
+                                            </div>
+                                            <div class="remove-exp-icon" style="height: 30px;">
+                                                <abbr title="delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="exp-info-box">
+                                    <div class="exp-info-date">
+                                        <div class="date-box">06-02-24 TUE</div>
+                                    </div>
+                                    <div class="exp-info-area">
+                                        <div class="exp-info-left-area">
+                                            Bought JET AIRWAYS 25Q @55.6
+
+                                            <div class="cost-box">
+                                                2.3k
+                                            </div>
+                                        </div>
+                                        <div class="exp-info-right-area">
+                                            <div class="modify-exp-icon" style="height: 30px;">
+                                                <abbr title="edit"><img src="./icons/icons8-edit-60.png" alt="" style="width: 30px;"></abbr>
+                                            </div>
+                                            <div class="remove-exp-icon" style="height: 30px;">
+                                                <abbr title="delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div id="exp-track-footer"> -->
+                            <div class="individual-element-btn-area" style="height: 6%; display: flex; justify-content: flex-start; align-items: end;">
+                                <input type="button" value="ADD EXPENSE" onclick=""
+                                style="font-size: 12px; padding: 5px 10px;">
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

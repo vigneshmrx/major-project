@@ -53,6 +53,7 @@
     justify-content: center;
     align-items: center;
     font-size: 30px;
+    font-weight: normal;
 }
 
 #af-exp-income-amt {
@@ -64,4 +65,125 @@
     margin-left: 50px;
     margin-top: var(--common-value);
     font-size: 20px;
+    font-weight: normal;
+}
+
+#exp-notes-area {
+    /* border: 1px solid; */
+    height: 100%;
+}
+
+#exp-track-box {
+    border: 2px solid;
+    border-radius: var(--common-value);
+    box-shadow: -11px -11px var(--main-black);
+    height: 100%;
+    padding: var(--common-value);
+    font-weight: bold;
+}
+
+#exp-track-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4%;
+}
+
+#exp-track-content {
+    height: 90%;
+    /* border: 1px solid; */
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    margin-top: 5px;
+    overflow: auto;
+}
+
+#exp-track-content::-webkit-scrollbar {
+    display: none;
+}
+
+#exp-track-footer {
+    height: 6%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: start;
+}
+
+/* .individual-element-btn-area {
+    height: 6%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+} */
+
+.exp-info-box {
+    width: 96%;
+    margin: 4px auto;
+    position: relative;
+    /* border: 1px solid; */
+}
+
+.exp-info-date {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.date-box {
+    width: 30%;
+    text-align: center;
+    background-color: var(--main-black);
+    color: var(--main-white);
+    font-weight: normal;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.exp-info-area {
+    border: 2px solid;
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    border-top-right-radius: 0px;
+}
+
+.exp-info-left-area {
+    width: 85%;
+    /* border: 1px solid; */
+    padding: 10px;
+    font-weight: normal;
+}
+
+.cost-box {
+    padding: 2px 7px;
+    background-color: var(--main-black);
+    color: var(--main-white);
+    width: 20%;
+    max-width: 30%;
+    text-align: center;
+    border-radius: 7px;
+    margin-top: 5px;
+    margin-left: 10px;
+    /* font-weight: normal; */
+}
+
+.exp-info-right-area {
+    width: 15%;
+    /* border: 1px solid; */
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.modify-exp-icon, 
+.remove-exp-icon {
+    cursor: pointer;
+    /* width: 30px;
+    height: 30px; */
+}
+
+.modify-exp-icon:hover,
+.remove-exp-icon:hover {
+    background-color: grey;
 }
