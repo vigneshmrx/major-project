@@ -159,8 +159,8 @@
 }
 
 .book-info-author {
-    font-size: 12px;
-    font-weight: bolder;
+    font-size: 13px;
+    font-weight: 700;
     text-transform: uppercase;
     /* color: var(--main-white); */
 }
@@ -238,13 +238,13 @@
     height: 100%;
 }
 
-.popup-box-hr {
+/* .popup-box-hr {
     width: 50%; 
     margin-bottom: 10px; 
     background: var(--main-black); 
     height: 5px; 
     border: none;
-}
+} */
 
 /* @media (max-width: 1000px) {
     .section-one,

@@ -100,12 +100,14 @@ a {
     /* max-width: 80%; */
     /* width: 98%; */
     width: 88%;
+    /* width: auto; */
     margin: 25px auto;
     border-left: 5px solid var(--main-black);
     padding-left: 25px;
     position: relative;
     /* font-family: 'Josefin Sans', sans-serif; */
     font-family: "Roboto Mono";
+    text-align: center;
     /* font-family: 'Roboto', sans-serif; */
     /* font-size: 20px; */
     /* font-weight: bold; */

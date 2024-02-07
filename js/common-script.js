@@ -14,7 +14,7 @@ const displayQuote = (quotesObj, pageName) => {
     }
 
     quoteBox.innerHTML = `\"<i>${randomQuoteObj["Quote"]}</i>\"<br><br>`;
-    quoteBox.innerHTML += `<div class="by-line">- ${randomQuoteObj["By"]}</div>`;
+    quoteBox.innerHTML += `<div class="by-line">${randomQuoteObj["By"]}</div>`;
 }
 
 const popUpBgFun = () => {
@@ -39,11 +39,12 @@ const removePopUp = (closeBtnObjRef, boxName) => {
 
     popUpBgFun(); // to get the bg page back to -100 z index
 
-    // location.reload();
-    readingGoalModifierFun();
-    loadToReadContentArea();
-    loadAlreadyReadBooks();
-    
+    if (boxName != null || boxName != undefined) {
+        // location.reload();
+        readingGoalModifierFun();
+        loadToReadContentArea();
+        loadAlreadyReadBooks();
+    }
 }
 
 

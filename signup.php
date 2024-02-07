@@ -193,12 +193,28 @@ session_start();
                 die("<script>callErr(2);</script>");
             }
 
+            try {
+
+                mysqli_select_db($con, "prodo_db");
+
+            } catch (Exception $e2) {
+
+                die("<script>callErr(3);</script>");
+                
+            }
+
             //hashing pwd
             $hashed_pwd = password_hash($passone, PASSWORD_DEFAULT);
 
             // var_dump($hashed_pwd);
             $full_name = $fname . " " . $lname;
             var_dump($full_name);
+
+            //creating account for the user
+            $adding_user_query = "insert into users (name, email, password, role, reading_goals) values('$full_name', '$email', '$hashed_pwd', 'user', 0)";
+            $adding_user_success = mysqli_query($con, $adding_user_query);
+
+            
 
             //creating db for the new user along with tables
             $pos_of_a = strpos($email, "@");
@@ -208,27 +224,31 @@ session_start();
                 $db_name = $extracted_part_of_email . "_user";
                 $create_db_query = mysqli_query($con, "create database " . $db_name);
                 echo "Database created";
-                
+
+                //selecting the user's DB
+                mysqli_select_db($con, $db_name);
+
+                //creating bookshelf table
                 try {
-                    mysqli_select_db($con, $db_name);
-    
+
                     $create_bookshelf_table_q = mysqli_query($con, "create table bookshelf(SNo int AUTO_INCREMENT PRIMARY KEY, BookName varchar(40) not null, Author varchar(20) not null, Status varchar(9), Year int(4));");
+
                 } catch (Exception $ef) {}
+
+
+                //creating finance table
+                try {
+
+                    $create_finance_table_q = mysqli_query($con, "create table finance(SNo int AUTO_INCREMENT PRIMARY KEY, Year int(4) not null, Month varchar(15) not null, Income double not null, FiftyPercent double not null, ThirtyPercent double not null, TwentyPercent double not null, Bonus double not null);");
+
+                } catch (Exception $finance_creation_exc) {
+                    echo $finance_creation_exc;
+                }
     
             } catch (Exception $ee) {
                 echo "Databse no";
+                echo $ee;
             }
-
-            
-            try {
-                mysqli_select_db($con, "prodo_db");
-            } catch (Exception $e2) {
-                die("<script>callErr(3);</script>");
-            }
-
-            //creating account for the user
-            $adding_user_query = "insert into users (name, email, password, role, reading_goals) values('$full_name', '$email', '$hashed_pwd', 'user', 0)";
-            $adding_user_success = mysqli_query($con, $adding_user_query);
 
             if ($adding_user_success) {
                 $_SESSION["user_name"] = $full_name;

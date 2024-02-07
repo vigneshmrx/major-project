@@ -54,7 +54,9 @@ if (!isset($_SESSION["db_name"])) {
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
+
             <hr class="popup-box-hr">
+
             <form action="#">
                 <label for="bkName">Book Name:</label> <br>
                 <input type="text" name="bkName" id="bkName" required> <br><br>
@@ -64,10 +66,10 @@ if (!isset($_SESSION["db_name"])) {
                 <input type="text" name="bkYear" id="bkYear" required>
                 <br><br>
                 <input type="button" value="ADD" id="addBtnOne"
-                    style="width: 100px; margin-left: auto; margin-right: auto; display: block"
+                    style="width: 100px; margin-left: auto; margin-right: auto; display: block;"
                     onclick="addBooktoDB('to read');">
                 <input type="button" value="ADD" id="addBtnTwo"
-                    style="width: 100px; margin-left: auto; margin-right: auto; display: block"
+                    style="width: 100px; margin-left: auto; margin-right: auto; display: block;"
                     onclick="addBooktoDB('completed');">
             </form>
         </div>
