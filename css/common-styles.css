@@ -370,7 +370,7 @@ label {
 
 .main-content-area {
     width: 100%;
-    border: 1px solid var(--main-black);
+    /* border: 1px solid var(--main-black); */
     /* overflow: hidden; */
 }
 

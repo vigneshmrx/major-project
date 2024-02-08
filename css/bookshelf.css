@@ -23,6 +23,26 @@
     overflow: none;
 }
 
+.section-one-left,
+.section-two-left {
+    padding-right: 7.5px;
+}
+
+.section-one-right,
+.section-two-right {
+    padding-left: 7.5px;
+}
+
+.section-one-left,
+.section-one-right {
+    padding-bottom: 7.5px;
+}
+
+.section-two-left,
+.section-two-right {
+    padding-top: 7.5px;
+}
+
 .right-box,
 .left-box {
     border: 2px solid black;
