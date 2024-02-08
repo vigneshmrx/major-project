@@ -1,12 +1,28 @@
 .finance-flex-section {
     display: flex;
-    max-height: 78vh;
+    /* height: 77vh; */
+    height: 600px;
+    padding-bottom: 15px;
+    border: 1px solid red;
 }
 
 .finance-flex-section .left-section,
 .finance-flex-section .right-section {
     flex: 1;
-    padding: var(--common-value);
+    /* height: 100%; */
+    /* padding: var(--common-value); */
+    /* padding-left: 15px;
+    padding-right: 15px; */
+}
+
+.finance-flex-section .left-section {
+    padding-left: var(--common-value);
+    padding-right: 7.5px;
+}
+
+.finance-flex-section .right-section {
+    padding-right: var(--common-value);
+    padding-left: 7.5px;
 }
 
 /* .income-bx, */
@@ -14,7 +30,16 @@
     border: 2px solid;
     border-radius: var(--common-value);
     /* box-shadow: -11px -11px var(--main-black); */
-    padding: var(--common-value);
+    padding: 15px;
+    padding-bottom: 0px;
+    /* height: calc(46% - 9px); */
+    height: 269px;
+    /* height: 251px; */
+    /* height: 50%; */
+}
+
+.calendar-body {
+    padding-bottom: 0px;
 }
 
 #monthly-income-area,
@@ -22,6 +47,20 @@
     /* width: 100%; */
     display: flex;
     /* flex-direction: row; */
+}
+
+/* #monthly-income-area {
+    height: calc(25% - 15px);
+}
+
+#income-after-expense-area {
+    height: calc(25% - 15px);
+} */
+
+#monthly-income-area,
+#income-after-expense-area {
+    margin-bottom: 15px;
+    height: calc(27% - 15px);
 }
 
 #monthly-income-bx,
@@ -39,12 +78,12 @@
 
 #monthly-income-bx,
 #income-after-expense-bx {
-    margin-right: 10px;
+    margin-right: 7.5px;
 }
 
 #monthly-income-div-bx,
 #income-after-expense-div-bx {
-    margin-left: 10px;
+    margin-left: 7.5px;
 }
 
 #m-income-amt,
@@ -78,8 +117,10 @@
     border: 2px solid;
     border-radius: var(--common-value);
     /* box-shadow: -11px -11px var(--main-black); */
+    /* height: calc(100% - 9px); */
     height: 100%;
-    padding: var(--common-value);
+    /* height: 75vh; */
+    /* height: calc(100% * 75vh); */
     font-weight: bold;
 }
 
@@ -87,13 +128,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 5%;
+    height: 8%;
+    border-bottom: 1px solid;
+    /* height: calc(5% - 15px); */
     /* height: 5vh; */
-    height: calc(5vh - 15px);
+    /* height: calc(5vh - 15px); */
 }
 
 #exp-track-content {
-    height: 90%;
+    /* height: calc(84% - 4px); */
+    height: 84%;
     /* height: calc(90vh - 35px); */
     /* border: 1px solid; */
     /* border-top: 2px solid;
@@ -117,11 +161,21 @@
 }
 
 #exp-track-footer {
-    height: 5%;
-    /* height: calc(5vh - 15px); */
+    height: 8%;
+    border-top: 1px solid;
     display: flex;
     justify-content: flex-start;
-    align-items: start;
+    align-items: center;
+    /* height: calc(5vh - 15px); */
+    /* display: flex;
+    justify-content: flex-start;
+    align-items: start; */
+}
+
+#exp-track-header,
+#exp-track-footer {
+    padding-left: var(--common-value);
+    padding-right: var(--common-value);
 }
 
 /* .individual-element-btn-area {
@@ -216,7 +270,7 @@
 #modify-income-popup-box {
     width: 400px;
     background-color: var(--main-white);
-    /* box-shadow: 11px 11px var(--main-black); */
+    box-shadow: 11px 11px var(--main-black);
     padding: var(--common-value);
     border: 2px solid var(--main-black);
 }

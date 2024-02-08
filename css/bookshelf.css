@@ -28,7 +28,7 @@
     border: 2px solid black;
     padding: var(--common-value);
     border-radius: var(--common-value);
-    box-shadow: -11px -11px var(--main-black);
+    /* box-shadow: -11px -11px var(--main-black); */
     font-family: 'Josefin Sans', sans-serif;
     height: 100%;
     /* height: calc(100% - 15px); */
@@ -50,7 +50,8 @@
 .content-area {
     height: 85%;
     padding: 10px;
-    font-weight: bold;
+    /* font-weight: bold; */
+    font-weight: normal;
 }
 
 .to-read-content-area,
@@ -203,7 +204,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    color: green;
+    /* color: green; */
+    color: white;
+    /* font-family: 'Roboto', sans-serif; */
 }
 
 #goal-progress-bar-area {
@@ -229,11 +232,13 @@
     width: 20%;
     display: grid;
     place-items: center;
-    color: green;
+    /* color: green; */
+    color: white;
 }
 
 #progress-bar-value {
-    background-color: var(--main-black );
+    /* background-color: var(--main-black ); */
+    background-color: var(--main-white);
     /* width: 55.5%; */
     height: 100%;
 }

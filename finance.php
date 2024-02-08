@@ -23,6 +23,18 @@ session_start();
     </style>
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .main-content-area {
+            /* max-height: 75vh; */
+            /* height: 77%; */
+        }
+
+        .individual-element-btn-area {
+            height: 100%;
+            /* border: 1px solid; */
+        }
+    </style>
 </head>
 
 <body>
@@ -137,7 +149,7 @@ session_start();
                                 20%: 3K
                             </div>
                         </div> -->
-                    </div> <br>
+                    </div>
 
                     <div id="income-after-expense-area">
                         <div id="income-after-expense-bx">
@@ -156,9 +168,9 @@ session_start();
                                 20%: + 3K
                             </div>
                         </div>
-                    </div> <br>
+                    </div>
 
-                    <div class="calendar-box" style="padding: 5px;">
+                    <div class="calendar-box"> <!-- style="padding: 0px;" -->
                         <div class="calendar">
                             <div class="calendar-header">
                                 <span class="month-picker" id="month-picker">April</span>
@@ -190,8 +202,6 @@ session_start();
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div id="graph-box"></div>  -->
                 </div>
 
                 <div class="right-section">
@@ -293,11 +303,11 @@ session_start();
                                 </div>
                             </div>
 
-                            <!-- <div id="exp-track-footer"> -->
-                            <div class="individual-element-btn-area" style="height: 6%; display: flex; justify-content: flex-start; align-items: end;">
-                                <input type="button" value="ADD EXPENSE" style="font-size: 12px; padding: 5px 10px;">
+                            <div id="exp-track-footer">
+                                <div class="individual-element-btn-area" style="height: auto;"> <!-- style="display: flex; justify-content: flex-start; align-items: end;" -->
+                                    <input type="button" value="ADD EXPENSE" style="font-size: 12px; padding: 5px 10px;">
+                                </div>
                             </div>
-                            <!-- </div> -->
                         </div>
                     </div>
                 </div>
