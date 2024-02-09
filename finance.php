@@ -39,6 +39,30 @@ session_start();
 
 <body>
 
+    <div id="secondary-menu">
+        <div class="menu-close-icon" onclick="secondaryMenuFun();">
+            <img src="./icons/icons8-close-50_white.png" alt="">
+        </div>
+        <nav>
+            <a href="#">
+                <div class="nav-items current-page">Finance</div>
+            </a>
+            <a href="./bookshelf.php">
+                <div class="nav-items">Bookshelf</div>
+            </a>
+            <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
+            <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
+            <a href="./blog.php">
+                <div class="nav-items">Blog</div>
+            </a>
+            <a href="#">
+                <div class="nav-items">Settings</div>
+            </a>
+            <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
+            <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
+        </nav>
+    </div>
+
     <div id="modify-income-popup-pg">
         <div id="modify-income-popup-box">
             <div id="modify-income-heading-area">
@@ -80,6 +104,41 @@ session_start();
         </div>
     </div>
 
+    <div id="log-expense-popup-pg">
+        <div id="log-expense-popup-bx">
+            <div id="log-expense-heading-area">
+            <div class="log-expense-heading">LOG EXPENSES</div>
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'book-box');">
+                    <img src="./icons/icons8-close-32.png" alt="">
+                </div>
+            </div>
+
+            <hr class="popup-box-hr">
+
+            <form action="#">
+                <label for="expenseDate">Date of Spending:</label> <br>
+                <input type="date" name="expenseDate" id="expenseDate"> <br><br>
+
+                <label for="expenseTitle">Details:</label>
+                <input type="text" name="expenseTitle" id="expenseTitle" placeholder="ex: Bought Jet Airways NSE"> <br><br>
+
+                <label for="expenseCost">Cost:</label>
+                <input type="number" name="expenseCost" id="expenseCost"> <br><br>
+
+                <label for="category">Category:</label>
+                <div id="expense-category-div">
+                    <input type="radio" name="cat" id="A" value="A">A (50%) &nbsp;
+                    <input type="radio" name="cat" id="B" value="B" checked>B (30%) &nbsp;
+                    <input type="radio" name="cat" id="C" value="C">C (20%)
+                </div> <br>
+
+                <input type="button" value="LOG EXPENSE" id="logExpenseBtn"
+                    style="width: 150px; margin-left: auto; margin-right: auto; display: block;"
+                    onclick="">
+            </form>
+        </div>
+    </div>
+
     <div id="page-left-area">
         <div id="logo">
             <!-- <lord-icon src="https://cdn.lordicon.com/abwrkdvl.json" trigger="in" delay="1500" state="in-growth"
@@ -113,6 +172,20 @@ session_start();
     </div>
 
     <div id="page-right-area">
+        <div class="secondary-nav-bar">
+            <div class="sec-bar-ham-menu" onclick="secondaryMenuFun();">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="sec-bar-logo">
+                ProDo
+            </div>
+            <div class="log-out-btn-area" onclick="logOutBoxFun();">
+                <img src="./icons/icons8-logout-50.png" alt="">
+            </div>
+        </div>
+
         <div id="main-heading">
             <?php echo $_SESSION["user_name"]; ?>'s Finance Manager
         </div>
@@ -209,7 +282,28 @@ session_start();
                         <div id="exp-track-box">
                             <div id="exp-track-header">
                                 <div>NOTE MONTHLY EXPENSES</div>
-                                <div><?php echo strtoupper(date("M")) . " - " . date("Y"); ?></div>
+                                <div><?php 
+                                        $months_array = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                        // echo strtoupper(date("M")) . " - " . date("Y"); 
+
+                                        $current_month = date("M");
+                                        
+                                        $output = "<select id='expense-months'>";
+
+                                        foreach ($months_array as $month) {
+                                            if ($month == $current_month) {
+                                                $output = $output . "<option value='$month' selected>" . strtoupper($month) . "</option>";
+                                                break;
+                                            } else {
+                                                $output = $output . "<option value='$month'>" . strtoupper($month) . "</option>";
+                                            }
+                                        }
+
+                                        $output = $output . "</select>";
+
+                                        echo $output . " - " . date("Y");
+                                    ?>
+                                </div>
                             </div>
 
                             <div id="exp-track-content">
@@ -305,7 +399,7 @@ session_start();
 
                             <div id="exp-track-footer">
                                 <div class="individual-element-btn-area" style="height: auto;"> <!-- style="display: flex; justify-content: flex-start; align-items: end;" -->
-                                    <input type="button" value="ADD EXPENSE" style="font-size: 12px; padding: 5px 10px;">
+                                    <input type="button" value="ADD EXPENSE" style="font-size: 12px; padding: 5px 10px;" onclick="showLogExpensePopup();">
                                 </div>
                             </div>
                         </div>
@@ -339,6 +433,15 @@ session_start();
 
             modifyIncomePopupPage.style.visibility = "visible";
             modifyIncomePopupPage.style.zIndex = 150;
+        }
+
+        const showLogExpensePopup = () => {
+            popUpBgFun();
+
+            let logExpensePopupPage  = document.getElementById("log-expense-popup-pg");
+
+            logExpensePopupPage.style.visibility = "visible";
+            logExpensePopupPage.style.zIndex = 150;
         }
 
     </script>

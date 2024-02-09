@@ -113,3 +113,15 @@ window.addEventListener("scroll", () => {
         toTop.classList.remove("active");
     }
 });
+
+const secondaryMenuFun = () => {
+    let secondaryMenu = document.getElementById("secondary-menu");
+
+    if (secondaryMenu.style.visibility == "hidden") {
+        secondaryMenu.style.transform = "translateX(0px)";
+        secondaryMenu.style.visibility = "visible";
+    } else {
+        secondaryMenu.style.transform = "translateX(-1000px)";
+        secondaryMenu.style.visibility = "hidden";
+    }
+}

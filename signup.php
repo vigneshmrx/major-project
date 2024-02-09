@@ -233,13 +233,24 @@ session_start();
 
                     $create_bookshelf_table_q = mysqli_query($con, "create table bookshelf(SNo int AUTO_INCREMENT PRIMARY KEY, BookName varchar(40) not null, Author varchar(20) not null, Status varchar(9), Year int(4));");
 
-                } catch (Exception $ef) {}
+                } catch (Exception $ef) {
+                    echo $ef;
+                }
 
 
                 //creating finance table
                 try {
 
                     $create_finance_table_q = mysqli_query($con, "create table finance(SNo int AUTO_INCREMENT PRIMARY KEY, Year int(4) not null, Month varchar(15) not null, Income double not null, FiftyPercent double not null, ThirtyPercent double not null, TwentyPercent double not null, Bonus double not null);");
+
+                    //creating monthly_expense table
+                    try {
+
+                        $create_monthly_expense_tab_q = mysqli_query($con, "create table monthly_expense(SNo int AUTO_INCREMENT PRIMARY KEY, Date date not null, TitleOfExpense varchar(200) not null, Cost double not null, Category char(2) not null);");
+
+                    } catch (Exception $monthly_expense_exc) {
+                        echo $monthly_expense_exc;
+                    }
 
                 } catch (Exception $finance_creation_exc) {
                     echo $finance_creation_exc;

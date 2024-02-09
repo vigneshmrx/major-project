@@ -9,6 +9,16 @@
 /* index.html font: */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap');
 
+@font-face {
+	font-family: 'Skyscapers';
+	src: url('//2ttf.com/webfont/6IF8GLA3aiM/webfont.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Nighty';
+    src: url('../Nightydemo.otf') format('truetype');
+}
+
 :root {
     --indigo: #6610f2;
     --main-black: #000;
@@ -16,6 +26,7 @@
     --secondary-white: #f5f0e8;
     --secondary-black: #242223;
     --common-value: 15px;
+    --pink: #ff5666;
 }
 
 * {
@@ -380,4 +391,38 @@ label {
     background: var(--main-black); 
     height: 5px; 
     border: none;
+}
+
+#secondary-menu {
+    width: 250px;
+    height: 100%;
+    background-color: var(--main-black);
+    position: fixed;
+    z-index: 130;
+    transform: translateX(-1000px);
+    visibility: hidden;
+    transition: all 0.2s ease-in-out;
+}
+
+.menu-close-icon {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px 10px;
+    cursor: pointer;
+}
+
+.menu-close-icon img {
+    height: 30px;
+    width: 30px;
+}
+
+#secondary-menu nav {
+    text-align: center;
+}
+
+#secondary-menu .current-page {
+    background-color: var(--pink);
+    margin-right: 10px;
+    border-radius: 10px;
 }

@@ -54,6 +54,7 @@
     /* height: calc(100% - 15px); */
     position: relative;
     overflow: none;
+    background-color: var(--main-white);
 }
 
 .to-read-heading-area,

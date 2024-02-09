@@ -46,6 +46,30 @@ if (!isset($_SESSION["db_name"])) {
 <body>
     <!-- <div id="pop-up-menu-bg"></div> -->
 
+    <div id="secondary-menu">
+        <div class="menu-close-icon" onclick="secondaryMenuFun();">
+            <img src="./icons/icons8-close-50_white.png" alt="">
+        </div>
+        <nav>
+            <a href="./finance.php">
+                <div class="nav-items">Finance</div>
+            </a>
+            <a href=".#">
+                <div class="nav-items current-page">Bookshelf</div>
+            </a>
+            <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
+            <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
+            <a href="./blog.php">
+                <div class="nav-items">Blog</div>
+            </a>
+            <a href="#">
+                <div class="nav-items">Settings</div>
+            </a>
+            <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
+            <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
+        </nav>
+    </div>
+
     <div id="add-book-popup-pg">
         <div id="add-book-popup-box">
             <div class="add-book-heading-area">
@@ -140,6 +164,20 @@ if (!isset($_SESSION["db_name"])) {
 
     <!-- RIGHT AREA - THE CONTENT ~~~~ -->
     <div id="page-right-area">
+        <div class="secondary-nav-bar">
+            <div class="sec-bar-ham-menu" onclick="secondaryMenuFun();">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="sec-bar-logo">
+                ProDo
+            </div>
+            <div class="log-out-btn-area" onclick="logOutBoxFun();">
+                <img src="./icons/icons8-logout-50.png" alt="">
+            </div>
+        </div>
+        
         <div id="main-heading">
             <?php echo $_SESSION["user_name"]; ?>'s Bookshelf
         </div>

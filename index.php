@@ -41,7 +41,7 @@
 
     <section>
         <div id="greeting-area">
-            Welcome to ProDo. <br>Your Personal Productivity Assistant.
+            Welcome to <span class="prodo">ProDo</span>. <br>Your Personal Productivity Assistant.
         </div>
         <div id="description-of-prodo">
             A web application where you can manage your finances, and bookshelf and even read and write blogs, all in one place.
