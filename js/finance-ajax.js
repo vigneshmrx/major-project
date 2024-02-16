@@ -56,3 +56,20 @@ const addNewIncomeToDb = () => {
     }
 }
 
+const addExpenseToDb = () => {
+    let expDate = document.getElementById("expenseDate");
+    let expTitle = document.getElementById("expenseTitle");
+    let expCost = document.getElementById("exepenseCost");
+    let expCat = document.querySelector( 'input[name="cat"]:checked');   
+
+    // alert("CHecked value = " + expCat.value);
+    // console.log("DATE: " + expDate.value);
+    if (expDate.value == "") {
+        console.log("It's empty");
+    }
+
+    if ( expTitle.value == "" || expTitle.value == null || expCost.value == null || expCost.value == "") {
+        alert("Please enter all the necessary details");
+    }
+}
+

@@ -210,23 +210,23 @@ const yearChangeFun = (event) => {
 // });
 
 
-//remove this later if needed
+// //remove this later if needed
 let leftBoxOne = document.getElementsByClassName("left-box")[0];
 
-leftBoxOne.style.background = "black";
-leftBoxOne.style.color = "white";
+// leftBoxOne.style.background = "black";
+// leftBoxOne.style.color = "white";
 // leftBoxOne.style.fontWeight = "normal";
 
-let individualElementBtnAreaOne = document.getElementsByClassName("individual-element-btn-area")[0];
+// let individualElementBtnAreaOne = document.getElementsByClassName("individual-element-btn-area")[0];
 
-individualElementBtnAreaOne.firstElementChild.style.background = "white";
-individualElementBtnAreaOne.firstElementChild.style.fontWeight = "bold";
-individualElementBtnAreaOne.firstElementChild.style.color = "black";
+// individualElementBtnAreaOne.firstElementChild.style.background = "white";
+// individualElementBtnAreaOne.firstElementChild.style.fontWeight = "bold";
+// individualElementBtnAreaOne.firstElementChild.style.color = "black";
 
 // firstBtn.style.background = "white";
 // firstBtn.style.fontWeight = "bold";
 // firstBtn.style.color = "black";
 
-let progressBarValueCount = document.getElementById("progress-bar-value-count");
+// let progressBarValueCount = document.getElementById("progress-bar-value-count");
 
-console.log(progressBarValueCount);
+// console.log(progressBarValueCount);

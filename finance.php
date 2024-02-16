@@ -134,7 +134,7 @@ session_start();
 
                 <input type="button" value="LOG EXPENSE" id="logExpenseBtn"
                     style="width: 150px; margin-left: auto; margin-right: auto; display: block;"
-                    onclick="">
+                    onclick="addExpenseToDb();">
             </form>
         </div>
     </div>
@@ -229,16 +229,16 @@ session_start();
                             AFTER SPENDING
 
                             <div id="af-exp-income-amt">
-                                15K
+                                <span class="money">15220</span>
                             </div>
                         </div>
                         <div id="income-after-expense-div-bx">
                             AFTER SPENDING DIVISION
 
                             <div id="af-exp-income-div-amt">
-                                50%: + 7.5K <br>
-                                30%: + 4.5K <br>
-                                20%: + 3K
+                            <span class="money">50%</span>: <span class="money">7610</span> <br>
+                            <span class="money">30%</span>: <span class="money">4566</span> <br>
+                            <span class="money">20%</span>: <span class="money">3044</span>
                             </div>
                         </div>
                     </div>
@@ -443,7 +443,6 @@ session_start();
             logExpensePopupPage.style.visibility = "visible";
             logExpensePopupPage.style.zIndex = 150;
         }
-
     </script>
     <script src="./js/calendar.js"></script>
 </body>

@@ -71,8 +71,8 @@
 .content-area {
     height: 85%;
     padding: 10px;
-    /* font-weight: bold; */
-    font-weight: normal;
+    font-weight: bold;
+    /* font-weight: normal; */
 }
 
 .to-read-content-area,
@@ -226,7 +226,6 @@
     justify-content: flex-start;
     align-items: center;
     /* color: green; */
-    color: white;
     /* font-family: 'Roboto', sans-serif; */
 }
 
@@ -254,12 +253,12 @@
     display: grid;
     place-items: center;
     /* color: green; */
-    color: white;
+    color: var(--main-black);
 }
 
 #progress-bar-value {
-    /* background-color: var(--main-black ); */
-    background-color: var(--main-white);
+    background-color: var(--main-black );
+    /* background-color: var(--main-white); */
     /* width: 55.5%; */
     height: 100%;
 }
