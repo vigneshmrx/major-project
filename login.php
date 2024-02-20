@@ -157,6 +157,7 @@ session_start();
                         $extracted_part_of_email = substr($email, 0, $pos_of_a);
                         
                         $db_name = $extracted_part_of_email . "_user";
+                        $db_name = str_replace(".", "_", $db_name);
 
                         $full_name = $row["name"];
 

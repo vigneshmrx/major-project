@@ -48,6 +48,11 @@ session_start();
         usrnamArea.innerHTML = "Email already in use";
     }
 
+    function longPwdErr() {
+        let pwdArea = document.getElementsByClassName("pwd-error")[0];
+        pwdErr.innerHTML = "Password should be less than 30 characters";
+    }
+
     // function usernameMistake() {
     //     let usrnamArea = document.getElementsByClassName("username-error")[0];
     //     usrnamArea.innerHTML = "Use only letters and underscores for username";
@@ -79,6 +84,10 @@ session_start();
             $email = $_POST["email"];
             $passone = $_POST["pass_one"];
             $passtwo = $_POST["pass_two"];
+
+            if (strlen($passone) >= 30) {
+                die("<script>longPwdErr();</script>");
+            }
         }
         // $lname = $username = $passone = $passtwo = "";
     ?>
@@ -117,7 +126,7 @@ session_start();
 
                     <div class="line">
                         PASSWORD: <br>
-                        <input type="password" name="pass_one" value="<?php echo $passone; ?>" required>
+                        <input type="password" name="pass_one" maxlength="30" value="<?php echo $passone; ?>" required>
                     </div>
 
                     <div class="line pwd-error">
@@ -126,7 +135,7 @@ session_start();
 
                     <div class="line">
                         REPEAT PASSWORD: <br>
-                        <input type="password" name="pass_two" value="<?php echo $passtwo; ?>" required>
+                        <input type="password" name="pass_two" maxlength="30" value="<?php echo $passtwo; ?>" required>
                     </div>
 
                     <div class="line repeat-pwd-error">
@@ -222,6 +231,7 @@ session_start();
             
             try {
                 $db_name = $extracted_part_of_email . "_user";
+                $db_name = str_replace(".", "_", $db_name);
                 $create_db_query = mysqli_query($con, "create database " . $db_name);
                 echo "Database created";
 

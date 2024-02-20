@@ -56,20 +56,53 @@ const addNewIncomeToDb = () => {
     }
 }
 
-const addExpenseToDb = () => {
+const addExpenseToDb = (uniqueID) => {
     let expDate = document.getElementById("expenseDate");
     let expTitle = document.getElementById("expenseTitle");
-    let expCost = document.getElementById("exepenseCost");
+    let expCost = document.getElementById("expenseCost");
     let expCat = document.querySelector( 'input[name="cat"]:checked');   
 
     // alert("CHecked value = " + expCat.value);
-    // console.log("DATE: " + expDate.value);
-    if (expDate.value == "") {
-        console.log("It's empty");
-    }
+    // console.log("DATE: " + expDate.value)
 
     if ( expTitle.value == "" || expTitle.value == null || expCost.value == null || expCost.value == "") {
-        alert("Please enter all the necessary details");
+        showAlert("Please enter all the necessary details!");
+        return;
     }
+
+    if (expDate.value == "" || expDate.value == null) {
+        expDate = new Date().toJSON().slice(0, 10);
+        // showAlert(expCat.value);
+    } else {
+        expDate = expDate.value;
+    }
+
+    // showAlert(expDate);
+
+    uniqueID = uniqueID == null || uniqueID == undefined ? 0 : uniqueID;
+
+
+    $.ajax({
+        type: "POST",
+        url: "./add_expense_to_db.php",
+        data: {
+            exp_date: expDate,
+            exp_title: expTitle.value,
+            cost: expCost.value,
+            exp_category: expCat.value,
+            unique_id: uniqueID
+        },
+        success: function(response) {
+            // showAlert(response);
+            // return;
+            expDate.value = "";
+            expTitle.value = "";
+            expCat.value = "B";
+            expCost.value = "";
+        },
+        error: function(response) {
+            showAlert(response);
+        }
+    });
 }
 
