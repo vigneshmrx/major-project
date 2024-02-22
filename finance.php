@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (!isset($_SESSION["logged_in"])) {
+    header("location: login.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +113,7 @@ session_start();
         <div id="log-expense-popup-bx">
             <div id="log-expense-heading-area">
             <div class="log-expense-heading">LOG EXPENSES</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'book-box');">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'book-box', [4]);">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -281,29 +286,7 @@ session_start();
                     <div id="exp-notes-area">
                         <div id="exp-track-box">
                             <div id="exp-track-header">
-                                <div>NOTE MONTHLY EXPENSES</div>
-                                <div><?php 
-                                        $months_array = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                                        // echo strtoupper(date("M")) . " - " . date("Y"); 
-
-                                        $current_month = date("M");
-                                        
-                                        $output = "<select id='expense-months'>";
-
-                                        foreach ($months_array as $month) {
-                                            if ($month == $current_month) {
-                                                $output = $output . "<option value='$month' selected>" . strtoupper($month) . "</option>";
-                                                break;
-                                            } else {
-                                                $output = $output . "<option value='$month'>" . strtoupper($month) . "</option>";
-                                            }
-                                        }
-
-                                        $output = $output . "</select>";
-
-                                        echo $output . " - " . date("Y");
-                                    ?>
-                                </div>
+                                
                             </div>
 
                             <div id="exp-track-content">

@@ -272,9 +272,14 @@ session_start();
             }
 
             if ($adding_user_success) {
-                $_SESSION["user_name"] = $full_name;
-                $_SESSION["db_name"] = $db_name;
-                $_SESSION["email"] = $email;
+                // $_SESSION["user_name"] = $full_name;
+                // $_SESSION["db_name"] = $db_name;
+                // $_SESSION["email"] = $email;
+                $_SESSION["logged_in"] = true;
+
+                echo "<script>localStorage.setItem('userName', '$full_name');</script>";
+                echo "<script>localStorage.setItem('dbName', '$db_name');</script>";
+                echo "<script>localStorage.setItem('emailID', '$email');</script>";
                 
                 die("<script>loginSuccess();</script>");
             } else {

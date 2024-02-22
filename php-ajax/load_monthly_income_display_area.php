@@ -2,7 +2,7 @@
 
 session_start();
 
-include './connect.php';
+include '../connect.php';
 
 date_default_timezone_set("Asia/Kolkata");
 
@@ -24,7 +24,7 @@ if ($this_month_income_q -> num_rows > 0) {
     $this_month_income = $thirty_percent_of_income = $fifty_percent_of_income = $twenty_percent_of_income = 0;
 }
 
-echo '<div id="monthly-income-bx">' . 'MONTHLY INCOME' . '<div id="m-income-amt"><span class="money">' . $this_month_income . '</span></div>' . '<div class="individual-element-btn-area"><input type="button" value="MODIFY INCOME" onclick="showModifyIncomeBox();" style="font-size: 12px; padding: 5px 10px;" ></div></div>' . '<div id="monthly-income-div-bx">' . 'INCOME DIVISION' . '<div id="m-income-div-amt">' . '50%: ' . $fifty_percent_of_income . '<br>30%: ' . $thirty_percent_of_income . '<br>20%: ' . $twenty_percent_of_income . '</div>';
+echo '<div id="monthly-income-bx">' . 'MONTHLY INCOME' . '<div id="m-income-amt"><span class="money">' . $this_month_income . '</span></div>' . '<div class="individual-element-btn-area"><input type="button" value="MODIFY INCOME" onclick="showModifyIncomeBox();" style="font-size: 12px; padding: 5px 10px;" ></div></div>' . '<div id="monthly-income-div-bx">' . 'INCOME DIVISION' . '<div id="m-income-div-amt">' . '<span class="money">50%</span>: <span class="money">' . $fifty_percent_of_income . '</span> <br><span class="money">30%</span>: <span class="money">' . $thirty_percent_of_income . '</span> <br><span class="money">20%</span>: <span class="money">' . $twenty_percent_of_income . '</span> </div>';
 
 // function addZeros($theNumber) {
 //     $length = strlen($theNumber);

@@ -1,11 +1,12 @@
 <?php
 session_start();
 
-include './connect.php';
+include '../connect.php';
 
 $book_name = $_POST["book_name"];
 $book_author = $_POST["book_author"];
 $status = $_POST["status"];
+$db_name = $_POST["db_name"];
 
 if (isset($_POST["year"])) {
     $year = $_POST["year"];
@@ -13,7 +14,9 @@ if (isset($_POST["year"])) {
     $year = date("Y");
 }
 
-mysqli_select_db($con, $_SESSION["db_name"]);
+// mysqli_select_db($con, $_SESSION["db_name"]);
+
+mysqli_select_db($con, $db_name);
 
 $check_if_already_exists_q = mysqli_query($con, "select * from bookshelf where BookName = '$book_name' and Author = '$book_author';");
 

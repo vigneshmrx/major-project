@@ -1,9 +1,11 @@
 <?php
 session_start();
 
-include './connect.php';
+include '../connect.php';
 
-$email = $_SESSION["email"];
+// $email = $_SESSION["email"];
+$email = $_POST["email"];
+$db_name = $_POST["db_name"];
 
 mysqli_select_db($con, "prodo_db");
 
@@ -15,7 +17,8 @@ $row = mysqli_fetch_assoc($get_users_reading_goal);
 $yearly_reading_goal = $row["reading_goals"];
 
 
-mysqli_select_db($con, $_SESSION["db_name"]);
+// mysqli_select_db($con, $_SESSION["db_name"]);
+mysqli_select_db($con, $db_name);
 
 $present_year = date("Y");
 
@@ -39,5 +42,9 @@ if ($yearly_reading_goal == 0) {
 echo "YEARLY GOALS: " . "<div id='goals-counter'> $completed_books_count / $yearly_reading_goal </div>" . 
     "PROGRESS: " . "<div id='goal-progress-bar-area'>" . "<div id='progress-bar'>" . 
     "<div id='progress-bar-value' style='width: $width_of_progress_bar%;'>" . "</div></div>" . 
-    "<div id='progress-bar-value-count'>" . ($width_of_progress_bar >= 10? $width_of_progress_bar : "0" . $width_of_progress_bar) . "%" . "</div></div>";
+    "<div id='progress-bar-value-count'>" . ($width_of_progress_bar >= 10 ? $width_of_progress_bar : ($width_of_progress_bar == 0 ? 0 : "0" . $width_of_progress_bar)) . "%" . "</div></div>";
 ?>
+
+
+
+<!-- ($width_of_progress_bar >= 10? $width_of_progress_bar : "0" . $width_of_progress_bar) . "%" . "</div></div>"; -->

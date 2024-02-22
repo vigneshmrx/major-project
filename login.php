@@ -161,10 +161,17 @@ session_start();
 
                         $full_name = $row["name"];
 
-                        $_SESSION["user_name"] = $full_name;
-                        $_SESSION["db_name"] = $db_name;
-                        $_SESSION["email"] = $email;
-                        echo "session is set";
+                        // $_SESSION["user_name"] = $full_name;
+                        // $_SESSION["db_name"] = $db_name;
+                        // $_SESSION["email"] = $email;
+                        // echo "session is set";
+
+                        $_SESSION["logged_in"] = true;
+
+                        echo "<script>localStorage.setItem('userName', '$full_name');</script>";
+                        echo "<script>localStorage.setItem('dbName', '$db_name');</script>";
+                        echo "<script>localStorage.setItem('emailID', '$email');</script>";
+                        
                         echo "<script>loginSuccess();</script>";
                     } else {
                         echo "<script>pwdErr();</script>";

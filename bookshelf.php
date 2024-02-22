@@ -3,13 +3,9 @@ session_start();
 
 include './connect.php';
 
-if (!isset($_SESSION["db_name"])) {
+if (!isset($_SESSION["logged_in"])) {
     header("location: login.php");
-} else {
-    mysqli_select_db($con, $_SESSION["db_name"]);
 }
-
-
 // echo $_SESSION["db_name"];
 ?>
 
@@ -74,7 +70,7 @@ if (!isset($_SESSION["db_name"])) {
         <div id="add-book-popup-box">
             <div class="add-book-heading-area">
                 <div class="add-book-heading">ADD BOOK</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'book-box');">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'book-box', [2, 3]);">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -103,7 +99,7 @@ if (!isset($_SESSION["db_name"])) {
         <div id="modify-read-goals-popup-box">
         <div class="modify-read-goals-heading-area">
                 <div class="modify-read-goals-heading">MODIFY READING GOALS</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'target-box');">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'target-box', [1]);">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -220,7 +216,7 @@ if (!isset($_SESSION["db_name"])) {
                     <div class="right-box">
                         <div class="to-read-heading-area">
                             <!-- THis is flex -->
-                            <div class="to-read-title">READLIST</div>
+                            <div class="to-read-title">READ LIST</div>
                             <div class="to-read-year">
                                 <?php echo date("Y"); ?>
                             </div>
@@ -371,7 +367,7 @@ if (!isset($_SESSION["db_name"])) {
             }
 
             if (bkYearInputField.style.display == "none") {
-                bkYearInputField.style.display = bkYearInputField.previousElementSibling.previousElementSibling.style.display = bkYearInputField.previousElementSibling.style.display = bkYearInputField.nextElementSibling.nextElementSibling.style.display =  bkYearInputField.nextElementSibling.style.display = "block";
+                bkYearInputField.style.display = bkYearInputField.previousElementSibling.previousElementSibling.style.display =  bkYearInputField.nextElementSibling.nextElementSibling.style.display =  bkYearInputField.nextElementSibling.style.display = "block";
             }
         }
     }

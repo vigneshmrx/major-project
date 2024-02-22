@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-include './connect.php';
+include '../connect.php';
 
-$db_name = $_SESSION["db_name"];
+// $db_name = $_SESSION["db_name"];
+$db_name = $_POST["db_name"];
 $book_name = $_POST["book_name"];
 $author = $_POST["book_author"];
 

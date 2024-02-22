@@ -2,18 +2,22 @@
 
 session_start();
 
-include './connect.php';
+include '../connect.php';
 
-mysqli_select_db($con, $_SESSION["db_name"]);
+// mysqli_select_db($con, $_SESSION["db_name"]);
+
 
 $income = $_POST["income"];
 $month = $_POST["month"];
 $bonus = $_POST["bonus"];
 $year = date("Y");
+$db_name = $_POST["db_name"];
 
 $fifty_percent = ($income * 50) / 100;
 $thirty_percent = ($income * 30) / 100;
 $twenty_percent = ($income * 20) / 100;
+
+mysqli_select_db($con, $db_name);
 
 try {
     $check_if_monthly_income_exists_q = mysqli_query($con, "select * from finance where Month = '$month' and Year = $year;");

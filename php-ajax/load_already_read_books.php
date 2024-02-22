@@ -1,8 +1,11 @@
 <?php
     session_start();
-    include './connect.php';
+    include '../connect.php';
 
-    mysqli_select_db($con, $_SESSION["db_name"]);
+    $db_name = $_POST["db_name"];
+
+    // mysqli_select_db($con, $_SESSION["db_name"]);
+    mysqli_select_db($con, $db_name);
 
     // GLOBAL $con;
 
@@ -25,9 +28,14 @@
                 <div class="book-info-name">' . $row["BookName"] . '</div>
                 <div class="book-info-author">' . $row["Author"] . '</div>
             </div>
-            <div class="book-info-action" style="width: 5%;">
+            <div class="book-info-action">
+                <div class="add-to-readlist-icon" onclick="addToReadlist(this);" style="height: 30px;">
+                    <abbr title="add to Read list">
+                    <img src="./icons/icons8-redo-50.png" width="30" height="30"></abbr>
+                </div>
                 <div class="remove-book-icon" onclick="removeThisFromDb(this);" style="height: 30px;">
-                    <img src="./icons/icons8-close-64.png" alt="" width="30" height="30">
+                    <abbr title="Remove book">
+                    <img src="./icons/icons8-close-64.png" alt="" width="30" height="30"></abbr>
                 </div>
             </div>
         </div>';

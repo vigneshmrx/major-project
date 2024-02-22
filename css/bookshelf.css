@@ -195,14 +195,15 @@
 }
 
 .done-reading-icon, 
-.remove-book-icon {
+.remove-book-icon,
+.add-to-readlist-icon {
     cursor: pointer;
 }
 
-.done-reading-icon:hover,
+/* .done-reading-icon:hover,
 .remove-book-icon:hover {
     background-color: grey;
-}
+} */
 
 #year-select-drop-down {
     /* background-color: var(--main-black); */

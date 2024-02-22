@@ -1,3 +1,7 @@
+const dbName = localStorage.getItem("dbName");
+const userName = localStorage.getItem("userName");
+const emailID = localStorage.getItem("emailID");
+
 //to add book to the DB
 const addBooktoDB = (bookStatus) => {
     let bookName = document.getElementById("bkName");
@@ -16,18 +20,24 @@ const addBooktoDB = (bookStatus) => {
 
     $.ajax({
         type: "POST",
-        url: "./add_book.php",
+        url: "../major-project/php-ajax/add_book.php",
         data: {
             book_name: bookName.value,
             book_author: bookAuthor.value,
             status: bookStatus,
-            year: bookYear.value
+            year: bookYear.value,
+            db_name: dbName
         },
-        success: function() {
+        success: function(response) {
+            // showAlert(response);
             showAlert("The book: <i>" + bookName.value.toUpperCase() + "</i>, added successfully");
             bookName.value = "";
             bookAuthor.value = "";
             bookYear.value = "";
+
+            if (bookStatus == "completed") {
+                readingGoalModifierFun();
+            }
         }
     }); //ajax call to add book to the database using php
 
@@ -40,7 +50,10 @@ const loadToReadContentArea = () => {
     //ajax call to load the to read content area
     $.ajax({
         type: "POST",
-        url: "./load_to_read_books.php",
+        url: "../major-project/php-ajax/load_to_read_books.php",
+        data: {
+            db_name: dbName
+        },
         success: function(response) {
             toReadContentAreaDiv.innerHTML = response;
         }
@@ -81,9 +94,10 @@ const loadAlreadyReadBooks = () => {
 
     $.ajax({
         type: "POST", 
-        url: "./load_already_read_books.php",
+        url: "../major-project/php-ajax/load_already_read_books.php",
         data: {
-            selected_drop_down_year : selectedDropDownYear
+            selected_drop_down_year : selectedDropDownYear,
+            db_name: dbName
         },
         success: function(response) {
             document.getElementsByClassName("already-read-content-area")[0].innerHTML = response;
@@ -98,10 +112,14 @@ const loadAlreadyReadBooks = () => {
 const readingGoalModifierFun = () => {
     let goalsContentArea = document.getElementsByClassName("content-area")[0];
 
-    //call to display the modified yearly reading goal along wiht progress bar
+    //call to display the modified yearly reading goal along with progress bar
     $.ajax({
         type: "POST",
-        url: "./reflect_yearly_reading_goals.php",
+        url: "../major-project/php-ajax/reflect_yearly_reading_goals.php",
+        data: {
+            email: emailID,
+            db_name: dbName
+        },
         success: function (response) {
             goalsContentArea.innerHTML = response;
             // alert(response);
@@ -125,13 +143,15 @@ const changeStatusToCompleted = (objRef) => {
         url: "./change_book_status.php",
         data: {
             book_name: bookName,
-            book_author: bookAuthor
+            book_author: bookAuthor,
+            db_name: dbName
         },
         success: function() {
             // location.reload();
             loadToReadContentArea();
             loadAlreadyReadBooks();
             readingGoalModifierFun();
+            showAlert("Book status modified!");
         }
     }); //ajax call to change book status to 'completed' in the database
 }
@@ -146,10 +166,11 @@ const removeThisFromDb = (objRef) => {
 
     $.ajax({
         type: "POST",
-        url: "./remove_book_from_db.php",
+        url: "../major-project/php-ajax/remove_book_from_db.php",
         data: {
             book_name: bookName,
-            book_author: bookAuthor
+            book_author: bookAuthor,
+            db_name: dbName
         },
         success: function () {
             // location.reload();
@@ -161,20 +182,42 @@ const removeThisFromDb = (objRef) => {
     }); //ajax call to remove this book from the database
 }
 
+const addToReadlist = (objRef) => {
+    let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
+    let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
+
+    $.ajax({
+        type: "POST",
+        url: "../major-project/php-ajax/add_to_readlist.php",
+        data: {
+            book_name: bookName,
+            book_author: bookAuthor,
+            db_name: dbName
+        },
+        success: function() {
+            showAlert("Book status modified!");
+            loadAlreadyReadBooks();
+            loadToReadContentArea();
+            readingGoalModifierFun();
+        }
+    })
+}
+
 //to modify the yearly reading target / goal
 const modifyReadingTarget = () => {
     let targetCount = document.getElementById("bkReadingGoals");
 
-    if (targetCount.value == null || targetCount.value == "") {
-        alert("Please enter the required details before submitting");
+    if (targetCount.value == null || targetCount.value == "" || targetCount.value == 0) {
+        showAlert("Please enter an appropriate value before submitting");
         return;
     }
 
     $.ajax({
         type: "POST",
-        url: "./modify_reading_target.php",
+        url: "../major-project/php-ajax/modify_reading_target.php",
         data: {
-            target_count: targetCount.value
+            target_count: targetCount.value,
+            email: emailID
         },
         async: true,
         success: function(response) {
@@ -193,7 +236,7 @@ loadToReadContentArea();
 loadAlreadyReadBooks();
 readingGoalModifierFun();
 
-let selectedYear = document.getElementById("year-select-drop-down");
+// let selectedYear = document.getElementById("year-select-drop-down");
 
 const yearChangeFun = (event) => {
     sessionStorage.setItem("selected-drop-down-year", event.target.value);

@@ -29,7 +29,7 @@ const popUpBgFun = () => {
     }
 }
 
-const removePopUp = (closeBtnObjRef, boxName) => {
+const removePopUp = (closeBtnObjRef, boxName, funArray) => {
     // console.log(closeBtnObjRef.parentElement.parentElement.parentElement);
 
     let topParent = closeBtnObjRef.parentElement.parentElement.parentElement;
@@ -39,12 +39,27 @@ const removePopUp = (closeBtnObjRef, boxName) => {
 
     popUpBgFun(); // to get the bg page back to -100 z index
 
-    if (boxName != null || boxName != undefined) {
-        // location.reload();
-        readingGoalModifierFun();
-        loadToReadContentArea();
-        loadAlreadyReadBooks();
-    }
+    // if (boxName != null || boxName != undefined) {
+    //     // location.reload();
+    //     readingGoalModifierFun();
+    //     loadToReadContentArea();
+    //     loadAlreadyReadBooks();
+    // }
+
+    funArray.forEach(element => {
+        switch (element) {
+            case 1: readingGoalModifierFun();
+                    break;
+
+            case 2: loadToReadContentArea();
+                    break;
+
+            case 3: loadAlreadyReadBooks();
+                    break;
+            case 4: loadLoggedExpense();
+                    break;
+        }
+    });
 }
 
 
