@@ -6,10 +6,13 @@ include '../connect.php';
 
 date_default_timezone_set("Asia/Kolkata");
 
-mysqli_select_db($con, $_SESSION["db_name"]);
+// mysqli_select_db($con, $_SESSION["db_name"]);
 
 $current_month = date("F");
 $current_year = date("Y");
+$db_name = $_POST["db_name"];
+
+mysqli_select_db($con, $db_name);
 
 $this_month_income_q = mysqli_query($con, "select * from finance where Year = $current_year and Month = '$current_month';");
 

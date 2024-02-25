@@ -5,6 +5,7 @@ session_start();
 include '../connect.php';
 
 $db_name = $_POST["db_name"];
+$status = "completed";
 
 // mysqli_select_db($con, $_SESSION["db_name"]);
 
@@ -28,8 +29,8 @@ if ($books_to_read_q->num_rows > 0) {
             <div class="book-info-name">' . $row["BookName"] . '</div>
             <div class="book-info-author">' . $row["Author"] . '</div>
         </div>
-        <div class="book-info-action">
-            <div class="done-reading-icon" onclick="changeStatusToCompleted(this);" style="height: 30px;">
+        <div class="book-info-action" id="' . $row["SNo"] . '">
+            <div class="done-reading-icon" onclick="changeBookStatus(this);" style="height: 30px;">
                 <abbr title="Completed reading">
                 <img src="./icons/icons8-normal-tick-60.png" alt="" width="30"></abbr>
             </div>
@@ -41,7 +42,7 @@ if ($books_to_read_q->num_rows > 0) {
     </div>';
     }
 } else {
-    echo "No books to read!!";
+    echo '<div class="no-content-grid-toggle">NO BOOKS IN READ LIST!</div>';
 }
 // }
 

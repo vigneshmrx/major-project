@@ -9,6 +9,9 @@ const loadMonthlyIncomeDisplayArea = () => {
     $.ajax({
         type: "POST",
         url: "../major-project/php-ajax/load_monthly_income_display_area.php",
+        data: {
+            db_name: dbName
+        },
         success: function(response) {
             monthlyIncomeArea.innerHTML = response;
         }
@@ -62,17 +65,18 @@ const addNewIncomeToDb = () => {
     }
 }
 
-const addExpenseToDb = (uniqueID) => {
+const addExpenseToDb = () => {
     let expDate = document.getElementById("expenseDate");
     let expTitle = document.getElementById("expenseTitle");
     let expCost = document.getElementById("expenseCost");
     let expCat = document.querySelector( 'input[name="cat"]:checked');   
     let month;
+    const uniqueId = parseInt(document.getElementsByClassName("expLogForm")[0].id);
 
     // alert("CHecked value = " + expCat.value);
     // console.log("DATE: " + expDate.value)
 
-    if ( expTitle.value == "" || expTitle.value == null || expCost.value == null || expCost.value == "") {
+    if (expTitle.value == "" || expTitle.value == null || expCost.value == null || expCost.value == "") {
         showAlert("Please enter all the necessary details!");
         return;
     }
@@ -96,10 +100,13 @@ const addExpenseToDb = (uniqueID) => {
     // showAlert(month);
     // alert("Month: " + month);
 
-    uniqueID = uniqueID == null || uniqueID == undefined ? 0 : uniqueID;
+    // uniqueId = (uniqueId == null || uniqueId == undefined ? 0 : uniqueId);
 
     //setting the correct index for monthsArray
     month != 0 ? month = month - 1 : month = month;
+
+    console.log("Unqiue id: " + uniqueId);
+    console.log("Cat: " + expCat.value);
 
 
     $.ajax({
@@ -110,16 +117,17 @@ const addExpenseToDb = (uniqueID) => {
             exp_title: expTitle.value,
             cost: expCost.value,
             exp_category: expCat.value,
-            unique_id: uniqueID,
+            unique_id: uniqueId,
             db_name: dbName,
             month: monthsArray[month]
         },
         success: function(response) {
-            // showAlert(response);
+            // alert(response);
             // return;
-            expDate.value = "yyyy-mm-dd";
+            expDate.value = new Date().toJSON().slice(0, 10);
             expTitle.value = "";
-            expCat.value = "B";
+            // expCat.value = "B";
+            Array.from(document.querySelectorAll("input[name='cat']"))[1].checked = true;
             expCost.value = "";
             showAlert("Expese logged successfully!")
         },
@@ -138,7 +146,7 @@ const loadLoggedExpense = () => {
 
     let currentMonth = new Date().getMonth();
 
-    let expTrackHeaderContent = `<div>NOTE MONTHLY EXPENSES</div><div><select id='expense-months' onchange='monthChangeFun(event);'>`;
+    let expTrackHeaderContent = `<div>LOG EXPENSES</div><div><select id='expense-months' onchange='monthChangeFun(event);'>`;
 
     if (sessionStorage.getItem("selected-exp-month") == null || sessionStorage.getItem("selected-exp-month") == undefined) {
         sessionStorage.setItem("selected-exp-month", monthsArray[currentMonth]);
@@ -187,4 +195,44 @@ loadLoggedExpense();
 const monthChangeFun = (event) => {
     sessionStorage.setItem("selected-exp-month", event.target.value);
     loadLoggedExpense();
+}
+
+const removeThisExpFromDb = (objRef) => {
+    const recUniqueId = parseInt(objRef.parentElement.id);
+    console.log(recUniqueId);
+
+    $.ajax({
+        type: "POST",
+        url: "../major-project/php-ajax/remove_from_db.php",
+        data: {
+            unique_id: recUniqueId,
+            db_name: dbName,
+            table_name: "monthly_expense"
+        },
+        success: function(response) {
+            loadLoggedExpense();
+            // alert(response);
+        },
+        error: function(response) {
+            alert(response);
+        }
+    })
+} 
+
+const editThisExp = (objRef) => {
+    // const recUniqueId = parseInt(objRef.parentElement.id);
+    const recUniqueId = objRef.parentElement.id;
+    const expDate = objRef.parentElement.parentElement.parentElement.firstChild.firstChild.innerHTML; //getting the expense date
+
+    // let monthInNumb = parseInt(expDate.slice(5, 7));
+
+    // const month = monthsArray[monthInNumb == 0 ? 0 : monthInNumb - 1];
+
+    const expDesc = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
+    const cost = parseFloat(objRef.parentElement.previousElementSibling.lastElementChild.firstChild.innerHTML);
+    const expCategory = objRef.parentElement.previousElementSibling.lastElementChild.id;
+
+    console.log(expDate + "\n" + expDesc + "\n" + cost + "\n" + recUniqueId + "\n" + expCategory);
+
+    showLogExpensePopup(recUniqueId, expDate, expDesc, cost, expCategory);
 }

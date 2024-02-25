@@ -13,9 +13,11 @@
 
     if ($finding_logged_exp_q -> num_rows > 0) {
         while ($row = mysqli_fetch_assoc($finding_logged_exp_q)) {
-            echo '<div class="exp-info-box"><div class="exp-info-date"><div class="date-box">' . $row["Date"] . '</div></div>' . '<div class="exp-info-area"><div class="exp-info-left-area">' . $row["TitleOfExpense"] . '<div class="cost-box">' . $row["Cost"] . '</div></div>' . '<div class="exp-info-right-area"><div class="modify-exp-icon" style="height: 30px;">' . '<abbr title="edit"><img src="./icons/icons8-edit-60.png" alt="" style="width: 30px;"></abbr>' . '</div>' . '<div class="remove-exp-icon" style="height: 30px;"><abbr title="delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>' . '</div></div></div></div>';
+            $category = $row["Category"];
+
+            echo '<div class="exp-info-box"><div class="exp-info-date"><div class="date-box">' . $row["Date"] . '</div></div>' . '<div class="exp-info-area"><div class="exp-info-left-area"><div>' . $row["TitleOfExpense"] . '</div><div class="cost-box" id="' . $category . '"><span class="money" style="font-weight: normal;">' . $row["Cost"] . '</span></div></div>' . '<div class="exp-info-right-area" id="' . $row["SNo"] . '"><div class="modify-exp-icon" style="height: 30px;" onclick="editThisExp(this)">' . '<abbr title="edit"><img src="./icons/icons8-edit-60.png" alt="" style="width: 30px;"></abbr>' . '</div>' . '<div class="remove-exp-icon" style="height: 30px;" onclick="removeThisExpFromDb(this);"><abbr title="delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>' . '</div></div></div></div>';
         }
     } else {
-        echo 'No expense added yet!';
+        echo '<div class="no-content-grid-toggle">NO EXPENSE LOGGED FOR THIS MONTH!</div>';
     }
 ?>

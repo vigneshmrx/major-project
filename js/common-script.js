@@ -57,6 +57,10 @@ const removePopUp = (closeBtnObjRef, boxName, funArray) => {
             case 3: loadAlreadyReadBooks();
                     break;
             case 4: loadLoggedExpense();
+                    document.getElementById("expenseDate").value = new Date().toJSON().slice(0, 10);
+                    document.getElementById("expenseTitle").value = "";
+                    document.getElementById("expenseCost").value = "";
+                    Array.from(document.querySelectorAll("input[name='cat']"))[1].checked = true;
                     break;
         }
     });
@@ -68,7 +72,7 @@ const logOutBoxFun = () => {
 
     let logOutPage = document.getElementById("log-out-page");
 
-    console.log("INSIDE THE FUN");
+    // console.log("INSIDE THE FUN");
 
     if (logOutPage.style.visibility == "visible") {
         logOutPage.style.visibility = "hidden";
@@ -89,6 +93,7 @@ const logoutFromHere = () => {
         success: function() {
             // console.log("IT was a success");
             sessionStorage.clear();
+            localStorage.clear();
             location.href = "login.php";
         }
     });

@@ -84,7 +84,7 @@ session_start();
         <div class="left-area">
             <div class="greeting-area">
                 Welcome back to <br>
-                <span class="checkmate">ProDo</span>!
+                <span class="prodo">ProDo</span> !
             </div>
         </div>
         <div class="right-area">

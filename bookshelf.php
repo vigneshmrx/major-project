@@ -175,7 +175,7 @@ if (!isset($_SESSION["logged_in"])) {
         </div>
         
         <div id="main-heading">
-            <?php echo $_SESSION["user_name"]; ?>'s Bookshelf
+            
         </div>
 
         <div id="underline-box"></div>
@@ -251,9 +251,15 @@ if (!isset($_SESSION["logged_in"])) {
                             <!-- Values here are inserted using JS + PHP (AJAX) -->
                         </div>
 
-                        <div class="individual-element-btn-area">
-                            <input type="button" value="ADD BOOK" onclick="showAddBookPopUp('two');"
-                                style="font-size: 12px; padding: 5px 10px;">
+                        <div style="height: 15%; display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div class="">
+                                <input type="button" value="ADD BOOK" onclick="showAddBookPopUp('two');"
+                                    style="font-size: 12px; padding: 5px 10px;">
+                            </div>
+                            <div class="show-more-details">
+                                See More Details
+                                <img src="./icons/icons8-right-arrow-50_black.png" alt="" class="show-more-details-arrow" style="margin-top: 3px;">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -325,6 +331,9 @@ if (!isset($_SESSION["logged_in"])) {
 
     //to display quote
     displayQuote(quotesObj, "bookshelfPage");
+
+    //show heading
+    document.getElementById("main-heading").innerHTML = localStorage.getItem("userName") + "'s Bookshelf";
 
     let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
     // toReadContentArea.classList.toggle("grid-toggle"); 

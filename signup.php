@@ -96,8 +96,8 @@ session_start();
         <div class="left-area">
             <div class="greeting-area">
                 Welcome to
-                <span class="checkmate">ProDo</span>.<br>
-                Your ultimate productivity assistant.
+                <span class="prodo">ProDo</span> !<br>
+                Your ultimate personal productivity assistant.
             </div>
         </div>
         <div class="right-area">

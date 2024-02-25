@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap');
+
 body {
     background: var(--main-white);
     font-family: "Roboto Mono";
@@ -27,9 +29,12 @@ body {
 }
 
 .greeting-area {
-    font-size: 80px;
-    font-family: 'Dancing Script', cursive;
+    font-size: 70px;
+    /* font-family: 'Dancing Script', cursive; */
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
     max-width: 90%;
+    text-align: center;
 }
 
 .form-area {
@@ -131,8 +136,9 @@ input[type=submit] {
     text-align: center;
 }
 
-.checkmate {
-    font-family: 'Dancing Script', cursive;
+
+.prodo {
+    font-family: 'Skyscapers';
+    font-weight: normal;
     color: var(--indigo);
-    /* font-style: none; */
 }

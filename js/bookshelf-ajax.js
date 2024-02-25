@@ -8,7 +8,7 @@ const addBooktoDB = (bookStatus) => {
     let bookAuthor = document.getElementById("author");
 
     if (bookName.value == "" || bookName.value == null || bookAuthor.value == "" || bookAuthor.value == null) {
-        alert("Please enter valid details before submitting");
+        showAlert("Please enter valid details before submitting");
         return;
     }
 
@@ -131,46 +131,47 @@ const readingGoalModifierFun = () => {
 // readingGoalModifierFun();
 
 //to change ths status of a 'to-read' book to 'completed'
-const changeStatusToCompleted = (objRef) => {
-    let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-    let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
+// const changeStatusToCompleted = (objRef) => {
+//     let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
+//     let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
 
-    console.log("BOOk Name: " + bookName);
-    console.log("Author: " + bookAuthor);
+//     console.log("BOOk Name: " + bookName);
+//     console.log("Author: " + bookAuthor);
 
-    $.ajax({
-        type: "POST",
-        url: "./change_book_status.php",
-        data: {
-            book_name: bookName,
-            book_author: bookAuthor,
-            db_name: dbName
-        },
-        success: function() {
-            // location.reload();
-            loadToReadContentArea();
-            loadAlreadyReadBooks();
-            readingGoalModifierFun();
-            showAlert("Book status modified!");
-        }
-    }); //ajax call to change book status to 'completed' in the database
-}
+//     $.ajax({
+//         type: "POST",
+//         url: "../major-project/php-ajax/change_book_status.php",
+//         data: {
+//             book_name: bookName,
+//             book_author: bookAuthor,
+//             db_name: dbName
+//         },
+//         success: function() {
+//             // location.reload();
+//             loadToReadContentArea();
+//             loadAlreadyReadBooks();
+//             readingGoalModifierFun();
+//             showAlert("Book status modified!");
+//         }
+//     }); //ajax call to change book status to 'completed' in the database
+// }
 
 //to remove this book from the DB
 const removeThisFromDb = (objRef) => {
     // let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-    let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-    let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
+    // let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
+    // let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
+    let uniqueID = parseInt(objRef.parentElement.id);
 
-    console.log(bookName);
+    // console.log(uniqueID);
 
     $.ajax({
         type: "POST",
-        url: "../major-project/php-ajax/remove_book_from_db.php",
+        url: "../major-project/php-ajax/remove_from_db.php",
         data: {
-            book_name: bookName,
-            book_author: bookAuthor,
-            db_name: dbName
+            db_name: dbName,
+            table_name: "bookshelf",
+            unique_id: uniqueID
         },
         success: function () {
             // location.reload();
@@ -182,17 +183,18 @@ const removeThisFromDb = (objRef) => {
     }); //ajax call to remove this book from the database
 }
 
-const addToReadlist = (objRef) => {
-    let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-    let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
+const changeBookStatus = (objRef) => {
+    // let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
+    // let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
+
+    const uniqueID = parseInt(objRef.parentElement.id);
 
     $.ajax({
         type: "POST",
-        url: "../major-project/php-ajax/add_to_readlist.php",
+        url: "../major-project/php-ajax/change_bk_status.php",
         data: {
-            book_name: bookName,
-            book_author: bookAuthor,
-            db_name: dbName
+            db_name: dbName,
+            unique_id: uniqueID
         },
         success: function() {
             showAlert("Book status modified!");

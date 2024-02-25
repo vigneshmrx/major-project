@@ -120,7 +120,7 @@ if (!isset($_SESSION["logged_in"])) {
 
             <hr class="popup-box-hr">
 
-            <form action="#">
+            <form action="#" class="expLogForm">
                 <label for="expenseDate">Date of Spending:</label> <br>
                 <input type="date" name="expenseDate" id="expenseDate"> <br><br>
 
@@ -192,7 +192,7 @@ if (!isset($_SESSION["logged_in"])) {
         </div>
 
         <div id="main-heading">
-            <?php echo $_SESSION["user_name"]; ?>'s Finance Manager
+            
         </div>
 
         <div id="underline-box"></div>
@@ -384,6 +384,11 @@ if (!isset($_SESSION["logged_in"])) {
                                 <div class="individual-element-btn-area" style="height: auto;"> <!-- style="display: flex; justify-content: flex-start; align-items: end;" -->
                                     <input type="button" value="ADD EXPENSE" style="font-size: 12px; padding: 5px 10px;" onclick="showLogExpensePopup();">
                                 </div>
+
+                                <div class="show-more-details">
+                                    See Detailed Expense Log
+                                    <img src="./icons/icons8-right-arrow-50_black.png" alt="" class="show-more-details-arrow">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -406,6 +411,9 @@ if (!isset($_SESSION["logged_in"])) {
         
             //to display quote
         displayQuote(quotesObj, "financePage");
+
+        //show heading
+        document.getElementById("main-heading").innerHTML = localStorage.getItem("userName") + "'s Finance Manager";
         
 
         const showModifyIncomeBox = () => {
@@ -418,14 +426,41 @@ if (!isset($_SESSION["logged_in"])) {
             modifyIncomePopupPage.style.zIndex = 150;
         }
 
-        const showLogExpensePopup = () => {
+        const showLogExpensePopup = (recUniqueId, expDate, expDesc, cost, expCategory) => {
             popUpBgFun();
 
             let logExpensePopupPage  = document.getElementById("log-expense-popup-pg");
 
             logExpensePopupPage.style.visibility = "visible";
             logExpensePopupPage.style.zIndex = 150;
+
+            if (recUniqueId != null) {
+                document.getElementById("expenseDate").value = expDate;
+
+                document.getElementById("expenseTitle").value = expDesc;
+
+                document.getElementById("expenseCost").value = cost;
+
+                document.getElementsByClassName("expLogForm")[0].id = recUniqueId;
+
+                let radioBtnArray = Array.from(document.querySelectorAll("input[name='cat']"));
+
+                radioBtnArray.forEach((btn) => {
+                    if (btn.id == expCategory) {
+                        btn.checked = true;
+                        return;
+                    }
+                });
+            } else {
+                document.getElementsByClassName("expLogForm")[0].id = "0";
+            }
         }
+
+        Array.from(document.querySelectorAll("input[name='cat']")).forEach((ele) => {
+            ele.addEventListener("click", () => {
+                console.log(ele);
+            })
+        })
     </script>
     <script src="./js/calendar.js"></script>
 </body>

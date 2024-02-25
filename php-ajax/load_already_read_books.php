@@ -28,9 +28,9 @@
                 <div class="book-info-name">' . $row["BookName"] . '</div>
                 <div class="book-info-author">' . $row["Author"] . '</div>
             </div>
-            <div class="book-info-action">
-                <div class="add-to-readlist-icon" onclick="addToReadlist(this);" style="height: 30px;">
-                    <abbr title="add to Read list">
+            <div class="book-info-action" id="' . $row["SNo"] . '">
+                <div class="add-to-readlist-icon" onclick="changeBookStatus(this);" style="height: 30px;">
+                    <abbr title="Add to Read List">
                     <img src="./icons/icons8-redo-50.png" width="30" height="30"></abbr>
                 </div>
                 <div class="remove-book-icon" onclick="removeThisFromDb(this);" style="height: 30px;">
@@ -41,7 +41,7 @@
         </div>';
         }
     } else {
-        echo 'No books read yet!!';
+        echo '<div class="no-content-grid-toggle">NO BOOKS READ THIS YEAR!</div>';
     }
 
 
