@@ -3,6 +3,9 @@ const userName = localStorage.getItem("userName");
 const emailID = localStorage.getItem("emailID");
 const monthsArray = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
+//setting today's date automatically
+document.getElementById("expenseDate").value = new Date().toJSON().slice(0, 10);
+
 const loadMonthlyIncomeDisplayArea = () => {
     let monthlyIncomeArea = document.getElementById("monthly-income-area");
 

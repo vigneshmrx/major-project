@@ -46,24 +46,26 @@ const removePopUp = (closeBtnObjRef, boxName, funArray) => {
     //     loadAlreadyReadBooks();
     // }
 
-    funArray.forEach(element => {
-        switch (element) {
-            case 1: readingGoalModifierFun();
-                    break;
-
-            case 2: loadToReadContentArea();
-                    break;
-
-            case 3: loadAlreadyReadBooks();
-                    break;
-            case 4: loadLoggedExpense();
-                    document.getElementById("expenseDate").value = new Date().toJSON().slice(0, 10);
-                    document.getElementById("expenseTitle").value = "";
-                    document.getElementById("expenseCost").value = "";
-                    Array.from(document.querySelectorAll("input[name='cat']"))[1].checked = true;
-                    break;
-        }
-    });
+    if (funArray != null) {
+        funArray.forEach(element => {
+            switch (element) {
+                case 1: readingGoalModifierFun();
+                        break;
+    
+                case 2: loadToReadContentArea();
+                        break;
+    
+                case 3: loadAlreadyReadBooks();
+                        break;
+                case 4: loadLoggedExpense();
+                        document.getElementById("expenseDate").value = new Date().toJSON().slice(0, 10);
+                        document.getElementById("expenseTitle").value = "";
+                        document.getElementById("expenseCost").value = "";
+                        Array.from(document.querySelectorAll("input[name='cat']"))[1].checked = true;
+                        break;
+            }
+        });
+    }
 }
 
 
@@ -144,4 +146,47 @@ const secondaryMenuFun = () => {
         secondaryMenu.style.transform = "translateX(-1000px)";
         secondaryMenu.style.visibility = "hidden";
     }
+}
+
+const showFullDetailsBx = (nameOfCat) => {
+    let showDetailsPg = document.getElementById("show-full-details-pg");
+
+    popUpBgFun();
+
+    showDetailsPg.style.visibility = "visible";
+    showDetailsPg.style.zIndex = 150;
+
+    
+}
+
+const contentToPdf = (pageName) => {
+    let content = document.getElementsByClassName("show-full-details-content-area")[0].innerHTML;
+
+    let pdfOutputPgHeading = "Expense Log";
+    let pdfOutputPgContentArea = document.getElementById("show-full-details-content-area-pdf-page");
+
+    let newPgOutput = `<div id="full-details-pg-heading">${pdfOutputPgHeading}</div>` + content;
+
+    sessionStorage.setItem("pdf-page-data", pageName);
+
+    
+    // pdfOutputPgContentArea.innerHTML = newPgOutput;
+    
+    
+    // $.ajax({
+    //     type: "POST",
+    //     url: "../major-project/content_to_pdf.php",
+    //     data: {
+    //         content: "expense"
+    //     },
+    //     success: function(response) {
+    //         alert(typeof(response));
+    //     },
+    //     error: function(response) {
+    //         alert(typeof(response));
+    //     }
+    // })
+    
+    location.replace("http://localhost:8080/major-project/content_to_pdf.php");
+
 }

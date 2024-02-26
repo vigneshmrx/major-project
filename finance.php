@@ -94,6 +94,7 @@ if (!isset($_SESSION["logged_in"])) {
                             foreach($months as $month) {
                                 if ($month == $current_month) {
                                     echo "<option value='$month' selected>$month</option>";
+                                    break;
                                 } else {
                                     echo "<option value='$month'>$month</option>";
                                 }
@@ -141,6 +142,177 @@ if (!isset($_SESSION["logged_in"])) {
                     style="width: 150px; margin-left: auto; margin-right: auto; display: block;"
                     onclick="addExpenseToDb();">
             </form>
+        </div>
+    </div>
+
+    <div id="show-full-details-pg">
+        <div id="show-full-details-bx">
+            <div id="show-full-details-heading-area">
+                <div id="show-full-details-heading">FULL DETAILS</div>
+                    <div class="close-pop-up-icon-area" onclick="removePopUp(this, []);">
+                        <img src="./icons/icons8-close-32.png" alt="">
+                    </div>
+                </div>
+
+                <hr class="popup-box-hr" style="width: 40%;" onclick="contentToPdf('expense');">
+
+                <div class="show-full-details-content-area">
+                    <table id="full-details-table" cellspacing="0">
+                        <tr>
+                            <th>SNo.</th>
+                            <th>Date</th>
+                            <th>Month</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Cost</th>
+                        </tr>
+
+                        <tr>
+                            <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+
+                        <tr>
+                        <td class="ten">1</td>
+                            <td class="ten">25/10</td>
+                            <td class="fifteen">February</td>
+                            <td class="ten">B (30%)</td>
+                            <td class="forty">Swimming + Lunch and many many many more stuffs including many stuffs</td>
+                            <td class="fifteen">365.00</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -231,7 +403,7 @@ if (!isset($_SESSION["logged_in"])) {
 
                     <div id="income-after-expense-area">
                         <div id="income-after-expense-bx">
-                            AFTER SPENDING
+                            REMAINING INCOME
 
                             <div id="af-exp-income-amt">
                                 <span class="money">15220</span>
@@ -385,7 +557,7 @@ if (!isset($_SESSION["logged_in"])) {
                                     <input type="button" value="ADD EXPENSE" style="font-size: 12px; padding: 5px 10px;" onclick="showLogExpensePopup();">
                                 </div>
 
-                                <div class="show-more-details">
+                                <div class="show-more-details" onclick="showFullDetailsBx('expense');">
                                     See Detailed Expense Log
                                     <img src="./icons/icons8-right-arrow-50_black.png" alt="" class="show-more-details-arrow">
                                 </div>

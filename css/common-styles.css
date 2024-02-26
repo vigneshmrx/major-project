@@ -448,3 +448,75 @@ label {
     margin-top: 5px;
     margin-left: 5px;
 }
+
+/* Show full details area styling */
+
+#show-full-details-pg {
+    z-index: -150;
+    position: fixed;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+#show-full-details-bx {
+    width: 80%;
+    height: 80%;
+    background-color: var(--main-white);
+    box-shadow: 11px 11px var(--main-black);
+    padding: var(--common-value);
+    border: 2px solid var(--main-black);
+    overflow: auto;
+}
+
+.show-full-details-content-area {
+    padding: 10px;
+}
+
+/* #show-full-details-heading-area {
+    position: sticky;
+    top: 0px;
+    background-color: var(--main-white);
+} */
+
+#full-details-table {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    background-color: var(--main-white);
+    border: 2px solid;
+}
+
+#full-details-table td, th {
+    /* border: 1px solid; */
+    padding: 10px;
+}
+
+#full-details-table td {
+    /* border-right: 1px solid;
+    border-left: 1px solid; */
+    border-bottom: 1px solid;
+}
+
+#full-details-table th {
+    background-color: var(--main-black);
+    color: var(--main-white);
+    text-transform: uppercase;  
+    font-weight: normal;
+}
+
+#full-details-table tr {
+    border-bottom: 2px solid;
+}
+
+/* <div id="show-full-details-heading-area">
+                <div id="modify-income-heading">MODIFY INCOME</div>
+                    <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
+                        <img src="./icons/icons8-close-32.png" alt="">
+                    </div>
+                </div>
+
+                <hr class="popup-box-hr">
+            </div> */
