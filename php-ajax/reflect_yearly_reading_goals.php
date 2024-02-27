@@ -9,7 +9,7 @@ $db_name = $_POST["db_name"];
 
 mysqli_select_db($con, "prodo_db");
 
-$get_users_reading_goal = mysqli_query($con, "select reading_goals from users where email='$email';");
+$get_users_reading_goal = mysqli_query($con, "select reading_goals from users_list where email='$email';");
 
 $row = mysqli_fetch_assoc($get_users_reading_goal);
 

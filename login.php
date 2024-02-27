@@ -140,7 +140,7 @@ session_start();
             }
 
             //email checking
-            $email_query = "select * from users where email='$email'";
+            $email_query = "select * from users_list where email='$email'";
             $email_res = mysqli_query($con, $email_query); //result is an associative array
 
             try {

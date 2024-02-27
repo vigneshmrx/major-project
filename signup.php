@@ -183,7 +183,7 @@ session_start();
             }
 
             //email checking
-            $email_query = "select * from users where email='$email'";
+            $email_query = "select * from users_list where email='$email'";
             $email_res = mysqli_query($con, $email_query); //result is an associative array
             
             try {
@@ -220,7 +220,7 @@ session_start();
             var_dump($full_name);
 
             //creating account for the user
-            $adding_user_query = "insert into users (name, email, password, role, reading_goals) values('$full_name', '$email', '$hashed_pwd', 'user', 0)";
+            $adding_user_query = "insert into users_list (name, email, password, role, reading_goals) values('$full_name', '$email', '$hashed_pwd', 'reader', 0)";
             $adding_user_success = mysqli_query($con, $adding_user_query);
 
             
