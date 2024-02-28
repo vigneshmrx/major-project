@@ -303,8 +303,7 @@
 }
 
 #modify-income-heading-area,
-#log-expense-heading-area,
-#show-full-details-heading-area {
+#log-expense-heading-area {
     padding-bottom: 5px;
     display: flex;
     justify-content: space-between;

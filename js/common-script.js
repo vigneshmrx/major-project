@@ -1,3 +1,5 @@
+// const dbName = localStorage.getItem("dbName");
+
 const displayQuote = (quotesObj, pageName) => {
     let quoteBox = document.getElementById("quote-box");
 
@@ -148,6 +150,40 @@ const secondaryMenuFun = () => {
     }
 }
 
+const showFullDetails = (pageName) => {
+    let contentArea = document.getElementsByClassName("show-full-details-content-area")[0];
+
+    // let pdfOutputPgHeading = "Expense Log";
+    // let pdfOutputPgContentArea = document.getElementById("show-full-details-content-area-pdf-page");
+
+    // let newPgOutput = `<div id="full-details-pg-heading">${pdfOutputPgHeading}</div>` + content;
+
+    // sessionStorage.setItem("pdf-page-data", pageName);
+
+    
+    // pdfOutputPgContentArea.innerHTML = newPgOutput;
+    
+    
+    $.ajax({
+        type: "POST",
+        url: "../major-project/php-ajax/detailed_table.php",
+        data: {
+            page_name: pageName,
+            db_name: dbName,
+        },
+        success: function(response) {
+            // alert(response);
+            contentArea.innerHTML = response;
+        },
+        error: function(response) {
+            alert(response);
+        }
+    })
+    
+    // location.replace("http://localhost:8080/major-project/content_to_pdf.php");
+
+}
+
 const showFullDetailsBx = (nameOfCat) => {
     let showDetailsPg = document.getElementById("show-full-details-pg");
 
@@ -156,37 +192,19 @@ const showFullDetailsBx = (nameOfCat) => {
     showDetailsPg.style.visibility = "visible";
     showDetailsPg.style.zIndex = 150;
 
-    
+    showFullDetails(nameOfCat);
 }
 
-const contentToPdf = (pageName) => {
-    let content = document.getElementsByClassName("show-full-details-content-area")[0].innerHTML;
+const downloadPdf = (contentName) => {
+    // sessionStorage.setItem("pdf-page-data", contentName);
 
-    let pdfOutputPgHeading = "Expense Log";
-    let pdfOutputPgContentArea = document.getElementById("show-full-details-content-area-pdf-page");
+    // if (contentName == "books") {
+    //     location.replace("http://localhost:8080/major-project/books_to_pdf.php?id=" + dbName);
+    // } else {
+    //     location.replace("http://localhost:8080/major-project/expenses_to_pdf.php");
+    // }
 
-    let newPgOutput = `<div id="full-details-pg-heading">${pdfOutputPgHeading}</div>` + content;
+    // location.replace("http://localhost:8080/major-project/books_to_pdf.php?param1=" + dbName + "&param2=" + contentName);
 
-    sessionStorage.setItem("pdf-page-data", pageName);
-
-    
-    // pdfOutputPgContentArea.innerHTML = newPgOutput;
-    
-    
-    // $.ajax({
-    //     type: "POST",
-    //     url: "../major-project/content_to_pdf.php",
-    //     data: {
-    //         content: "expense"
-    //     },
-    //     success: function(response) {
-    //         alert(typeof(response));
-    //     },
-    //     error: function(response) {
-    //         alert(typeof(response));
-    //     }
-    // })
-    
-    location.replace("http://localhost:8080/major-project/content_to_pdf.php");
-
+    location.replace(`http://localhost:8080/major-project/content_to_pdf.php?param1=${dbName}&param2=${contentName}`);
 }

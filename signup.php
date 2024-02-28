@@ -256,7 +256,7 @@ session_start();
                     //creating monthly_expense table
                     try {
 
-                        $create_monthly_expense_tab_q = mysqli_query($con, "create table monthly_expense(SNo int AUTO_INCREMENT PRIMARY KEY, Date date not null, TitleOfExpense varchar(200) not null, Cost double not null, Category char(2) not null);");
+                        $create_monthly_expense_tab_q = mysqli_query($con, "create table monthly_expense(SNo int AUTO_INCREMENT PRIMARY KEY, Date date not null, Month varchar(15) not null, TitleOfExpense varchar(200) not null, Cost double not null, Category char(2) not null);");
 
                     } catch (Exception $monthly_expense_exc) {
                         echo $monthly_expense_exc;

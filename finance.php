@@ -147,171 +147,27 @@ if (!isset($_SESSION["logged_in"])) {
 
     <div id="show-full-details-pg">
         <div id="show-full-details-bx">
+            <!-- <div id="dowload-icon">
+                <abbr title="Download as pdf">
+                <img src="./icons/icons8-download-24.png" alt="" width="32" height="32">
+                </abbr>
+            </div> -->
             <div id="show-full-details-heading-area">
                 <div id="show-full-details-heading">FULL DETAILS</div>
-                    <div class="close-pop-up-icon-area" onclick="removePopUp(this, []);">
-                        <img src="./icons/icons8-close-32.png" alt="">
-                    </div>
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, []);">
+                    <img src="./icons/icons8-close-32.png" alt="">
                 </div>
+            </div>
 
-                <hr class="popup-box-hr" style="width: 40%;" onclick="contentToPdf('expense');">
+            <hr class="popup-box-hr" style="width: 40%;" onclick="contentToPdf('expense');">
 
-                <div class="show-full-details-content-area">
-                    <table id="full-details-table" cellspacing="0">
-                        <tr>
-                            <th>SNo.</th>
-                            <th>Date</th>
-                            <th>Month</th>
-                            <th>Category</th>
-                            <th>Description</th>
-                            <th>Cost</th>
-                        </tr>
+            <div class="show-full-details-content-area">
+            </div>
 
-                        <tr>
-                            <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-
-                        <tr>
-                        <td class="ten">1</td>
-                            <td class="ten">25/10</td>
-                            <td class="fifteen">February</td>
-                            <td class="ten">B (30%)</td>
-                            <td class="forty">Swimming + Lunch and many many many more stuffs including many stuffs</td>
-                            <td class="fifteen">365.00</td>
-                        </tr>
-                    </table>
-                </div>
+            <div id="dowload-pdf" onclick="downloadPdf('expense');">
+                <abbr title="Download as pdf">
+                    <img src="./icons/icons8-download-24.png" alt="" width="32" height="32">
+                </abbr>
             </div>
         </div>
     </div>

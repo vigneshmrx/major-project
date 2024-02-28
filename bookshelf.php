@@ -112,6 +112,29 @@ if (!isset($_SESSION["logged_in"])) {
         </div>
     </div>
 
+    <div id="show-full-details-pg">
+        <div id="show-full-details-bx">
+            
+            <div id="show-full-details-heading-area">
+                <div id="show-full-details-heading">FULL DETAILS</div>
+                    <div class="close-pop-up-icon-area" onclick="removePopUp(this, []);">
+                        <img src="./icons/icons8-close-32.png" alt="">
+                    </div>
+            </div>
+
+            <hr class="popup-box-hr" style="width: 40%;" onclick="contentToPdf('bookshelf');">
+
+            <div class="show-full-details-content-area">
+            </div>
+
+            <div id="dowload-pdf" onclick="downloadPdf('books');">
+                <abbr title="Download as pdf">
+                    <img src="./icons/icons8-download-24.png" alt="" width="32" height="32">
+                </abbr>
+            </div>
+        </div>
+    </div>
+
     <!-- <div id="add-book-popup-pg-two">
         <div id="add-book-popup-box-two">
             <div class="add-book-heading-area">
@@ -256,7 +279,7 @@ if (!isset($_SESSION["logged_in"])) {
                                 <input type="button" value="ADD BOOK" onclick="showAddBookPopUp('two');"
                                     style="font-size: 12px; padding: 5px 10px;">
                             </div>
-                            <div class="show-more-details">
+                            <div class="show-more-details" onclick="showFullDetailsBx('books');">
                                 See More Details
                                 <img src="./icons/icons8-right-arrow-50_black.png" alt="" class="show-more-details-arrow" style="margin-top: 3px;">
                             </div>

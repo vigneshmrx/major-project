@@ -16,6 +16,11 @@ const addBooktoDB = (bookStatus) => {
 
     if (bookYear.value == "" || bookYear.value == null || bookYear.value == undefined) {
         bookYear = new Date().getFullYear();
+    } else {
+        if (bookYear.value > new Date().getFullYear()) {
+            showAlert("Enter an appropriated year!");
+            return;
+        }
     }
 
     $.ajax({

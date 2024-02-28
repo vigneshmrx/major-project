@@ -1,200 +1,180 @@
 <?php
 
-// Your HTML data
-// $htmlData = $_POST["content"];
+include './connect.php';
 
-// // Save HTML data to a temporary file
-// $filePath = tempnam(sys_get_temp_dir(), 'html_to_pdf');
-// file_put_contents($filePath, $htmlData);
+date_default_timezone_set("Asia/Kolkata");
 
-// // Output PDF file path
-// $pdfFilePath = sys_get_temp_dir() . '/output.pdf';
+$content = '<html><head><style>
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
-// // Command to convert HTML to PDF using wkhtmltopdf
-// $command = "wkhtmltopdf $filePath $pdfFilePath";
+@page {
+    margin-top: 100px;
+    margin-bottom: 70px;
+}
 
-// // Execute the command
-// shell_exec($command);
+header {
+    postition: fixed;
+    right: 0px;
+    left: 0px;
+    text-align: right;
+    height: 60px;
+    margin-top: -60px;
+}
 
-// // Output the PDF file to the browser
-// header('Content-type: application/pdf');
-// header('Content-Disposition: inline; filename="output.pdf"');
-// readfile($pdfFilePath);
+body {
+    font-family: "Roboto Mono", sans-serif;
+}
 
-// // Clean up temporary files
-// unlink($filePath);
-// unlink($pdfFilePath);
+.show-full-details-content-area {
+    padding: 10px;
+    font-size: 12px;
+}
 
-// $content = $_POST["content"];
-$content = '<table id="full-details-table" cellspacing="0">
-<th>SNo.</th>
-<th>Date</th>
-<th>Category</th>
-<th>Description</th>
-<th>Cost</th>
-</tr>
+.heading {
+    text-align: center;
+    text-decoration: underline;
+    font-size: 25px;
+}
 
-<tr>
-<td>1</td>
-<td>25 February</td>
-<td>B (30%)</td>
-<td>Swimming + Lunch</td>
-<td>365.00</td>
-</tr>
+#full-details-table {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    background-color: #fff;
+    border: 2px solid;
+    border-top: 0px;
+}
 
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
+#full-details-table td, th {
+    padding: 10px;
+}
 
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
+#full-details-table td {
+    border-bottom: 1px solid;
+}
 
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
+#full-details-table th {
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;  
+    font-weight: normal;
+    font-size: 15px;
+    padding: 5px 10px;
+}
 
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
+#full-details-table tr {
+    border-bottom: 2px solid;
+}
 
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
+.five {
+    width: 5%;
+}
 
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
+.ten {
+    width: 10%;
+}
 
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
+.fifteen {
+    width: 15%;
+}
 
-<tr>
-<td>1</td>
-<td>25 February</td>
-<td>B (30%)</td>
-<td>Swimming + Lunch</td>
-<td>365.00</td>
-</tr>
+.thirty {
+    width: 30%;
+}
 
-<tr>
-<td>1</td>
-<td>25 February</td>
-<td>B (30%)</td>
-<td>Swimming + Lunch</td>
-<td>365.00</td>
-</tr>
+.thirty-five {
+    width: 35%;
+}
 
-<tr>
-<td>1</td>
-<td>25 February</td>
-<td>B (30%)</td>
-<td>Swimming + Lunch</td>
-<td>365.00</td>
-</tr>
+.forty {
+    width: 40%;
+}
 
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
-
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
-
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
-
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
-
-<tr>
-<td>2</td>
-<td>23 February</td>
-<td>B (30%)</td>
-<td>Polaroids X 13</td>
-<td>240.00</td>
-</tr>
-</table>';
+</style>
+</head>
+<body>
+<header>Created on ' . getdate()["weekday"] . ', ' . date("Y-m-d") . '
+</header>
+<div class="show-full-details-content-area">';
 
 require_once "./vendor/autoload.php";
 
 use Dompdf\Dompdf;
 
-$page_name = "<script>document.write(sessionStorage.getItem('pdf-page-data'));</script>"; 
-
-// $page_name = $_POST["content"];
-
 try {
 
-$dompdf = new Dompdf();
+    $dompdf = new Dompdf();
 
-if ($page_name == "expense") {
-    $contentt = "<h1>Hello</h1><p>To You</p>";
-} else if ($page_name == "" || $page_name == null) {
-    $contentt = "<h1>Bye</h1><p>Null</p>";
-} else {
-    $contentt = "<h1>Bye</h1><p>World</p>";
-}
+    $dompdf->set_option('isRemoteEnabled', true);
 
-// $dompdf->set_option('enable_remote', TRUE);
-// $dompdf->loadHtmlFile('http://localhost:8080/major-project/to_pdf.php');
+    $db_name = $_REQUEST["param1"];
+    $data_name = $_REQUEST["param2"];
 
-// echo $page_name;
+    mysqli_select_db($con, $db_name);
 
-$dompdf->loadHtml($contentt);
+    $count = 1;
+    if ($data_name == "books") {
 
-$dompdf->render();
+        $content = $content . '<div class="heading">BOOKSHELF</div><br><table id="full-details-table" cellspacing="0"><tr><th>SNo</th><th>Year</th><th>Book Name</th><th>Author</th><th>Status</th></tr>';
 
-$dompdf->stream("sample-document.pdf");
-echo "<script>alert('Success');</script>";
-// header("")
+        $get_books_q = mysqli_query($con, "select * from bookshelf order by Year");
+
+        
+        while ($row = mysqli_fetch_assoc($get_books_q)) {
+
+            $status = $row["Status"];
+
+            if ($status == "completed") {
+                $status = "Completed";
+            } else {
+                $status = "Unread/Incomplete";  
+            }
+
+            $content = $content . '<tr><td class="ten">' . $count . '</td><td class="ten">' . $row["Year"] . '</td><td class="thirty-five">' . $row["BookName"] . '</td><td class="thirty">' . $row["Author"] . '</td><td class="fifteen">' . $status . '</td></tr>';
+
+            $count++;
+        }
+    } else {
+        $content = $content . '<div class="heading">FINANCE LOG</div><br><table id="full-details-table" cellspacing="0"><tr><th>SNo</th><th>Date</th><th>Month</th><th>Category</th><th>Description</th><th>Cost</th></tr>';
+
+        $get_expense_log_q = mysqli_query($con, "select * from monthly_expense order by Date;");
+
+        // $count = 1;  
+        while ($row = mysqli_fetch_assoc($get_expense_log_q)) {
+            $cat = $row["Category"];
+
+            if ($cat == "A") {
+                $cat = $cat . " (50%)";
+            } else if ($cat == "B") {
+                $cat = $cat . " (30%)";
+            } else {
+                $cat = $cat . " (20%)";
+            }
+
+            $date = substr($row["Date"], 8, 2) . '-' . substr($row["Date"], 5, 3) . substr($row["Date"], 0, 4);
+
+            $content = $content . '<tr><td class="five">' . $count . '</td><td class="fifteen">' . $date . '</td><td class="fifteen">' . $row["Month"] . '</td><td class="ten">' . $cat . '</td><td class="forty">' . $row["TitleOfExpense"] . '</td><td class="fifteen">' . $row["Cost"] . '</td></tr>';
+
+            $count++;
+        }
+    }
+
+    $content = $content . '</table></div></body></html>';
+
+    // $contentt = $db_name;
+    // $contentt = $data_name;
+
+    $dompdf->loadHtml($content);
+
+    $dompdf->render();
+
+    if ($data_name == "books") {
+        $dompdf->stream("bookshelf.pdf");
+    } else {
+        $dompdf->stream("finance_log.pdf");
+    }
+
+    
 } catch (Exception $some_exception) {
     // echo "<script>alert($some_exception);</script>";
     echo $some_exception;
