@@ -9,7 +9,7 @@
     mysqli_select_db($con, $db_name);
 
 
-    $finding_logged_exp_q = mysqli_query($con, "select * from monthly_expense where Month='$selected_exp_month' and YEAR(Date) = $cur_year;");
+    $finding_logged_exp_q = mysqli_query($con, "select * from monthly_expense where Month='$selected_exp_month' and YEAR(Date) = $cur_year order by Date;");
 
     if ($finding_logged_exp_q -> num_rows > 0) {
         while ($row = mysqli_fetch_assoc($finding_logged_exp_q)) {

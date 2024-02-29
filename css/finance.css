@@ -278,7 +278,8 @@
 }
 
 #modify-income-popup-pg,
-#log-expense-popup-pg {
+#log-expense-popup-pg,
+#show-info-popup-pg {
     z-index: -150;
     position: fixed;
     visibility: hidden;
@@ -288,18 +289,25 @@
     place-items: center;
 }
 
-/* #log-expense-popup-pg {
+/* #show-info-popup-pg {
     visibility: visible;
     z-index: 150;
 } */
 
 #modify-income-popup-box,
-#log-expense-popup-bx {
+#log-expense-popup-bx,
+#show-info-popup-bx {
     width: 400px;
     background-color: var(--main-white);
     box-shadow: 11px 11px var(--main-black);
     padding: var(--common-value);
     border: 2px solid var(--main-black);
+}
+
+#show-info-popup-bx {
+    width: 70%;
+    height: 60%;
+    overflow: auto;
 }
 
 #modify-income-heading-area,
@@ -310,6 +318,13 @@
     align-items: center;
     font-weight: bold;
     font-size: 20px;
+}
+
+#info-area {
+    padding: 15px 25px;
+    margin-top: 25px;
+    /* height: calc(60% - 77.6px);
+    overflow: auto; */
 }
 
 .money {

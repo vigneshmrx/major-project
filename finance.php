@@ -43,7 +43,6 @@ if (!isset($_SESSION["logged_in"])) {
 </head>
 
 <body>
-
     <div id="secondary-menu">
         <div class="menu-close-icon" onclick="secondaryMenuFun();">
             <img src="./icons/icons8-close-50_white.png" alt="">
@@ -68,11 +67,58 @@ if (!isset($_SESSION["logged_in"])) {
         </nav>
     </div>
 
+    <div id="show-info-popup-pg">
+        <div id="show-info-popup-bx">
+            <div id="show-info-heading-area" style="position: fixed; right: calc(15% + 25px); display: inline;">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
+                    <img src="./icons/icons8-close-32.png" alt="">
+                </div>
+            </div>
+
+            <!-- <hr class="popup-box-hr"> -->
+
+            <div id="info-area">
+                <h1><center>The 50-30-20 Rule</center></h1><br>
+                <p>The 50-30-20 rule splits expenses into just three categories. It also offers recommendations on how much money to use for each. With some basic information, you can get on the road to financial well-being.</p> <br>
+
+                <p>The 50-30-20 rule recommends putting 50% of your money toward needs, 30% toward wants, and 20% toward savings. The savings category also includes money you will need to realize your future goals.</p><br><br>
+
+                <h2>Needs: 50%</h2><br>
+                <p>About half of your budget should go toward needs. These are expenses that must be met no matter what, such as: <br><br>
+                    <ul>
+                        <li>Utility bills</li>
+                        <li>Rent or mortgage payments</li>
+                        <li>Health care</li>
+                        <li>Groceries</li>
+                    </ul> <br>
+
+                    If you can honestly say “I can’t live without it,” you have identified a need. Minimum required payments on a credit card or a loan also belong in this category. 
+                </p><br><br>
+
+                <h2>Wants: 30%</h2><br>
+                <p>You subscribe to a streaming service to watch your favorite show, not because you need the subscription to live. Wants are things you enjoy that you spend money on by choice, such as:
+                    <br><br>
+                    <ul>
+                        <li>Subscriptions</li>
+                        <li>Supplies for hobbies</li>
+                        <li>Restaurant meals</li>
+                        <li>Vacations</li>
+                    </ul>
+                </p><br><br>
+
+                <h2>Savings: 20%</h2><br>
+                <p>The remaining 20% of your budget should go toward the future. You may put money in an emergency fund, contribute to a retirement account, or save toward a down payment on a home. You can even use this money to invest in stocks or bonds which may yeild good returns in the future. Paying down debt beyond the minimum payment amount belongs in this category, too.</p><br><br>
+
+                <p style="font-size: 10px;">Source: unfcu.org</p>
+            </div>
+        </div>
+    </div>
+
     <div id="modify-income-popup-pg">
         <div id="modify-income-popup-box">
             <div id="modify-income-heading-area">
                 <div id="modify-income-heading">MODIFY INCOME</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, [5]);">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -114,7 +160,7 @@ if (!isset($_SESSION["logged_in"])) {
         <div id="log-expense-popup-bx">
             <div id="log-expense-heading-area">
             <div class="log-expense-heading">LOG EXPENSES</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'book-box', [4]);">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, [4, 5]);">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -206,7 +252,7 @@ if (!isset($_SESSION["logged_in"])) {
 
     <div id="page-right-area">
         <div class="secondary-nav-bar">
-            <div class="sec-bar-ham-menu" onclick="secondaryMenuFun();">
+            <div class="sec-bar-ham-menu" onclick="secondaryMenuFun(true);">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
@@ -258,7 +304,7 @@ if (!isset($_SESSION["logged_in"])) {
                     </div>
 
                     <div id="income-after-expense-area">
-                        <div id="income-after-expense-bx">
+                        <!-- <div id="income-after-expense-bx">
                             REMAINING INCOME
 
                             <div id="af-exp-income-amt">
@@ -273,7 +319,7 @@ if (!isset($_SESSION["logged_in"])) {
                             <span class="money">30%</span>: <span class="money">4566</span> <br>
                             <span class="money">20%</span>: <span class="money">3044</span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="calendar-box"> <!-- style="padding: 0px;" -->
@@ -489,6 +535,15 @@ if (!isset($_SESSION["logged_in"])) {
                 console.log(ele);
             })
         })
+
+        const showIncomeRuleInfoBx = () => {
+            popUpBgFun();
+
+            let showInfoPopupPg = document.getElementById("show-info-popup-pg");
+
+            showInfoPopupPg.style.visibility = "visible";
+            showInfoPopupPg.style.zIndex = 150;
+        }
     </script>
     <script src="./js/calendar.js"></script>
 </body>

@@ -422,7 +422,8 @@ label {
 }
 
 #secondary-menu .current-page {
-    background-color: var(--pink);
+    /* background-color: var(--pink); */
+    background-color: var(--main-white);
     margin-right: 10px;
     border-radius: 10px;
 }

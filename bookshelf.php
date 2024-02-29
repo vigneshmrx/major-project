@@ -31,11 +31,11 @@ if (!isset($_SESSION["logged_in"])) {
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    const gridToggle = () => {
-        let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
-        toReadContentArea.classList.toggle("grid-toggle");
-        //this is to toggle grid mode for items that do not have anything added yet
-    }
+    // const gridToggle = () => {
+    //     let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
+    //     toReadContentArea.classList.toggle("grid-toggle");
+    //     //this is to toggle grid mode for items that do not have anything added yet
+    // }
     </script>
 </head>
 
@@ -70,7 +70,7 @@ if (!isset($_SESSION["logged_in"])) {
         <div id="add-book-popup-box">
             <div class="add-book-heading-area">
                 <div class="add-book-heading">ADD BOOK</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'book-box', [2, 3]);">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, [2, 3]);">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -184,7 +184,7 @@ if (!isset($_SESSION["logged_in"])) {
     <!-- RIGHT AREA - THE CONTENT ~~~~ -->
     <div id="page-right-area">
         <div class="secondary-nav-bar">
-            <div class="sec-bar-ham-menu" onclick="secondaryMenuFun();">
+            <div class="sec-bar-ham-menu" onclick="secondaryMenuFun(true);">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>

@@ -31,7 +31,7 @@ const popUpBgFun = () => {
     }
 }
 
-const removePopUp = (closeBtnObjRef, boxName, funArray) => {
+const removePopUp = (closeBtnObjRef, funArray) => {
     // console.log(closeBtnObjRef.parentElement.parentElement.parentElement);
 
     let topParent = closeBtnObjRef.parentElement.parentElement.parentElement;
@@ -59,12 +59,15 @@ const removePopUp = (closeBtnObjRef, boxName, funArray) => {
     
                 case 3: loadAlreadyReadBooks();
                         break;
+
                 case 4: loadLoggedExpense();
                         document.getElementById("expenseDate").value = new Date().toJSON().slice(0, 10);
                         document.getElementById("expenseTitle").value = "";
                         document.getElementById("expenseCost").value = "";
                         Array.from(document.querySelectorAll("input[name='cat']"))[1].checked = true;
                         break;
+                
+                case 5: loadRemainingIncome();
             }
         });
     }
@@ -138,16 +141,22 @@ window.addEventListener("scroll", () => {
     }
 });
 
-const secondaryMenuFun = () => {
+const secondaryMenuFun = (toShow) => {
     let secondaryMenu = document.getElementById("secondary-menu");
 
-    if (secondaryMenu.style.visibility == "hidden") {
+    if (toShow == true) {
         secondaryMenu.style.transform = "translateX(0px)";
         secondaryMenu.style.visibility = "visible";
     } else {
         secondaryMenu.style.transform = "translateX(-1000px)";
         secondaryMenu.style.visibility = "hidden";
     }
+
+    // if (secondaryMenu.style.visibility == "hidden") {
+        
+    // } else {
+        
+    // }
 }
 
 const showFullDetails = (pageName) => {

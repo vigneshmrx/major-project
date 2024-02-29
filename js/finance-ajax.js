@@ -57,7 +57,8 @@ const addNewIncomeToDb = () => {
                 showAlert("Monthly income updated successfully");
                 income.value = "";
                 selectedMonth.value = months[new Date().getMonth()];
-                bonus.value = "";
+                // bonus.value = "";
+                document.getElementById("bonus").value = "";
                 loadMonthlyIncomeDisplayArea();
             },
             error: function(response) {
@@ -214,6 +215,7 @@ const removeThisExpFromDb = (objRef) => {
         },
         success: function(response) {
             loadLoggedExpense();
+            loadRemainingIncome();
             // alert(response);
         },
         error: function(response) {
@@ -239,3 +241,20 @@ const editThisExp = (objRef) => {
 
     showLogExpensePopup(recUniqueId, expDate, expDesc, cost, expCategory);
 }
+
+const loadRemainingIncome = () => {
+    let incomeAfterExpesenArea = document.getElementById("income-after-expense-area");
+
+    $.ajax({
+        type: "POST",
+        url: "../major-project/php-ajax/load_total_remaining_income.php",
+        data: {
+            db_name: dbName
+        },
+        success: function(response) {
+            incomeAfterExpesenArea.innerHTML = response;
+        }
+    })
+}
+
+loadRemainingIncome();
