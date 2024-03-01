@@ -8,7 +8,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookShelf</title>
+    <title>Blog</title>
     <style>
     <?php include './css/common-styles.css';
     ?>
@@ -16,16 +16,37 @@ session_start();
     <style>
     <?php include './css/page-nav.css';
     ?>
+    <?php include './css/blog.css';
+    ?>
     </style>
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
 </head>
 
 <body>
-    <div id="nav-left-area">
+    <div id="secondary-menu">
+        <div class="menu-close-icon" onclick="secondaryMenuFun();">
+            <img src="./icons/icons8-close-50_white.png" alt="">
+        </div>
+        <nav>
+            <a href="./finance.php">
+                <div class="nav-items">Finance</div>
+            </a>
+            <a href="./bookshelf.php">
+                <div class="nav-items">Bookshelf</div>
+            </a>
+            <a href="#">
+                <div class="nav-items current-page">Blog</div>
+            </a>
+            <a href="#">
+                <div class="nav-items">Settings</div>
+            </a>
+            <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
+        </nav>
+    </div>
+
+
+    <div id="page-left-area">
         <div id="logo">
-            <!-- <lord-icon src="https://cdn.lordicon.com/abwrkdvl.json" trigger="in" delay="1500" state="in-growth"
-                style="width:40px;height:40px; ">
-            </lord-icon> -->
             ProDo
         </div>
 
@@ -38,22 +59,62 @@ session_start();
             <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
             <a href="#"><div class="nav-items current-page">Blog</div></a>
             <a href="#"><div class="nav-items">Settings</div></a>
-            <a href="#"><div class="nav-items">Log Out</div></a>
+            <a href="#"><div class="nav-items" onclick="logOutBoxFun();">Log Out</div></a>
         </nav>
 
         <hr>
     </div>
-    <div id="nav-right-area">
-        <div id="main-heading">
+
+    <div id="page-right-area">
+        <div class="secondary-nav-bar">
+            <div class="sec-bar-ham-menu" onclick="secondaryMenuFun(true);">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="sec-bar-logo">
+                ProDo
+            </div>
+            <div class="log-out-btn-area" onclick="logOutBoxFun();">
+                <img src="./icons/icons8-logout-50.png" alt="">
+            </div>
         </div>
 
-        <div id="underline-box"></div>
+        <!-- <div id="main-heading">
+        </div> -->
+
+        <!-- <div id="underline-box"></div>
 
         <div id="quote-box">
+        </div> -->
+
+        <div id="find-interesting-blogs-description">
+            <h2>Discover Interesting Blogs Here</h2>
+            <br><br>
+            <div id="search-and-cat-area">
+                <div>
+                    <input type="text" name="" id="" placeholder="Search..">
+                </div>
+                <div class="categories">
+                    <div class="individual-categories">All</div>
+                    <div class="individual-categories current-category">Finance</div>
+                    <div class="individual-categories">Productivity</div>
+                    <div class="individual-categories">Mindfulness</div>
+                    <div class="individual-categories">Meditation</div>
+                </div>
+            </div>
         </div>
+
+        <div id="blog-page-heading">
+            <hr>
+            <div>Blogs</div>
+            <hr>
+        </div>
+
+        <div class="main-content-area"></div>
     </div>
 
-    <script src="./js/quotes.js"></script>
+    <script src="./js/common-script.js"></script>
     <script>
         let quotesObj = [];
 

@@ -42,7 +42,7 @@ if ($books_to_read_q->num_rows > 0) {
     </div>';
     }
 } else {
-    echo '<div class="no-content-grid-toggle">NO BOOKS IN READ LIST!</div>';
+    echo '<div class="no-content-grid-toggle"><img src="../major-project/images/no-books-illustration.png" width="30%" class="remove-bg">NO BOOKS IN READ LIST!</div>';
 }
 // }
 

@@ -22,7 +22,8 @@ body {
     padding: 10px 30px 10px 30px;
     /* background-color: #FBF9F1; */
     /* background-color: var(--main-white); */
-    background-color: #ff5666;
+    /* background-color: #ff5666; */
+    background-color: var(--bg-color);
     overflow: auto;
 }
 
@@ -79,7 +80,8 @@ a {
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
     /* background-color: var(--main-white); */
-    background-color: #ff5666;
+    /* background-color: #ff5666; */
+    background-color: var(--bg-color);
     color: var(--main-black);
 }
 

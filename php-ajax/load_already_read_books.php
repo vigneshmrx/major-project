@@ -41,7 +41,7 @@
         </div>';
         }
     } else {
-        echo '<div class="no-content-grid-toggle">NO BOOKS READ THIS YEAR!</div>';
+        echo '<div class="no-content-grid-toggle"><img src="../major-project/images/no-books-illustration.png" width="30%" class="remove-bg">NO BOOKS READ THIS YEAR!</div>';
     }
 
 

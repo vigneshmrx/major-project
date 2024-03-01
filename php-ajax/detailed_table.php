@@ -37,7 +37,7 @@ if ($page_name == "expense") {
                 $count++;
             }
         } else {
-            die("<div style='width: 100%; margin-top: 200px; display: flex; justify-content: center; align-items: center; font-weight: bold;'>EXPENSE LOG IS EMPTY!!</div>");
+            die("<div style='width: 100%; margin-top: 7%; display: flex; justify-content: center; align-items: center; font-weight: bold; flex-direction: column;'><img src='../major-project/images/no-expense-illustration.png' width='25%'>EXPENSE LOG IS EMPTY!!</div>");
         }
     } 
     catch (Exception $get_exp_data_exc) {
@@ -68,7 +68,7 @@ else {
                 $count++;
             }
         } else {
-            die("<div style='width: 100%; margin-top: 200px; display: flex; justify-content: center; align-items: center; font-weight: bold;'>BOOK LOG IS EMPTY!!</div>");
+            die("<div style='width: 100%; margin-top: 8%; display: flex; justify-content: center; align-items: center; font-weight: bold; flex-direction: column;    ' id='no-books-to-display'><img src='../major-project/images/no-books-illustration.png' width='30%' class='remove-bg'>BOOK LOG IS EMPTY!!</div>");
         }
 
     } catch (Exception $get_books_exc) {

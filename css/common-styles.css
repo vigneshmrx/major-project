@@ -27,6 +27,7 @@
     --secondary-black: #242223;
     --common-value: 15px;
     --pink: #ff5666;
+    --bg-color: rgb(233, 240, 245);
 }
 
 * {
@@ -473,7 +474,7 @@ label {
     position: relative;
 }
 
-#dowload-pdf {
+#download-pdf {
     position: fixed;
     right: calc(10% + 25px);
     bottom: calc(12% + 15px);
@@ -554,6 +555,11 @@ label {
     width: 40%;
 }
 
+/* remove image bg*/
+
+/* .remove-bg {
+    mix-blend-mode: darken;
+} */
 /* <div id="show-full-details-heading-area">
                 <div id="modify-income-heading">MODIFY INCOME</div>
                     <div class="close-pop-up-icon-area" onclick="removePopUp(this);">

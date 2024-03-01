@@ -159,6 +159,29 @@ const secondaryMenuFun = (toShow) => {
     // }
 }
 
+const decideOnDownloadBtn = (toShow) => {
+    const downloadPdfDiv = document.getElementById("download-pdf");
+
+    // if (toShow == true) {
+    //     downloadPdfDiv.style.visibility = "visible";
+    // } else {
+    //     downloadPdfDiv.style.visibility = "hidden";
+    // }
+
+    try {
+        if (downloadPdfDiv.previousElementSibling.firstChild.id != "full-details-table") {
+            downloadPdfDiv.style.visibility = "hidden";
+        } else {
+            downloadPdfDiv.style.visibility = "visible";
+        }
+
+    } 
+    catch (downloadBtnExc) {
+        console.log(downloadBtnExc);
+        // downloadPdfDiv.style.visibility = "visible";
+    }
+}
+
 const showFullDetails = (pageName) => {
     let contentArea = document.getElementsByClassName("show-full-details-content-area")[0];
 
@@ -183,6 +206,7 @@ const showFullDetails = (pageName) => {
         success: function(response) {
             // alert(response);
             contentArea.innerHTML = response;
+            decideOnDownloadBtn();
         },
         error: function(response) {
             alert(response);

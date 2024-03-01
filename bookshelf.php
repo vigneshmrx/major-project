@@ -99,7 +99,7 @@ if (!isset($_SESSION["logged_in"])) {
         <div id="modify-read-goals-popup-box">
         <div class="modify-read-goals-heading-area">
                 <div class="modify-read-goals-heading">MODIFY READING GOALS</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this, 'target-box', [1]);">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, [1]);">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -127,7 +127,7 @@ if (!isset($_SESSION["logged_in"])) {
             <div class="show-full-details-content-area">
             </div>
 
-            <div id="dowload-pdf" onclick="downloadPdf('books');">
+            <div id="download-pdf" onclick="downloadPdf('books');">
                 <abbr title="Download as pdf">
                     <img src="./icons/icons8-download-24.png" alt="" width="32" height="32">
                 </abbr>

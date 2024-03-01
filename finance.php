@@ -210,7 +210,7 @@ if (!isset($_SESSION["logged_in"])) {
             <div class="show-full-details-content-area">
             </div>
 
-            <div id="dowload-pdf" onclick="downloadPdf('expense');">
+            <div id="download-pdf" onclick="downloadPdf('expense');">
                 <abbr title="Download as pdf">
                     <img src="./icons/icons8-download-24.png" alt="" width="32" height="32">
                 </abbr>
