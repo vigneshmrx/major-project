@@ -55,7 +55,7 @@ session_start();
             commonMsgArea.innerHTML = "Login Successful!!";
 
             setTimeout(() => {
-                window.location.replace("bookshelf.php");
+                window.location.replace("finance.php");
             }, 1400);
         }
 
@@ -160,17 +160,20 @@ session_start();
                         $db_name = str_replace(".", "_", $db_name);
 
                         $full_name = $row["name"];
+                        $user_type = $row["role"];
 
                         // $_SESSION["user_name"] = $full_name;
                         // $_SESSION["db_name"] = $db_name;
                         // $_SESSION["email"] = $email;
                         // echo "session is set";
 
-                        $_SESSION["logged_in"] = true;
+                        // $_SESSION["logged_in"] = true
 
                         echo "<script>localStorage.setItem('userName', '$full_name');</script>";
                         echo "<script>localStorage.setItem('dbName', '$db_name');</script>";
                         echo "<script>localStorage.setItem('emailID', '$email');</script>";
+                        echo "<script>localStorage.setItem('user-type', '$user_type');</script>"; 
+                        echo "<script>localStorage.setItem('logged-in', true);</script>";
                         
                         echo "<script>loginSuccess();</script>";
                     } else {

@@ -20,6 +20,9 @@ session_start();
     ?>
     </style>
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <script defer>
+        
+    </script>
 </head>
 
 <body>
@@ -27,7 +30,7 @@ session_start();
         <div class="menu-close-icon" onclick="secondaryMenuFun();">
             <img src="./icons/icons8-close-50_white.png" alt="">
         </div>
-        <nav>
+        <nav id="secondary-menu-nav">
             <a href="./finance.php">
                 <div class="nav-items">Finance</div>
             </a>
@@ -52,7 +55,7 @@ session_start();
 
         <hr>
 
-        <nav>
+        <nav id="primary-menu-nav">
             <a href="./finance.php"><div class="nav-items">Finance</div></a>
             <a href="./bookshelf.php"><div class="nav-items">Bookshelf</div></a>
             <!-- <div class="nav-items"><a href="#">Finance</a></div> -->

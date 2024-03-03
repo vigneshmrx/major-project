@@ -21,6 +21,8 @@ if ($page_name == "expense") {
 
             $page_content = $page_content . '<tr><th>SNo</th><th>Date</th><th>Month</th><th>Category</th><th>Description</th><th>Cost</th></tr>';
 
+            $previous_month = "January";
+
             while ($row = mysqli_fetch_assoc($get_exp_data_q)) {
                 $cat = $row["Category"];
 
@@ -31,6 +33,11 @@ if ($page_name == "expense") {
                 } else {
                     $cat = $cat . " (20%)";
                 }
+
+                // if ($previous_month != $row["Month"] ) {
+                //     $page_content = $page_content . "<br>";
+                //     $previous_month = $row["Month"];
+                // }
 
                 $page_content = $page_content . '<tr><td class="five">' . $count . '</td><td class="fifteen">' . $row["Date"] . '</td><td class="fifteen">' . $row["Month"] . '</td><td class="ten">' . $cat . '</td><td class="forty">' . $row["TitleOfExpense"] . '</td><td class="fifteen">' . $row["Cost"] . '</td></tr>';
 

@@ -1,12 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION["logged_in"])) {
-    header("location: login.php");
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +31,11 @@ if (!isset($_SESSION["logged_in"])) {
             /* border: 1px solid; */
         }
     </style>
+    <script>
+        if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
+            location.replace("login.php");
+        }
+    </script>
 </head>
 
 <body>

@@ -68,7 +68,7 @@ session_start();
         errorMsgArea.innerHTML = "Registration Successful";
 
         setTimeout(() => {
-            window.location.replace("bookshelf.php");
+            window.location.replace("finance.php");
         }, 1500);
     }
     </script>
@@ -223,7 +223,7 @@ session_start();
             $adding_user_query = "insert into users_list (name, email, password, role, reading_goals) values('$full_name', '$email', '$hashed_pwd', 'reader', 0)";
             $adding_user_success = mysqli_query($con, $adding_user_query);
 
-            
+            $user_type = "reader";
 
             //creating db for the new user along with tables
             $pos_of_a = strpos($email, "@");
@@ -275,7 +275,10 @@ session_start();
                 // $_SESSION["user_name"] = $full_name;
                 // $_SESSION["db_name"] = $db_name;
                 // $_SESSION["email"] = $email;
-                $_SESSION["logged_in"] = true;
+                // $_SESSION["logged_in"] = true;
+                // $_SESSION["user_type"]
+                echo "<script>localStorage.setItem('user-type', 'reader');</script>";
+                echo "<script>localStorage.setItem('logged-in', true);</script>";
 
                 echo "<script>localStorage.setItem('userName', '$full_name');</script>";
                 echo "<script>localStorage.setItem('dbName', '$db_name');</script>";

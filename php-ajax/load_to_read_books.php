@@ -26,7 +26,7 @@ if ($books_to_read_q->num_rows > 0) {
         
         echo '<div class="book-info-box">
         <div class="book-info">
-            <div class="book-info-name">' . $row["BookName"] . '</div>
+            <div class="book-info-name">' . ucwords($row["BookName"]) . '</div>
             <div class="book-info-author">' . $row["Author"] . '</div>
         </div>
         <div class="book-info-action" id="' . $row["SNo"] . '">

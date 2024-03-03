@@ -1,5 +1,37 @@
 // const dbName = localStorage.getItem("dbName");
 
+(function () {
+    if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
+        location.replace("login.php");
+        // console.log("NOt logged in");
+    }
+}) ();
+
+const userType = localStorage.getItem("user-type");
+// let thePrimaryNavTag = document.getElementById("primary-menu-nav");
+// let theSecondaryNavTag = document.getElementById("secondary-menu-nav");
+
+if (userType == "writer" && window.location.pathname != "/major-project/dashboard.php") {
+    let theNavTag = Array.from(document.getElementsByTagName("nav"));
+
+    theNavTag.forEach((nav) => {
+
+        let a = document.createElement("a");
+        a.href = "dashboard.php";
+
+        let div = document.createElement("div");
+        div.innerText = "Dashboard";
+        div.className = "nav-items";
+
+        a.appendChild(div);
+
+        nav.children[2].after(a);
+    });
+
+}
+
+// redirect();
+
 const displayQuote = (quotesObj, pageName) => {
     let quoteBox = document.getElementById("quote-box");
 
@@ -152,6 +184,8 @@ const secondaryMenuFun = (toShow) => {
         secondaryMenu.style.visibility = "hidden";
     }
 
+    
+
     // if (secondaryMenu.style.visibility == "hidden") {
         
     // } else {
@@ -241,3 +275,5 @@ const downloadPdf = (contentName) => {
 
     location.replace(`http://localhost:8080/major-project/content_to_pdf.php?param1=${dbName}&param2=${contentName}`);
 }
+
+
