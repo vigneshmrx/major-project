@@ -4,22 +4,18 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title>Dashboard</title>
     <style>
     <?php include './css/common-styles.css';
     ?>
     </style>
     <style>
-    <?php include './css/page-nav.css';
-    ?>
-    <?php include './css/blog.css';
-    ?>
+    <?php include './css/page-nav.css'; ?>
+    <?php include './css/dashboard.css'; ?>
     </style>
-    <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
@@ -27,31 +23,34 @@ session_start();
             location.replace("login.php");
         }
     </script>
-    
 </head>
-
 <body>
     <div id="secondary-menu">
         <div class="menu-close-icon" onclick="secondaryMenuFun();">
             <img src="./icons/icons8-close-50_white.png" alt="">
         </div>
-        <nav id="secondary-menu-nav">
-            <a href="./finance.php">
+        <nav>
+            <a href="finance.php">
                 <div class="nav-items">Finance</div>
             </a>
             <a href="./bookshelf.php">
                 <div class="nav-items">Bookshelf</div>
             </a>
+            <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
+            <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
+            <a href="./blog.php">
+                <div class="nav-items">Blog</div>
+            </a>
             <a href="#">
-                <div class="nav-items current-page">Blog</div>
+                <div class="nav-items current-page">Dashboard</div>
             </a>
             <a href="#">
                 <div class="nav-items">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
+            <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
         </nav>
     </div>
-
 
     <div id="page-left-area">
         <div id="logo">
@@ -60,20 +59,33 @@ session_start();
 
         <hr>
 
-        <nav id="primary-menu-nav">
-            <a href="./finance.php"><div class="nav-items">Finance</div></a>
-            <a href="./bookshelf.php"><div class="nav-items">Bookshelf</div></a>
+        <nav>
+            <a href="finance.php">
+                <div class="nav-items">Finance</div>
+            </a>
+            <a href="./bookshelf.php">
+                <div class="nav-items">Bookshelf</div>
+            </a>
             <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
             <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
-            <a href="#"><div class="nav-items current-page">Blog</div></a>
-            <a href="#"><div class="nav-items">Settings</div></a>
-            <a href="#"><div class="nav-items" onclick="logOutBoxFun();">Log Out</div></a>
+            <a href="./blog.php">
+                <div class="nav-items">Blog</div>
+            </a>
+            <a href="#">
+                <div class="nav-items current-page">Dashboard</div>
+            </a>
+            <a href="#">
+                <div class="nav-items">Settings</div>
+            </a>
+            <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
+            <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
         </nav>
 
         <hr>
     </div>
 
     <div id="page-right-area">
+
         <div class="secondary-nav-bar">
             <div class="sec-bar-ham-menu" onclick="secondaryMenuFun(true);">
                 <div class="bar1"></div>
@@ -88,53 +100,28 @@ session_start();
             </div>
         </div>
 
-        <!-- <div id="main-heading">
-        </div> -->
+        <div class="main-content-area">
+            <div id="heading-and-action-btns">
+                <div id="dashboard-greeting">
 
-        <!-- <div id="underline-box"></div>
-
-        <div id="quote-box">
-        </div> -->
-
-        <div id="find-interesting-blogs-description">
-            <h2>Discover Interesting Blogs Here</h2>
-            <br><br>
-            <div id="search-and-cat-area">
-                <div>
-                    <input type="text" name="" id="" placeholder="Search..">
                 </div>
-                <div class="categories">
-                    <div class="individual-categories">All</div>
-                    <div class="individual-categories current-category">Finance</div>
-                    <div class="individual-categories">Productivity</div>
-                    <div class="individual-categories">Mindfulness</div>
-                    <div class="individual-categories">Meditation</div>
+                <div id="dashboard-main-action">
+                    <input type="button" value="+ Add Blog">
                 </div>
             </div>
-        </div>
 
-        <div id="blog-page-heading">
-            <hr>
-            <div>Blogs</div>
-            <hr>
+            <div id="user-profile-info-section">
+                <div class="profile-info-section-top"></div>
+                <div class="profile-info-section-bottom"></div>
+            </div>
         </div>
-
-        <div class="main-content-area"></div>
     </div>
 
     <script src="./js/common-script.js"></script>
     <script>
-        let quotesObj = [];
-
-        // displayQuote(quotesObj);
-
-
-    // let currentPageLinkElement = document.getElementsByClassName("current-page")[0];
-
-    // if (currentPageLinkElement.previousElementSibling.tagName == "DIV") {
-    //     currentPageLinkElement.previousElementSibling.style.borderBottomRightRadius = "10px";
-    // }
+        let userName = localStorage.getItem("userName");
+        let userNameArr = userName.split(" ");
+        document.getElementById("dashboard-greeting").innerHTML = userNameArr[0] + "'s Dashboard"
     </script>
 </body>
-
 </html>

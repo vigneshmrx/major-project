@@ -163,6 +163,21 @@ const showAlert = (message) => {
     }, 2100);
 }
 
+const dismissableAlertFun = (message) => {
+    let dismissableAlert = document.getElementById("dismissable-alert");
+
+    let alertMessage = document.getElementById("dismiss-alert-message");
+
+    if (message != '') {
+        alertMessage.innerHTML = message;
+        dismissableAlert.style.zIndex = 400;
+        dismissableAlert.style.visibility = "visible";
+    } else {
+        dismissableAlert.style.zIndex = -150;
+        dismissableAlert.style.visibility = "hidden";
+    }
+}
+
 const toTop = document.querySelector(".to-top");
 
 window.addEventListener("scroll", () => {
@@ -183,24 +198,10 @@ const secondaryMenuFun = (toShow) => {
         secondaryMenu.style.transform = "translateX(-1000px)";
         secondaryMenu.style.visibility = "hidden";
     }
-
-    
-
-    // if (secondaryMenu.style.visibility == "hidden") {
-        
-    // } else {
-        
-    // }
 }
 
 const decideOnDownloadBtn = (toShow) => {
     const downloadPdfDiv = document.getElementById("download-pdf");
-
-    // if (toShow == true) {
-    //     downloadPdfDiv.style.visibility = "visible";
-    // } else {
-    //     downloadPdfDiv.style.visibility = "hidden";
-    // }
 
     try {
         if (downloadPdfDiv.previousElementSibling.firstChild.id != "full-details-table") {
@@ -218,16 +219,6 @@ const decideOnDownloadBtn = (toShow) => {
 
 const showFullDetails = (pageName) => {
     let contentArea = document.getElementsByClassName("show-full-details-content-area")[0];
-
-    // let pdfOutputPgHeading = "Expense Log";
-    // let pdfOutputPgContentArea = document.getElementById("show-full-details-content-area-pdf-page");
-
-    // let newPgOutput = `<div id="full-details-pg-heading">${pdfOutputPgHeading}</div>` + content;
-
-    // sessionStorage.setItem("pdf-page-data", pageName);
-
-    
-    // pdfOutputPgContentArea.innerHTML = newPgOutput;
     
     
     $.ajax({
@@ -246,8 +237,6 @@ const showFullDetails = (pageName) => {
             alert(response);
         }
     })
-    
-    // location.replace("http://localhost:8080/major-project/content_to_pdf.php");
 
 }
 
@@ -263,15 +252,6 @@ const showFullDetailsBx = (nameOfCat) => {
 }
 
 const downloadPdf = (contentName) => {
-    // sessionStorage.setItem("pdf-page-data", contentName);
-
-    // if (contentName == "books") {
-    //     location.replace("http://localhost:8080/major-project/books_to_pdf.php?id=" + dbName);
-    // } else {
-    //     location.replace("http://localhost:8080/major-project/expenses_to_pdf.php");
-    // }
-
-    // location.replace("http://localhost:8080/major-project/books_to_pdf.php?param1=" + dbName + "&param2=" + contentName);
 
     location.replace(`http://localhost:8080/major-project/content_to_pdf.php?param1=${dbName}&param2=${contentName}`);
 }

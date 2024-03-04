@@ -252,7 +252,24 @@ const loadRemainingIncome = () => {
             db_name: dbName
         },
         success: function(response) {
-            incomeAfterExpesenArea.innerHTML = response;
+            let respLen = response.length;
+            let theRealString = response.slice(0, respLen - 1);
+            let spentMoreThanEightyPer = response.slice(respLen - 1, respLen);
+            // alert(theRealString);
+            // alert(spentMoreThanEightPer);
+
+
+            incomeAfterExpesenArea.innerHTML = theRealString;
+            let shownEightyPercentAlert = sessionStorage.getItem("shown-eighty-percent-spent-alert");
+
+            if (spentMoreThanEightyPer != "0" && (shownEightyPercentAlert != "true" || shownEightyPercentAlert == undefined)) {
+                // showAlert("ALERT: You have spent more than 80% of your income.");
+                dismissableAlertFun("ALERT: You have spent more than 80% of your income!");
+                sessionStorage.setItem("shown-eighty-percent-spent-alert", true);
+            }
+
+            // alert(response.slice(response.length - 5, response.length));
+            // alert(typeof(response));
         }
     })
 }

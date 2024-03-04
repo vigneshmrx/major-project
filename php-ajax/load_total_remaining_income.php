@@ -22,6 +22,8 @@
 
         $row["TotalBonus"] != NULL ? $total_income += $row["TotalBonus"] : "" ;
 
+        $twenty_percent = ($total_income * 20) / 100;
+
         // echo $total_income;
 
         //finding total spent in Category A
@@ -74,7 +76,18 @@
 
         $page_content = $page_content . '<span class="money">' . $total_remaining . '</span></div></div>' . '<div id="income-after-expense-div-bx">REMAINING DIVISION' . '<div id="af-exp-income-div-amt"><span class="money">50%</span>: <span class="money">' . $total_remaining_cat_a . '</span> <br><span class="money">30%</span>: <span class="money">' . $total_remaining_cat_b . '</span> <br><span class="money">20%</span>: <span class="money">' . $total_remaining_cat_c . '</span></div></div>';
 
-        echo $page_content; 
+        // echo $page_content; 
+        if ($twenty_percent != 0) {
+            if ($total_remaining < $twenty_percent) {
+                $page_content = $page_content . "1";
+            } else {
+                $page_content = $page_content . "0";
+            }
+        } else {
+            $page_content = $page_content. "0";
+        }
+
+        echo $page_content;
 
         // echo "Tota A  remaining: " . $total_remaining_cat_a;
 

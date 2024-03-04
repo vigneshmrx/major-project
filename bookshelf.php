@@ -24,7 +24,8 @@
     <script>
         if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
             // location.replace("login.php");
-            console.log("NOt logged in");
+            // console.log("NOt logged in");
+            location.replace("login.php");
         }
     </script>
 </head>
@@ -346,7 +347,7 @@
     displayQuote(quotesObj, "bookshelfPage");
 
     //show heading
-    document.getElementById("main-heading").innerHTML = localStorage.getItem("userName") + "'s Bookshelf";
+    document.getElementById("main-heading").innerHTML = localStorage.getItem("userName").split(" ")[0] + "'s Bookshelf";
 
     let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
     // toReadContentArea.classList.toggle("grid-toggle"); 

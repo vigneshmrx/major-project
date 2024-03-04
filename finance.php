@@ -39,6 +39,14 @@
 </head>
 
 <body>
+
+    <div id="dismissable-alert">
+        <div id="dismiss-alert-message">Check the Content</div>
+        <div id="dismiss-icon" onclick="dismissableAlertFun('');">
+            <img src="./icons/icons8-close-30-white.png" alt="">
+        </div>
+    </div>
+
     <div id="secondary-menu">
         <div class="menu-close-icon" onclick="secondaryMenuFun();">
             <img src="./icons/icons8-close-50_white.png" alt="">
@@ -483,7 +491,7 @@
         displayQuote(quotesObj, "financePage");
 
         //show heading
-        document.getElementById("main-heading").innerHTML = localStorage.getItem("userName") + "'s Finance Manager";
+        document.getElementById("main-heading").innerHTML = localStorage.getItem("userName").split(" ")[0] + "'s Finance Manager";
         
 
         const showModifyIncomeBox = () => {

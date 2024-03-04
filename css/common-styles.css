@@ -367,7 +367,8 @@ label {
     justify-content: space-evenly;
 }
 
-#alert {
+#alert,
+#dismissable-alert {
     position: fixed;
     z-index: -300;
     background-color: var(--main-black);
@@ -377,7 +378,30 @@ label {
     padding: var(--common-value);
     /* text-transform: uppercase; */
     /* font-weight: bold; */
-    display: none;
+    /* display: none; */
+}
+
+#dismissable-alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* #dismissable-alert {
+    visibility: visible;
+    z-index: 400;
+} */
+
+#dismiss-icon {
+    display: grid;
+    place-items: center;
+    margin-left: 5px;   
+    cursor: pointer;
+}
+
+#dismiss-icon img {
+    width: 25px;
+    /* height: 20px; */
 }
 
 .main-content-area {
