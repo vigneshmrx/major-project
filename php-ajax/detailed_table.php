@@ -70,7 +70,7 @@ else {
                     $status = "Completed"; 
                 }
 
-                $page_content = $page_content . '<tr><td class="ten">' . $count . '</td><td class="ten">' . $row["Year"] . '</td><td class="thirty-five">' . $row["BookName"] . '</td><td class="thirty">' . $row["Author"] . '</td><td class="fifteen">' . $status . '</td></tr>';
+                $page_content = $page_content . '<tr><td class="ten">' . $count . '</td><td class="ten">' . $row["Year"] . '</td><td class="thirty-five">' . ucwords($row["BookName"]) . '</td><td class="thirty">' . ucwords($row["Author"]) . '</td><td class="fifteen">' . $status . '</td></tr>';
 
                 $count++;
             }

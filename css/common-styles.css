@@ -579,17 +579,7 @@ label {
     width: 40%;
 }
 
-/* remove image bg*/
-
-/* .remove-bg {
-    mix-blend-mode: darken;
-} */
-/* <div id="show-full-details-heading-area">
-                <div id="modify-income-heading">MODIFY INCOME</div>
-                    <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
-                        <img src="./icons/icons8-close-32.png" alt="">
-                    </div>
-                </div>
-
-                <hr class="popup-box-hr">
-            </div> */
+.money {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
