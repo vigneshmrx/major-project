@@ -1,0 +1,8 @@
+#editable-content-area {
+    width: 700px;
+    height: 80vh;
+    margin: auto;
+    border: 1px solid;
+    padding: 20px;
+    overflow: auto;
+}
