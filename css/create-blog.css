@@ -149,3 +149,15 @@ header {
 #editable-heading-area input:focus {
     outline: none;
 }
+
+.un-bold-text {
+    font-weight: normal;
+}
+
+.un-italicize-text {
+    font-style: normal;
+}
+
+.un-underline-text {
+    text-decoration: unset;
+}
