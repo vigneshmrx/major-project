@@ -158,6 +158,18 @@ header {
     font-style: normal;
 }
 
+.underline-text {
+    text-decoration-line: underline;
+}
+
 .un-underline-text {
-    text-decoration: unset;
+    text-decoration-line: none;
+}
+
+.strike-text {
+    text-decoration-line: underline;
+}
+
+.un-strike-text {
+    text-decoration-line: none;
 }

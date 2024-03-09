@@ -58,22 +58,22 @@
                     <img src="./icons/icons8-seperator-48-grey.png" alt="">
                 </div>
 
-                <div onclick="formatTextFun('bold');"> <!--  -->
+                <div onclick="formatTextFun('bold');" id="bold-div"> <!--  -->
                     <abbr title="Bold (Ctrl + B)">
                         <img src="./icons/icons8-bold-48-grey.png" alt="">
                     </abbr>
                 </div>
-                <div onclick="formatTextFun('italic');">
+                <div onclick="" id="italic-div"> <!-- formatTextFun('italic');  toggleFormatting('italic');-->
                     <abbr title="Italic (Ctrl + I)">
                         <img src="./icons/icons8-italic-48-grey.png" alt="">
                     </abbr>
                 </div>
-                <div onclick="formatTextFun('underline');">
+                <div onclick="toggleFormatting('underline');"> <!-- formatTextFun('underline'); -->
                     <abbr title="Underline (Ctrl + U)">
                         <img src="./icons/icons8-underline-48-grey.png" alt="">
                     </abbr>
                 </div>
-                <div>
+                <div onclick="formatTextFun('strikethrough');">
                     <abbr title="Strikethrough">
                         <img src="./icons/icons8-strikethrough-50-grey.png" alt="">
                     </abbr>

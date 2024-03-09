@@ -34,31 +34,63 @@ editableDiv.addEventListener('beforeinput', saveState);
 const selection = window.getSelection();
 
 function formatTextFun(formatType) {
-    const nodeObj = {"bold" : "b", "italic" : "i", "underline" : "u", }
+    const nodeObj = {"bold" : "b", "italic" : "i" }
+    // , "underline" : "span", "strikethrough" : "span"};
 
-    const spanClassObj = {"bold" : "un-bold-text", "italic" : "un-italicize-text", "underline" : "un-underline-text"}
+    const otherObj = {"strikethrough" : "strike-text", "underline" : "underline-text"};
 
-
-    // const selection = window.getSelection();
+    const spanClassObj = {"bold" : "un-bold-text", "italic" : "un-italicize-text", "underline" : "un-underline-text", "strikethrough" : "un-strike-text"};
 
     if (selection.rangeCount > 0) {
         const range = selection.getRangeAt(0);
 
-        // const isItalic = range.commonAncestorContainer.parentElement.tagName === "I";
+        // const isAlreadyFormatType = range.commonAncestorContainer.parentElement.tagName === nodeObj[formatType].toUpperCase();
 
-        const isAlreadyFormatType = range.commonAncestorContainer.parentElement.tagName === nodeObj[formatType].toUpperCase();
+        let isAlreadyFormatType;
 
-        // const containerElement = isItalic ? document.createElement('span') : document.createElement('i');
+        let containerElement;
+
+        // if (isAlreadyFormatType) {
+        //     containerElement = document.createElement("span");
+        //     containerElement.className = spanClassObj[formatType];
+
+        // } else {
+
+            if (formatType == "strikethrough" || formatType == "underline") {
+                isAlreadyFormatType = range.commonAncestorContainer.parentElement.className === "strike-text" || range.commonAncestorContainer.parentElement.className === "underline-text";
+
+                containerElement = document.createElement("span");
+
+                if (isAlreadyFormatType) {
+                    containerElement.className = spanClassObj[formatType];
+                } else {
+                    containerElement.className = otherObj[formatType];
+                }
+
+                // containerElement = document.createElement("span");
+                // containerElement.className = otherObj[formatType];
+
+            } else {
+
+                isAlreadyFormatType = range.commonAncestorContainer.parentElement.tagName === nodeObj[formatType].toUpperCase();
+
+                if (isAlreadyFormatType) {
+                    containerElement = document.createElement("span");
+                    containerElement.className = spanClassObj[formatType];
+                } else {
+                    containerElement = document.createElement(nodeObj[formatType]);
+                }
+
+                // containerElement = createElement(nodeObj[formatType]);
+
+            }
+        // }
         
-        const containerElement = isAlreadyFormatType ? document.createElement('span') : document.createElement(nodeObj[formatType]);
+        // const containerElement = isAlreadyFormatType ? document.createElement('span') : document.createElement(nodeObj[formatType]);
 
         // if (containerElement.tagName == "SPAN") {
-        //     containerElement.className = "unitalicize-text";
+        //     containerElement.className = spanClassObj[formatType];
         // }
-
-        if (containerElement.tagName == "SPAN") {
-            containerElement.className = spanClassObj[formatType];
-        }
 
         containerElement.appendChild(range.extractContents());
         range.insertNode(containerElement);
@@ -67,7 +99,38 @@ function formatTextFun(formatType) {
     selection.removeAllRanges();
 }
 
+// function toggleFormatting(style) {
+//     const selection = window.getSelection();
+//     if (!selection.rangeCount) return;
+  
+//     const range = selection.getRangeAt(0); // Get existing range
+  
+//     const formattedElements = [];
+  
+//     // Wrap text nodes in formatted spans (if selection exists)
+//     if (selection.toString()) {
+//       Array.from(range.extractContents().childNodes).forEach(node => {
+//         if (node.nodeType === Node.TEXT_NODE) {
+//           const element = document.createElement("span");
+//           element.style[style] = selection.toString().includes(style) ? "none" : "inherit";
+//           element.appendChild(node.cloneNode(true));
+//           formattedElements.push(element);
+//         } else {
+//           formattedElements.push(node); // Add non-text nodes as-is
+//         }
+//       });
+  
+//       range.insertNode(document.createDocumentFragment(...formattedElements));
+//     } else {
+//       // Handle no selection (create a new formatted span for bold on first keypress)
+//       if (style === "bold" && !selection.toString()) {
+//         const element = document.createElement("span");
+//         element.style.fontWeight = "bold";
+//         range.insertNode(element);
+//       }
+//     }
+// }
 
-editableDiv.addEventListener("input", () => {
-
+document.getElementById("italic-div").addEventListener("click", function() {
+    document.execCommand("italic", false, null); // Apply bold on button click
 });
