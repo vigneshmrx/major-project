@@ -125,6 +125,7 @@ header {
     padding: 15px 30px;
     background-color: var(--main-white);
     color: #000;
+    font-size: 16px; 
 }
 
 /* #editable-content-area .temp-heading-span {
@@ -172,4 +173,8 @@ header {
 
 .un-strike-text {
     text-decoration-line: none;
+}
+
+.active {
+    background-color: rgb(248, 226, 226);
 }

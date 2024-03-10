@@ -39,11 +39,17 @@
 
                 <div>
                     <!-- <img src="./icons/icons8-font-size-48-grey.png" alt=""> -->
-                    <select name="" id="">
+                    <select name="" id="font-change-drop-down">
+                        <!-- <option value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large</option>
+                        <option value="Extralarge">Extralarge</option> -->
                         <option value="12px">12px</option>
+                        <option value="16px" selected>16px</option>
+                        <option value="20px">20px</option>
                         <option value="24px">24px</option>
-                        <option value="36px">36px</option>
-                        <option value="48px">48px</option>
+                        <option value="28px">28px</option>
+                        <option value="32px">32px</option>
                     </select>
                 </div>
                 <div>
@@ -58,7 +64,7 @@
                     <img src="./icons/icons8-seperator-48-grey.png" alt="">
                 </div>
 
-                <div onclick="formatTextFun('bold');" id="bold-div"> <!--  -->
+                <div onclick="" id="bold-div"> <!--  -->
                     <abbr title="Bold (Ctrl + B)">
                         <img src="./icons/icons8-bold-48-grey.png" alt="">
                     </abbr>
@@ -68,12 +74,12 @@
                         <img src="./icons/icons8-italic-48-grey.png" alt="">
                     </abbr>
                 </div>
-                <div onclick="toggleFormatting('underline');"> <!-- formatTextFun('underline'); -->
+                <div onclick="" id="underline-div"> <!-- formatTextFun('underline'); -->
                     <abbr title="Underline (Ctrl + U)">
                         <img src="./icons/icons8-underline-48-grey.png" alt="">
                     </abbr>
                 </div>
-                <div onclick="formatTextFun('strikethrough');">
+                <div onclick="" id="strikethrough-div">
                     <abbr title="Strikethrough">
                         <img src="./icons/icons8-strikethrough-50-grey.png" alt="">
                     </abbr>
