@@ -7,7 +7,7 @@ function saveState() {
     const content = editableDiv.innerHTML;
     if (currentStateIndex < undoStack.length - 1) {
     // Clear redo stack if changes were made after undo
-    undoStack.splice(currentStateIndex + 1);
+        undoStack.splice(currentStateIndex + 1);
     }
     undoStack.push(content);
     currentStateIndex = undoStack.length - 1;
@@ -15,122 +15,22 @@ function saveState() {
 
 function undo() {
     if (currentStateIndex > 0) {
-    currentStateIndex--;
-    editableDiv.innerHTML = undoStack[currentStateIndex];
+        currentStateIndex--;
+        editableDiv.innerHTML = undoStack[currentStateIndex];
     }
 }
 
 function redo() {
     if (currentStateIndex < undoStack.length - 1) {
-    currentStateIndex++;
-    editableDiv.innerHTML = undoStack[currentStateIndex];
+        currentStateIndex++;
+        editableDiv.innerHTML = undoStack[currentStateIndex];
     }
 }
 
 editableDiv.addEventListener('beforeinput', saveState);
 //redo and undo code ends here
 
-
-const selection = window.getSelection();
-
-// function formatTextFun(formatType) {
-//     const nodeObj = {"bold" : "b", "italic" : "i" }
-//     // , "underline" : "span", "strikethrough" : "span"};
-
-//     const otherObj = {"strikethrough" : "strike-text", "underline" : "underline-text"};
-
-//     const spanClassObj = {"bold" : "un-bold-text", "italic" : "un-italicize-text", "underline" : "un-underline-text", "strikethrough" : "un-strike-text"};
-
-//     if (selection.rangeCount > 0) {
-//         const range = selection.getRangeAt(0);
-
-//         // const isAlreadyFormatType = range.commonAncestorContainer.parentElement.tagName === nodeObj[formatType].toUpperCase();
-
-//         let isAlreadyFormatType;
-
-//         let containerElement;
-
-//         // if (isAlreadyFormatType) {
-//         //     containerElement = document.createElement("span");
-//         //     containerElement.className = spanClassObj[formatType];
-
-//         // } else {
-
-//             if (formatType == "strikethrough" || formatType == "underline") {
-//                 isAlreadyFormatType = range.commonAncestorContainer.parentElement.className === "strike-text" || range.commonAncestorContainer.parentElement.className === "underline-text";
-
-//                 containerElement = document.createElement("span");
-
-//                 if (isAlreadyFormatType) {
-//                     containerElement.className = spanClassObj[formatType];
-//                 } else {
-//                     containerElement.className = otherObj[formatType];
-//                 }
-
-//                 // containerElement = document.createElement("span");
-//                 // containerElement.className = otherObj[formatType];
-
-//             } else {
-
-//                 isAlreadyFormatType = range.commonAncestorContainer.parentElement.tagName === nodeObj[formatType].toUpperCase();
-
-//                 if (isAlreadyFormatType) {
-//                     containerElement = document.createElement("span");
-//                     containerElement.className = spanClassObj[formatType];
-//                 } else {
-//                     containerElement = document.createElement(nodeObj[formatType]);
-//                 }
-
-//                 // containerElement = createElement(nodeObj[formatType]);
-
-//             }
-//         // }
-        
-//         // const containerElement = isAlreadyFormatType ? document.createElement('span') : document.createElement(nodeObj[formatType]);
-
-//         // if (containerElement.tagName == "SPAN") {
-//         //     containerElement.className = spanClassObj[formatType];
-//         // }
-
-//         containerElement.appendChild(range.extractContents());
-//         range.insertNode(containerElement);
-//     }
-
-//     selection.removeAllRanges();
-// }
-
-// function toggleFormatting(style) {
-//     const selection = window.getSelection();
-//     if (!selection.rangeCount) return;
-  
-//     const range = selection.getRangeAt(0); // Get existing range
-  
-//     const formattedElements = [];
-  
-//     // Wrap text nodes in formatted spans (if selection exists)
-//     if (selection.toString()) {
-//       Array.from(range.extractContents().childNodes).forEach(node => {
-//         if (node.nodeType === Node.TEXT_NODE) {
-//           const element = document.createElement("span");
-//           element.style[style] = selection.toString().includes(style) ? "none" : "inherit";
-//           element.appendChild(node.cloneNode(true));
-//           formattedElements.push(element);
-//         } else {
-//           formattedElements.push(node); // Add non-text nodes as-is
-//         }
-//       });
-  
-//       range.insertNode(document.createDocumentFragment(...formattedElements));
-//     } else {
-//       // Handle no selection (create a new formatted span for bold on first keypress)
-//       if (style === "bold" && !selection.toString()) {
-//         const element = document.createElement("span");
-//         element.style.fontWeight = "bold";
-//         range.insertNode(element);
-//       }
-//     }
-// }
-
+//controlling bold, italic, underline & strikethrough
 const italicDiv = document.getElementById("italic-div");
 const boldDiv = document.getElementById("bold-div");
 const underlineDiv = document.getElementById("underline-div");
@@ -182,3 +82,79 @@ function increaseFontSize(newFontSize) {
 fontChange.addEventListener("change", (e) => {
     increaseFontSize(e.target.value);
 })
+
+let foreColor = backColor = false;
+let colorPalletPg = document.getElementById("color-pallet-pg");
+
+const showColorPanel = (colorType) => {
+    popUpBgFun();
+
+    console.log("Show color panel called"); 
+
+    colorPalletPg.style.zIndex = 150;
+    colorPalletPg.style.visibility = "visible";
+
+    if (colorType == "forecolor") {
+        foreColor = !foreColor;
+    } else {
+        backColor = !backColor;
+    }
+}
+
+const setThisColor = (objRef) => {
+    let color = objRef.id;
+
+    // colorPalletPg.style.zIndex = -150;
+    // colorPalletPg.style.visibility = "hidden";
+
+    // popUpBgFun();
+
+    console.log(color);
+
+    let selection = window.getSelection();
+
+    // if (!selection.rangeCount) return;
+
+    if (selection.rangeCount > 0) {
+        let range = selection.getRangeAt(0);
+
+        let span = document.createElement("span");
+
+        if (foreColor) {
+            // document.execCommand("foreColor", false, color);
+            span.style.color = color;
+            console.log("Fore color is set");
+            foreColor = !foreColor;
+        } else {
+            // document.execCommand("backColor", false, "#783f04");
+            span.style.background = color;
+            console.log("Back color is set");
+            backColor = !backColor;
+        }
+
+        //some error here. Rectify it. 
+
+        let selectedContent = range.extractContents().textContent.toString();
+
+        // const serializer = new XMLSerializer();
+        // let selectedContent = serializer.serializeToString(range.extractContents());
+
+        console.log(typeof(selectedContent));
+        console.log(selectedContent);   
+
+        // span.appendChild(range.extractContents());
+        // span.appendChild(selectedContent);
+        span.innerText = selectedContent;
+
+        console.log(span);
+
+        // range.surroundContents(span);
+
+        
+        // range.deleteContents();
+        range.insertNode(span);
+        selection.collapseToEnd();
+    }
+
+    editableDiv.focus();
+}
