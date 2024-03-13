@@ -61,6 +61,12 @@ header {
     gap: 10px;
 }
 
+#blog-action-btn-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 #text-formatting-options-area div {
     /* width: 20px; */
     /* height: 20px; */

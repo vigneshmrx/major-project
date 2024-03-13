@@ -232,7 +232,14 @@
                     <img src="./icons/icons8-minus-48-grey.png" alt="">
                 </div>
             </div>
-            <div id="blog-action-btn-area"></div>
+            <div id="blog-action-btn-area">
+                <div class="archive-btn">
+                    <input type="button" value="Archive">
+                </div>
+                <div class="upload-btn">
+                    <input type="button" value="Upload">
+                </div>
+            </div>
         </div>
 
         <div id="editable-heading-area">
