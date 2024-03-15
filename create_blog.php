@@ -11,11 +11,53 @@
 </head>
 <body>
 
+    <div id="image-upload-pg">
+        <div id="image-upload-box">
+            <div id="image-upload-heading-area">
+                <div id="image-upload-heading">IMAGE UPLOAD</div>
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
+                    <img src="./icons/icons8-close-32.png" alt="">
+                </div>
+            </div>
+
+            <hr class="popup-box-hr" style="margin: auto; margin-bottom: 20px;">
+
+            <div id="uploaded-image-area">
+                Click to Upload an Image
+                <label for="upload-img-btn" id="upload-img-label">
+                    <img src="../major-project/icons/icons8-upload-to-cloud-96.png" alt="" width="">
+                    <!-- Upload An Image -->
+                    <input type="file" name="" id="upload-img-btn" accept="image/jpeg, image/jpg, img/png" onchange="imgUploadFun(event);">
+                </label>
+            </div>
+
+            <div id="uploaded-image-style-area">
+                <!-- <div class="uploaded-image-size-dropdown">
+                    Image Size:
+                    <select name="" id="">
+                        <option value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large</option>
+                    </select>
+                </div> -->
+                <div class="set-this-as-cover">
+                    <input type="checkbox" name="set-img-as-cover" id="">&nbsp;Set this image as cover image
+                </div>
+            </div>
+
+            <div id="uploaded-image-action-area">
+                <input type="button" value="UPLOAD" onclick="insertImageIntoPage();">
+                <input type="button" value="DELETE" onclick="deleteSelectedImg();">
+            </div>
+
+        </div>
+    </div>
+
     <div id="color-pallet-pg">
         <div id="color-pallet-box">
             <div id="color-pallet-heading-area">
                 <div class="color-pallet-heading">CHOOSE COLOR</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this, [2, 3]);">
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
@@ -194,7 +236,7 @@
                     <img src="./icons/icons8-seperator-48-grey.png" alt="">
                 </div>
 
-                <div>
+                <div onclick="showImageUploadBox();">
                     <img src="./icons/icons8-image-48-grey.png" alt="">
                 </div>
                 <div>
@@ -257,6 +299,64 @@
         individualColorBoxes.forEach((box) => {
             box.style.background = box.id;
         })
+
+        let uploadImgBtn = document.getElementById("upload-img-btn");
+        let uploadedImageArea = document.getElementById("uploaded-image-area");
+
+        let uploadedImgAreaOldContent = "";
+        let selectedFile = "";
+        let imageUrl;
+
+        const showImageUploadBox = () => {
+            popUpBgFun();
+
+            let imageUploadPg = document.getElementById("image-upload-pg");
+
+            imageUploadPg.style.zIndex = 150;
+            imageUploadPg.style.visibility = "visible";
+        }
+
+        // const imgUploadFun = (event) => {
+        //     let img = document.createElement("img");
+        //     // img.src = URL.createObjectURL(uploadImgBtn.files[0]);
+        //     selectedFile = event.target.files[0];
+        //     imageUrl = URL.createObjectURL(selectedFile);
+        //     img.src = imageUrl;
+
+        //     uploadedImgAreaOldContent = uploadedImageArea.innerHTML;
+
+        //     uploadedImageArea.innerHTML = "";
+        //     // uploadedImageArea.innerHTML = img;
+        //     uploadedImageArea.appendChild(img);
+        // }
+
+        // const deleteSelectedImg = () => {
+        //     if (uploadedImageArea.firstChild.tagName == "IMG") {
+        //         uploadedImageArea.innerHTML = "";
+        //         uploadedImageArea.innerHTML = uploadedImgAreaOldContent;
+        //         uploadImgBtn.value = "";
+        //     }
+        // }
+
+        // const insertImageIntoPage = () => {
+        //     if (imageUrl !== null && imageUrl !== undefined) {
+        //         let img = document.createElement("img");
+        //         img.src = imageUrl;
+
+        //         const selection = window.getSelection();
+        //         const range = selection.getRangeAt(0);
+        //         range.insertNode(img);
+
+        //         range.setStartAfter(img);
+        //         range.collapse(true);
+
+        //         selection.removeAllRanges();
+        //         selection.addRange(range);          
+        //         // document.execCommand('insertImage', false, imageUrl);
+        //     } else {
+        //         showAlert("Please select an image before uploading!");
+        //     }
+        // }
     </script>
 </body>
 </html>

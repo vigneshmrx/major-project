@@ -158,3 +158,50 @@ const setThisColor = (objRef) => {
 
     editableDiv.focus();
 }
+
+const imgUploadFun = (event) => {
+    let img = document.createElement("img");
+    // img.src = URL.createObjectURL(uploadImgBtn.files[0]);
+    selectedFile = event.target.files[0];
+    imageUrl = URL.createObjectURL(selectedFile);
+    img.src = imageUrl;
+
+    uploadedImgAreaOldContent = uploadedImageArea.innerHTML;
+
+    uploadedImageArea.innerHTML = "";
+    // uploadedImageArea.innerHTML = img;
+    uploadedImageArea.appendChild(img);
+}
+
+const deleteSelectedImg = () => {
+    if (uploadedImageArea.firstChild.tagName == "IMG") {
+        uploadedImageArea.innerHTML = "";
+        uploadedImageArea.innerHTML = uploadedImgAreaOldContent;
+        uploadImgBtn.value = "";
+    }
+}
+
+const insertImageIntoPage = () => {
+    if (imageUrl !== null && imageUrl !== undefined) {
+        let imageUploadPg = document.getElementById("image-upload-pg");
+
+        let img = document.createElement("img");
+        img.src = imageUrl;
+
+        imageUploadPg.style.zIndex = -150;
+        imageUploadPg.style.visibility = "hidden";
+
+        const selection = window.getSelection();
+        const range = selection.getRangeAt(0);
+        range.insertNode(img);
+
+        range.setStartAfter(img);
+        range.collapse(true);
+
+        selection.removeAllRanges();
+        selection.addRange(range);          
+        // document.execCommand('insertImage', false, imageUrl);
+    } else {
+        showAlert("Please select an image before uploading!");
+    }
+}
