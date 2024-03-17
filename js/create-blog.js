@@ -35,6 +35,8 @@ const italicDiv = document.getElementById("italic-div");
 const boldDiv = document.getElementById("bold-div");
 const underlineDiv = document.getElementById("underline-div");
 const strikethroughDiv = document.getElementById("strikethrough-div");
+const unorderedListDiv = document.getElementById("unordered-list-div");
+const orderedListDiv = document.getElementById("ordered-list-div");
 
 italicDiv.addEventListener("click", function() {
     document.execCommand("italic", false, null); // Apply italic on button click
@@ -59,6 +61,20 @@ strikethroughDiv.addEventListener("click", function() {
     strikethroughDiv.classList.toggle("active");
     editableDiv.focus();
 });
+
+orderedListDiv.addEventListener("click", () => {
+    document.execCommand('insertOrderedList', false, null);
+    orderedListDiv.classList.toggle("active");
+    editableDiv.focus();
+});
+
+unorderedListDiv.addEventListener("click", () => {
+    document.execCommand('insertUnorderedList', false, null);
+    unorderedListDiv.classList.toggle("active");
+    editableDiv.focus();
+});
+
+
 
 //controlling font size
 let fontChange = document.getElementById("font-change-drop-down");
@@ -159,6 +175,7 @@ const setThisColor = (objRef) => {
     editableDiv.focus();
 }
 
+//for uploading image
 const imgUploadFun = (event) => {
     let img = document.createElement("img");
     // img.src = URL.createObjectURL(uploadImgBtn.files[0]);
@@ -185,23 +202,241 @@ const insertImageIntoPage = () => {
     if (imageUrl !== null && imageUrl !== undefined) {
         let imageUploadPg = document.getElementById("image-upload-pg");
 
+        let div = document.createElement("div");
+        div.style = "width: 100%; display: grid; place-items: center;"
+
         let img = document.createElement("img");
         img.src = imageUrl;
+        img.style = "width: 60%;"
+
+        div.appendChild(img);
 
         imageUploadPg.style.zIndex = -150;
         imageUploadPg.style.visibility = "hidden";
 
         const selection = window.getSelection();
         const range = selection.getRangeAt(0);
-        range.insertNode(img);
-
-        range.setStartAfter(img);
+        // range.insertNode(img);
+        range.insertNode(div);
+        
+        // range.setStartAfter(img);
+        range.setStartAfter(div);
         range.collapse(true);
 
         selection.removeAllRanges();
         selection.addRange(range);          
-        // document.execCommand('insertImage', false, imageUrl);
+        // document.execCommand('insertImage', false, imageUrl);\
+
+        uploadedImageArea.innerHTML = uploadedImgAreaOldContent;
     } else {
         showAlert("Please select an image before uploading!");
     }
 }
+
+function alignContent(sideName) {
+    // Execute the command to align text
+    document.execCommand(sideName, false, null);
+}
+
+let alignmentDropDown = document.getElementById("alignment-select");
+
+alignmentDropDown.addEventListener("change", (e) => {
+    // console.log(e.target.value);
+    alignContent(e.target.value);
+});
+
+
+
+
+let previousCursorPosition = 0;
+
+editableDiv.addEventListener('mouseup', handleCursorPositionChange);
+editableDiv.addEventListener('keyup', handleCursorPositionChange);
+editableDiv.addEventListener('keydown', handleCursorPositionChange);
+
+const highlightBold = (bol) => {
+    if (bol) {
+        if (!(boldDiv.classList.contains("active"))) {
+            boldDiv.classList.add("active");
+        }
+    } else {
+        if (boldDiv.classList.contains("active")) {
+            boldDiv.classList.remove("active");
+        }
+    }
+}
+
+const highlightItalic = (bol) => {
+    if (bol) {
+        if (!(italicDiv.classList.contains("active"))) {
+            italicDiv.classList.add("active");
+        }
+    } else {
+        if (italicDiv.classList.contains("active")) {
+            italicDiv.classList.remove("active");
+        }
+    }
+}
+
+const highlightUnderline = (bol) => {
+    if (bol) {
+        if (!(underlineDiv.classList.contains("active"))) {
+            underlineDiv.classList.add("active");
+        }
+    } else {
+        if (underlineDiv.classList.contains("active")) {
+            underlineDiv.classList.remove("active");
+        }
+    }
+}
+
+const highlightStrikethrough = (bol) => {
+    if (bol) {
+        if (!(strikethroughDiv.classList.contains("active"))) {
+            strikethroughDiv.classList.add("active");
+        }
+    } else {
+        if (strikethroughDiv.classList.contains("active")) {
+            strikethroughDiv.classList.remove("active");
+        }
+    }
+}
+
+const highlightOrderedList = (bol) => {
+    if (bol) {
+        if (!(orderedListDiv.classList.contains("active"))) {
+            orderedListDiv.classList.add("active");
+        }
+    } else {
+        if (orderedListDiv.classList.contains("active")) {
+            orderedListDiv.classList.remove("active");
+        }
+    }
+}
+
+const highlightUnorderedList = (bol) => {
+    if (bol) {
+        if (!(unorderedListDiv.classList.contains("active"))) {
+            unorderedListDiv.classList.add("active");
+        }
+    } else {
+        if (unorderedListDiv.classList.contains("active")) {
+            unorderedListDiv.classList.remove("active");
+        }
+    }
+}
+
+const selectTheProperAlignment = (alignmentName) => {
+    alignmentDropDown.value = alignmentName;
+}
+
+function handleCursorPositionChange() {
+//   const selection = window.getSelection();
+//   const cursorPosition = selection.focusOffset;
+
+//   if (cursorPosition !== previousCursorPosition) {
+//     console.log('Cursor position changed:', cursorPosition);
+//     previousCursorPosition = cursorPosition;
+//   }
+
+    if (document.queryCommandState("bold")) {
+        highlightBold(true);
+    } else {
+        highlightBold(false);
+    }
+    
+    if (document.queryCommandState("italic")) {
+        highlightItalic(true);
+    } else {
+        highlightItalic(false);
+    }
+
+    if (document.queryCommandState("underline")) {
+        highlightUnderline(true);
+    } else {
+        highlightUnderline(false);
+    }
+
+    if (document.queryCommandState("strikethrough")) {
+        highlightStrikethrough(true);
+    } else {
+        highlightStrikethrough(false);
+    }
+
+    if (document.queryCommandState('justifyRight')) {
+        selectTheProperAlignment("justifyRight");
+    } else if (document.queryCommandState('justifyCenter')) {
+        selectTheProperAlignment("justifyCenter");
+    } else {
+        selectTheProperAlignment("justifyLeft");
+    }
+
+    if (document.queryCommandState('insertUnorderedList')) {
+        highlightUnorderedList(true);
+    } else {
+        highlightUnorderedList(false);
+    }
+
+    if (document.queryCommandState('insertOrderedList')) {
+        highlightOrderedList(true);
+    } else {
+        highlightOrderedList(false);
+    }
+}
+
+
+function insertSpecialQuoteBox() {
+    const div = document.createElement('blockquote');
+    // div.textContent = 'New Div';
+
+    div.className = "special-quote-box";
+
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+
+    range.deleteContents();
+    range.insertNode(div);
+
+    editableDiv.focus();
+}
+
+editableDiv.addEventListener('keydown', (event) => {
+    var selection = window.getSelection();
+    var range = selection.getRangeAt(0);
+  
+    if (event.key === 'Enter' && isCursorInBlockquote(range)) {
+      event.preventDefault(); // Prevent default Enter behavior
+  
+      // Create a new div element
+      var div = document.createElement('div');
+  
+      // Insert the div after the blockquote containing the cursor
+      var blockquote = getBlockquoteContainingCursor(range);
+      if (blockquote) {
+        blockquote.parentNode.insertBefore(div, blockquote.nextSibling);
+  
+        // Move the cursor to the newly inserted div
+        var newRange = document.createRange();
+        newRange.setStartAfter(div);
+        newRange.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+      }
+    }
+});
+  
+  function isCursorInBlockquote(range) {
+    var blockquote = getBlockquoteContainingCursor(range);
+    return blockquote !== null;
+  }
+  
+  function getBlockquoteContainingCursor(range) {
+    var blockquotes = document.querySelectorAll('blockquote');
+    for (var i = 0; i < blockquotes.length; i++) {
+      var blockquote = blockquotes[i];
+      if (blockquote.contains(range.startContainer) || blockquote.contains(range.endContainer)) {
+        return blockquote;
+      }
+    }
+    return null;
+  }

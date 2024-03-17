@@ -250,10 +250,10 @@
                 </div>
 
                 <div>
-                    <select name="" id="">
-                        <option value="Left Align">Left Align</option>
-                        <option value="Center Align">Center Align</option>
-                        <option value="Right Align">Right Align</option>
+                    <select name="" id="alignment-select">
+                        <option value="justifyLeft">Left Align</option>
+                        <option value="justifyCenter">Center Align</option>
+                        <option value="justifyRight">Right Align</option>
                     </select>
                 </div>
 
@@ -261,17 +261,14 @@
                     <img src="./icons/icons8-seperator-48-grey.png" alt="">
                 </div>
 
-                <div>
+                <div onclick="insertSpecialQuoteBox();">
                     <img src="./icons/icons8-quote-50-grey.png" alt="">
                 </div>
-                <div onclick="toggleList('unordered');">
+                <div id="unordered-list-div">
                     <img src="./icons/icons8-bullet-list-60-grey.png" alt="">
                 </div>
-                <div onclick="toggleList('ordered');">
+                <div id="ordered-list-div">
                     <img src="./icons/icons8-numbered-list-60-grey.png" alt="">
-                </div>
-                <div>
-                    <img src="./icons/icons8-minus-48-grey.png" alt="">
                 </div>
             </div>
             <div id="blog-action-btn-area">
@@ -315,48 +312,6 @@
             imageUploadPg.style.zIndex = 150;
             imageUploadPg.style.visibility = "visible";
         }
-
-        // const imgUploadFun = (event) => {
-        //     let img = document.createElement("img");
-        //     // img.src = URL.createObjectURL(uploadImgBtn.files[0]);
-        //     selectedFile = event.target.files[0];
-        //     imageUrl = URL.createObjectURL(selectedFile);
-        //     img.src = imageUrl;
-
-        //     uploadedImgAreaOldContent = uploadedImageArea.innerHTML;
-
-        //     uploadedImageArea.innerHTML = "";
-        //     // uploadedImageArea.innerHTML = img;
-        //     uploadedImageArea.appendChild(img);
-        // }
-
-        // const deleteSelectedImg = () => {
-        //     if (uploadedImageArea.firstChild.tagName == "IMG") {
-        //         uploadedImageArea.innerHTML = "";
-        //         uploadedImageArea.innerHTML = uploadedImgAreaOldContent;
-        //         uploadImgBtn.value = "";
-        //     }
-        // }
-
-        // const insertImageIntoPage = () => {
-        //     if (imageUrl !== null && imageUrl !== undefined) {
-        //         let img = document.createElement("img");
-        //         img.src = imageUrl;
-
-        //         const selection = window.getSelection();
-        //         const range = selection.getRangeAt(0);
-        //         range.insertNode(img);
-
-        //         range.setStartAfter(img);
-        //         range.collapse(true);
-
-        //         selection.removeAllRanges();
-        //         selection.addRange(range);          
-        //         // document.execCommand('insertImage', false, imageUrl);
-        //     } else {
-        //         showAlert("Please select an image before uploading!");
-        //     }
-        // }
     </script>
 </body>
 </html>
