@@ -8,6 +8,7 @@
         <?php include './css/common-styles.css'; ?>
         <?php include './css/create-blog.css'; ?>
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -154,7 +155,6 @@
             ProDo
         </div>
         <div class="greeting">
-            Hello, Eren
         </div>
     </header>
     
@@ -261,9 +261,9 @@
                     <img src="./icons/icons8-seperator-48-grey.png" alt="">
                 </div>
 
-                <div onclick="insertSpecialQuoteBox();">
+                <!-- <div onclick="insertSpecialQuoteBox();">
                     <img src="./icons/icons8-quote-50-grey.png" alt="">
-                </div>
+                </div> -->
                 <div id="unordered-list-div">
                     <img src="./icons/icons8-bullet-list-60-grey.png" alt="">
                 </div>
@@ -291,6 +291,8 @@
     <script src="./js/common-script.js"></script>
     <script src="./js/create-blog.js"></script>
     <script>
+        document.getElementsByClassName("greeting")[0].innerHTML = "Hello, " + localStorage.getItem("userName").split(" ")[0];
+
         let individualColorBoxes = Array.from(document.getElementsByClassName("individual-color-box"));
 
         individualColorBoxes.forEach((box) => {

@@ -1,7 +1,11 @@
+const dbName = localStorage.getItem("dbName");
+
 //undo and redo code begins here
 const editableDiv = document.getElementById('editable-content-area');
 const undoStack = [];
 let currentStateIndex = -1;
+let imagesUrlArray = [];
+let imagesPathArray = [];
 
 function saveState() {
     const content = editableDiv.innerHTML;
@@ -180,8 +184,16 @@ const imgUploadFun = (event) => {
     let img = document.createElement("img");
     // img.src = URL.createObjectURL(uploadImgBtn.files[0]);
     selectedFile = event.target.files[0];
+    console.log(selectedFile);
     imageUrl = URL.createObjectURL(selectedFile);
     img.src = imageUrl;
+
+    imagePath = "../major-project/images/user-images/" + dbName + "/" + selectedFile["name"];
+
+
+    //to get all the uploaded images in the blog
+    imagesUrlArray.push(imageUrl);
+    imagesPathArray.push(imagePath);
 
     uploadedImgAreaOldContent = uploadedImageArea.innerHTML;
 
@@ -228,6 +240,25 @@ const insertImageIntoPage = () => {
         // document.execCommand('insertImage', false, imageUrl);\
 
         uploadedImageArea.innerHTML = uploadedImgAreaOldContent;
+
+        //uploading image to user's folder
+
+        var formData = new FormData();
+        formData.append("file", selectedFile);
+        formData.append("folder_name", dbName);
+        // console.log(formData)
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../major-project/php-ajax/upload_img.php', true);
+        // xhr.onload = function() {
+        //     if (xhr.status === 200) {
+        //         console.log('Response:', xhr.responseText);
+        //     } else {
+        //         console.error('Request failed:', xhr.status);
+        //     }
+        // };
+        xhr.send(formData);
+
     } else {
         showAlert("Please select an image before uploading!");
     }
@@ -385,58 +416,60 @@ function handleCursorPositionChange() {
 }
 
 
-function insertSpecialQuoteBox() {
-    const div = document.createElement('blockquote');
-    // div.textContent = 'New Div';
+//special quote box
 
-    div.className = "special-quote-box";
+// function insertSpecialQuoteBox() {
+//     const div = document.createElement('blockquote');
+//     // div.textContent = 'New Div';
 
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
+//     div.className = "special-quote-box";
 
-    range.deleteContents();
-    range.insertNode(div);
+//     const selection = window.getSelection();
+//     const range = selection.getRangeAt(0);
 
-    editableDiv.focus();
-}
+//     range.deleteContents();
+//     range.insertNode(div);
 
-editableDiv.addEventListener('keydown', (event) => {
-    var selection = window.getSelection();
-    var range = selection.getRangeAt(0);
+//     editableDiv.focus();
+// }
+
+// editableDiv.addEventListener('keydown', (event) => {
+//     var selection = window.getSelection();
+//     var range = selection.getRangeAt(0);
   
-    if (event.key === 'Enter' && isCursorInBlockquote(range)) {
-      event.preventDefault(); // Prevent default Enter behavior
+//     if (event.key === 'Enter' && isCursorInBlockquote(range)) {
+//       event.preventDefault(); // Prevent default Enter behavior
   
-      // Create a new div element
-      var div = document.createElement('div');
+//       // Create a new div element
+//       var div = document.createElement('div');
   
-      // Insert the div after the blockquote containing the cursor
-      var blockquote = getBlockquoteContainingCursor(range);
-      if (blockquote) {
-        blockquote.parentNode.insertBefore(div, blockquote.nextSibling);
+//       // Insert the div after the blockquote containing the cursor
+//       var blockquote = getBlockquoteContainingCursor(range);
+//       if (blockquote) {
+//         blockquote.parentNode.insertBefore(div, blockquote.nextSibling);
   
-        // Move the cursor to the newly inserted div
-        var newRange = document.createRange();
-        newRange.setStartAfter(div);
-        newRange.collapse(true);
-        selection.removeAllRanges();
-        selection.addRange(newRange);
-      }
-    }
-});
+//         // Move the cursor to the newly inserted div
+//         var newRange = document.createRange();
+//         newRange.setStartAfter(div);
+//         newRange.collapse(true);
+//         selection.removeAllRanges();
+//         selection.addRange(newRange);
+//       }
+//     }
+// });
   
-  function isCursorInBlockquote(range) {
-    var blockquote = getBlockquoteContainingCursor(range);
-    return blockquote !== null;
-  }
+//   function isCursorInBlockquote(range) {
+//     var blockquote = getBlockquoteContainingCursor(range);
+//     return blockquote !== null;
+//   }
   
-  function getBlockquoteContainingCursor(range) {
-    var blockquotes = document.querySelectorAll('blockquote');
-    for (var i = 0; i < blockquotes.length; i++) {
-      var blockquote = blockquotes[i];
-      if (blockquote.contains(range.startContainer) || blockquote.contains(range.endContainer)) {
-        return blockquote;
-      }
-    }
-    return null;
-  }
+//   function getBlockquoteContainingCursor(range) {
+//     var blockquotes = document.querySelectorAll('blockquote');
+//     for (var i = 0; i < blockquotes.length; i++) {
+//       var blockquote = blockquotes[i];
+//       if (blockquote.contains(range.startContainer) || blockquote.contains(range.endContainer)) {
+//         return blockquote;
+//       }
+//     }
+//     return null;
+//   }
