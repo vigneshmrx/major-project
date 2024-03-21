@@ -272,17 +272,17 @@
                 </div>
             </div>
             <div id="blog-action-btn-area">
-                <div class="archive-btn">
+                <div class="archive-btn" onclick="uploadBlog('archive');">
                     <input type="button" value="Archive">
                 </div>
-                <div class="upload-btn">
+                <div class="upload-btn" onclick="uploadBlog('upload');">
                     <input type="button" value="Upload">
                 </div>
             </div>
         </div>
 
         <div id="editable-heading-area">
-            <input type="text" placeholder="Your Heading Here">
+            <input type="text" placeholder="Your Heading Here" id="editable-heading">
             <!-- <textarea name="" id="" placeholder="Your Heading Here"></textarea> -->
         </div>
         <div id="editable-content-area" contenteditable="true">

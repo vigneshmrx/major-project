@@ -4,8 +4,9 @@ const dbName = localStorage.getItem("dbName");
 const editableDiv = document.getElementById('editable-content-area');
 const undoStack = [];
 let currentStateIndex = -1;
-let imagesUrlArray = [];
-let imagesPathArray = [];
+// let imagesUrlArray = [];
+// let imagesPathArray = [];
+let imageInfoArray = [];
 
 function saveState() {
     const content = editableDiv.innerHTML;
@@ -192,8 +193,11 @@ const imgUploadFun = (event) => {
 
 
     //to get all the uploaded images in the blog
-    imagesUrlArray.push(imageUrl);
-    imagesPathArray.push(imagePath);
+    // imagesUrlArray.push(imageUrl);
+    // imagesPathArray.push(imagePath);
+
+    let imageInfoObj = {"imageUrl" : imageUrl, "imagePath" : imagePath};
+    imageInfoArray.push(imageInfoObj);
 
     uploadedImgAreaOldContent = uploadedImageArea.innerHTML;
 
@@ -413,6 +417,42 @@ function handleCursorPositionChange() {
     } else {
         highlightOrderedList(false);
     }
+}
+
+const uploadBlog = (blogType) => {
+    let blogHeading = document.getElementById("editable-heading");
+    let blogContent = editableDiv.innerHTML;
+    // console.log(editableDiv);    
+
+    if (blogHeading.value == "") {
+        showAlert("Please give a valid title for your blog!");
+        return;
+    } else if (blogContent == '\n        ' || blogContent == "") {
+        showAlert("Please have a valid content before uploading");
+        return;
+    }
+    
+    // console.log(imageInfoArray);
+    imageInfoArray.forEach((ele) => {
+        if ( blogContent.includes(ele["imageUrl"]) ) {
+            console.log("Yes it includes");
+            blogContent = blogContent.replace(ele["imageUrl"], ele["imagePath"]);
+        }
+    });
+
+    console.log(blogContent);
+
+    //sending blog content to php to be saved in the database
+    $.ajax({
+        type: "POST",
+        url: "../major-project/php-ajax/upload-blog.php",
+        data: {
+            blog_heading: blogHeading,
+            blog_content: blogContent,
+            db_name: dbName,
+            type: blogType
+        }
+    })
 }
 
 
