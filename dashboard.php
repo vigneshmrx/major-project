@@ -112,7 +112,7 @@ session_start();
 
                 </div>
 
-                <div id="dashboard-main-action">
+                <div id="dashboard-main-action" onclick="redirectToWriteBlogPg();">
                     <input type="button" value="+ Add Blog">
                 </div>
             </div>
@@ -367,6 +367,10 @@ session_start();
         // document.getElementById("dashboard-greeting").innerHTML = userNameArr[0] + "'s Dashboard";
         // document.getElementById("dashboard-greeting").innerHTML = "Hello";
         document.getElementById("dashboard-greeting").innerHTML = userNameArr[0] + "'s Dashboard";
+
+        const redirectToWriteBlogPg = () => {
+            location.replace("create_blog.php");
+        }
     </script>   
 </body>
 </html>

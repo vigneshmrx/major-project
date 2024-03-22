@@ -7,6 +7,8 @@ let currentStateIndex = -1;
 // let imagesUrlArray = [];
 // let imagesPathArray = [];
 let imageInfoArray = [];
+let coverImgPath = null;
+let uploadedImgActionArea = document.getElementById("uploaded-image-action-area");
 
 function saveState() {
     const content = editableDiv.innerHTML;
@@ -206,6 +208,13 @@ const imgUploadFun = (event) => {
     uploadedImageArea.appendChild(img);
 }
 
+const  makeOtherBtnVisible = () => {
+    if (uploadedImgActionArea.firstElementChild.style.visibility == "hidden") {
+        uploadedImgActionArea.firstElementChild.style.visibility = "visible";
+        uploadedImgActionArea.lastElementChild.style.visibility = "visible";
+    }
+}
+
 const deleteSelectedImg = () => {
     if (uploadedImageArea.firstChild.tagName == "IMG") {
         uploadedImageArea.innerHTML = "";
@@ -214,34 +223,51 @@ const deleteSelectedImg = () => {
     }
 }
 
-const insertImageIntoPage = () => {
+const selectedImgFun = (uploadType) => {
     if (imageUrl !== null && imageUrl !== undefined) {
         let imageUploadPg = document.getElementById("image-upload-pg");
 
-        let div = document.createElement("div");
-        div.style = "width: 100%; display: grid; place-items: center;"
-
-        let img = document.createElement("img");
-        img.src = imageUrl;
-        img.style = "width: 60%;"
-
-        div.appendChild(img);
-
         imageUploadPg.style.zIndex = -150;
         imageUploadPg.style.visibility = "hidden";
-
-        const selection = window.getSelection();
-        const range = selection.getRangeAt(0);
-        // range.insertNode(img);
-        range.insertNode(div);
         
-        // range.setStartAfter(img);
-        range.setStartAfter(div);
-        range.collapse(true);
+        if (uploadType == "insert") {
 
-        selection.removeAllRanges();
-        selection.addRange(range);          
-        // document.execCommand('insertImage', false, imageUrl);\
+            let div = document.createElement("div");
+            div.style = "width: 100%; display: grid; place-items: center;"
+
+            let img = document.createElement("img");
+            img.src = imageUrl;
+            img.style = "width: 60%;"
+
+            div.appendChild(img);
+
+            // imageUploadPg.style.zIndex = -150;
+            // imageUploadPg.style.visibility = "hidden";
+
+            const selection = window.getSelection();
+            const range = selection.getRangeAt(0);
+            // range.insertNode(img);
+            range.insertNode(div);
+            
+            // range.setStartAfter(img);
+            range.setStartAfter(div);
+            range.collapse(true);
+
+            selection.removeAllRanges();
+            selection.addRange(range);          
+            // document.execCommand('insertImage', false, imageUrl);\
+        }
+        else {
+
+            imageInfoArray.forEach((ele) => {
+                if (ele["imageUrl"] == imageUrl) {
+                    coverImgPath = ele["imagePath"];
+                }
+            })
+
+            makeOtherBtnVisible();
+        }
+        
 
         uploadedImageArea.innerHTML = uploadedImgAreaOldContent;
 
@@ -430,8 +456,17 @@ const uploadBlog = (blogType) => {
     } else if (blogContent == '\n        ' || blogContent == "") {
         showAlert("Please have a valid content before uploading");
         return;
+    } else if (coverImgPath == null) {
+        showAlert("Please select a cover image for your blog");
+        let imageUploadPg = document.getElementById("image-upload-pg");
+        imageUploadPg.style.zIndex = 150;
+        imageUploadPg.style.visibility = "visible";
+
+        uploadedImgActionArea.firstElementChild.style.visibility = "hidden";
+        uploadedImgActionArea.lastElementChild.style.visibility = "hidden";
+        return;
     }
-    
+
     // console.log(imageInfoArray);
     imageInfoArray.forEach((ele) => {
         if ( blogContent.includes(ele["imageUrl"]) ) {
@@ -441,16 +476,34 @@ const uploadBlog = (blogType) => {
     });
 
     console.log(blogContent);
+    console.log(blogHeading);
+    // console.log(blog_content);
+    console.log(dbName);
+    console.log(blogType);
 
     //sending blog content to php to be saved in the database
     $.ajax({
         type: "POST",
         url: "../major-project/php-ajax/upload-blog.php",
         data: {
-            blog_heading: blogHeading,
+            blog_heading: blogHeading.value,
             blog_content: blogContent,
             db_name: dbName,
-            type: blogType
+            type: blogType,
+            cover_img_path: coverImgPath
+        },
+        success: function(response) {
+            // showAlert(response);
+            // alert(response);
+            showAlert(response);
+            editableDiv.innerHTML = "";
+            blogHeading.value = "";
+            setTimeout(() => {
+                location.replace("dashboard.php");
+            }, 1200);
+        },
+        error: function(response) {
+            alert(response);
         }
     })
 }

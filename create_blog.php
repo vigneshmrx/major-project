@@ -9,6 +9,11 @@
         <?php include './css/create-blog.css'; ?>
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        if (localStorage.getItem("user-type") != "writer") {
+            location.replace("finance.php");
+        }
+    </script>
 </head>
 <body>
 
@@ -41,13 +46,14 @@
                         <option value="Large">Large</option>
                     </select>
                 </div> -->
-                <div class="set-this-as-cover">
+                <!-- <div class="set-this-as-cover">
                     <input type="checkbox" name="set-img-as-cover" id="">&nbsp;Set this image as cover image
-                </div>
+                </div> -->
             </div>
 
             <div id="uploaded-image-action-area">
-                <input type="button" value="UPLOAD" onclick="insertImageIntoPage();">
+                <input type="button" value="UPLOAD" onclick="selectedImgFun('insert');">
+                <input type="button" value="SET AS COVER" onclick="selectedImgFun('cover');">
                 <input type="button" value="DELETE" onclick="deleteSelectedImg();">
             </div>
 
