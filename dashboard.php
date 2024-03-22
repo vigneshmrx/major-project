@@ -178,9 +178,9 @@ session_start();
                         <div id="user-content-info-header">
                             <div>MANAGE BLOGS</div>
                             <div>
-                                <select id="manage-blogs-drop-down">
-                                    <option value="Uploaded" selected>Uploaded</option>
-                                    <option value="Archived">Archived</option>
+                                <select id="manage-blogs-drop-down" onchange="selectedBlogStatusChangedFun(event);">
+                                    <option value="uploaded" selected>Uploaded</option>
+                                    <option value="archived">Archived</option>
                                 </select>
                             </div>
                         </div>
@@ -219,137 +219,6 @@ session_start();
                                 </div>
                             </div> -->
 
-                            <div class="blog-box">
-                                <div class="on-hover-extras">
-                                    <div class="like-and-views">
-                                        <div><img src="./icons/icons8-heart-48.png" alt=""> <span class="money">120</span></div>
-                                        <div><img src="./icons/icons8-eye-48-grey.png" alt=""> <span class="money">155</span></div>
-                                    </div>
-                                    <div class="archive-and-trash">
-                                        <abbr title="Archive"><img src="./icons/icons8-archive-48.png" alt=""></abbr>
-                                        <abbr title="Delete"><img src="./icons/icons8-delete-trash-48.png" alt=""></abbr>
-                                    </div>
-                                </div>
-                                <div class="blog-img">
-                                    <!-- <img src="./images/cosmos.jpg" alt=""> -->
-                                </div>
-                                <div class="blog-title">    
-                                    Blackholes and The History of the Cosmos
-                                </div>
-                                <div class="blog-secondary-info">
-                                    <b>Writer</b>   : Eren Yeager <br>
-                                    <b>Published</b>: 14th May, 2024 <br>
-                                    <b>Category</b> : <span class="category">#Space</span>
-
-                                    <!-- <div class="blog-box-views-and-likes-count">
-                                        <div>
-                                            <img src="./icons/icons8-views-icon.png" alt=""> <span class="money">115</span>
-                                        </div>
-                                        <div>
-                                            <img src="./icons/icons8-like-icon.png" alt=""> <span class="money">200</span>
-                                        </div>
-                                    </div> -->
-                                </div>
-                            </div>
-
-                            <div class="blog-box">
-                                <div class="on-hover-extras">
-                                    <div class="like-and-views">
-                                        <div><img src="./icons/icons8-heart-48.png" alt=""> 15</div>
-                                        <div><img src="./icons/icons8-eye-48-grey.png" alt=""> 25</div>
-                                    </div>
-                                    <div class="archive-and-trash">
-                                        <abbr title="Archive"><img src="./icons/icons8-archive-48.png" alt=""></abbr>
-                                        <abbr title="Delete"><img src="./icons/icons8-delete-trash-48.png" alt=""></abbr>
-                                    </div>
-                                </div>
-                                <div class="blog-img" style="background: url('./images/challenger.jpg'); background-size: cover;">
-                                    <!-- <img src="./images/cosmos.jpg" alt=""> -->
-                                </div>
-                                <div class="blog-title">    
-                                    Challenger: The Disasterous Flight
-                                </div>
-                                <div class="blog-secondary-info">
-                                    <b>Writer</b>   : Eren Yeager <br>
-                                    <b>Published</b>: 09th April, 2024 <br>
-                                    <b>Category</b> : <span class="category">#Space</span>
-
-                                    <!-- <div class="blog-box-views-and-likes-count">
-                                        <div>
-                                            <img src="./icons/icons8-views-icon.png" alt=""> <span class="money">115</span>
-                                        </div>
-                                        <div>
-                                            <img src="./icons/icons8-like-icon.png" alt=""> <span class="money">200</span>
-                                        </div>
-                                    </div> -->
-                                </div>
-                            </div>
-
-                            <div class="blog-box">
-                                <div class="on-hover-extras">
-                                    <div class="like-and-views">
-                                        <div><img src="./icons/icons8-heart-48.png" alt=""> <span class="money">1K</span></div>
-                                        <div><img src="./icons/icons8-eye-48-grey.png" alt=""> <span class="money">1.5K</span></div>
-                                    </div>
-                                    <div class="archive-and-trash">
-                                        <abbr title="Archive"><img src="./icons/icons8-archive-48.png" alt=""></abbr>
-                                        <abbr title="Delete"><img src="./icons/icons8-delete-trash-48.png" alt=""></abbr>
-                                    </div>
-                                </div>
-                                <div class="blog-img" style="background: url('./images/one-piece.jpeg'); background-size: cover; background-position: center;">
-                                    <!-- <img src="./images/cosmos.jpg" alt=""> -->
-                                </div>
-                                <div class="blog-title">    
-                                    One Piece: The Story of Three Brothers
-                                </div>
-                                <div class="blog-secondary-info">
-                                    <b>Writer</b>   : Eren Yeager <br>
-                                    <b>Published</b>: 01 Jan, 2024 <br>
-                                    <b>Category</b> : <span class="category">#anime</span>
-
-                                    <!-- <div class="blog-box-views-and-likes-count">
-                                        <div>
-                                            <img src="./icons/icons8-views-icon.png" alt=""> <span class="money">115</span>
-                                        </div>
-                                        <div>
-                                            <img src="./icons/icons8-like-icon.png" alt=""> <span class="money">200</span>
-                                        </div>
-                                    </div> -->
-                                </div>
-                            </div>
-
-                            <div class="blog-box">
-                                <div class="on-hover-extras">
-                                    <div class="like-and-views">
-                                        <div><img src="./icons/icons8-heart-48.png" alt=""> <span class="money">125</span></div>
-                                        <div><img src="./icons/icons8-eye-48-grey.png" alt=""> <span class="money">350</span></div>
-                                    </div>
-                                    <div class="archive-and-trash">
-                                        <abbr title="Archive"><img src="./icons/icons8-archive-48.png" alt=""></abbr>
-                                        <abbr title="Delete"><img src="./icons/icons8-delete-trash-48.png" alt=""></abbr>
-                                    </div>
-                                </div>
-                                <div class="blog-img" style="background: url('./images/rick-and-morty.jpeg'); background-size: cover; background-position: center">
-                                    <!-- <img src="./images/cosmos.jpg" alt=""> -->
-                                </div>
-                                <div class="blog-title">    
-                                    Rick and Morty: The Epic Story
-                                </div>
-                                <div class="blog-secondary-info">
-                                    <b>Writer</b>   : Eren Yeager <br>
-                                    <b>Published</b>: 05 Feb, 2024 <br>
-                                    <b>Category</b> : <span class="category">#cartoon</span>
-
-                                    <!-- <div class="blog-box-views-and-likes-count">
-                                        <div>
-                                            <img src="./icons/icons8-views-icon.png" alt=""> <span class="money">115</span>
-                                        </div>
-                                        <div>
-                                            <img src="./icons/icons8-like-icon.png" alt=""> <span class="money">200</span>
-                                        </div>
-                                    </div> -->
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -371,6 +240,7 @@ session_start();
         const redirectToWriteBlogPg = () => {
             location.replace("create_blog.php");
         }
-    </script>   
+    </script> 
+    <script src="./js/dashboard-ajax.js"></script>  
 </body>
 </html>

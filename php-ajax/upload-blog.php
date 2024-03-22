@@ -17,7 +17,7 @@ $result = mysqli_query($con, $query);
 if (!($result && $result->num_rows > 0)) {
     try {
         mysqli_select_db($con, $db_name);
-        $create_table_q = "create table blog_posts(SNo int AUTO_INCREMENT PRIMARY KEY, BlogTitle varchar(100) not null, BlogContent LONGTEXT not null, CoverImage TEXT not null, UploadDate TIMESTAMP not null, Visibility varchar(10) not null);";
+        $create_table_q = "create table blog_posts(SNo int AUTO_INCREMENT PRIMARY KEY, BlogTitle varchar(100) not null, BlogContent LONGTEXT not null, CoverImage TEXT not null, Category varchar(150), UploadDate TIMESTAMP not null, Visibility varchar(10) not null, Likes int(5), Views int(5), Reports int(2));";
 
         if ((!mysqli_query($con, $create_table_q))) {
             die("Table couldn't be created");
@@ -31,7 +31,7 @@ if (!($result && $result->num_rows > 0)) {
 }
 
 if ($type == "upload") {
-    $visibility = "visible";
+    $visibility = "visible";    
 } else {
     $visibility = "hidden";
 }
@@ -39,7 +39,7 @@ if ($type == "upload") {
 mysqli_select_db($con, $db_name);
 
 try {
-    $insert_blog_into_db = "insert into blog_posts (BlogTitle, BlogContent, CoverImage, UploadDate, Visibility) values('$blog_heading', '$blog_content', '$cover_img_path', current_timestamp(), '$visibility');";
+    $insert_blog_into_db = "insert into blog_posts (BlogTitle, BlogContent, CoverImage, UploadDate, Visibility, Likes, Views, Reports) values('$blog_heading', '$blog_content', '$cover_img_path', current_timestamp(), '$visibility', 0, 0, 0);";
 
     if (mysqli_query($con, $insert_blog_into_db)) {
         echo "Blog Uploaded Successfully";
