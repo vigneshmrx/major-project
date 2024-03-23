@@ -220,7 +220,7 @@ session_start();
             var_dump($full_name);
 
             //creating account for the user
-            $adding_user_query = "insert into users_list (name, email, password, role, reading_goals) values('$full_name', '$email', '$hashed_pwd', 'reader', 0)";
+            $adding_user_query = "insert into users_list (name, email, password, role, reading_goals, join_date) values('$full_name', '$email', '$hashed_pwd', 'reader', 0, current_timestamp())";
             $adding_user_success = mysqli_query($con, $adding_user_query);
 
             $user_type = "reader";

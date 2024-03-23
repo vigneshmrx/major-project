@@ -21,7 +21,7 @@ try {
 
     $res = mysqli_query($con, $get_blogs_q);
 
-    if ($res -> num_rows > 0) {
+    if ($res == true && $res -> num_rows > 0) {
         
         while ($row = mysqli_fetch_assoc($res)) {
 
@@ -53,7 +53,10 @@ try {
     }
 }
 catch (Exception $blog_load_exc) {
-    die($blog_load_exc);
+    // die($blog_load_exc);
+    echo '<div id="no-blog-grid-toggle">
+        <img src="./images/no-blog-exists-img.png" alt="">
+        NOTHING TO SEE HERE!</div>';
 }
 
 ?>

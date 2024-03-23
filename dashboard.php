@@ -128,7 +128,7 @@ session_start();
                                 <img src="./icons/icons8-blog-100-2.png" alt="">
                             </div>
                             <div>
-                                <span class="money">15</span>
+                                <!-- <span class="money">15</span> -->
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@ session_start();
                                 <img src="./icons/icons8-archive-100-2.png" alt="">
                             </div>
                             <div>
-                                <span class="money">02</span>
+                                <!-- <span class="money">02</span> -->
                             </div>
                         </div>
                     </div>
@@ -152,7 +152,7 @@ session_start();
                                 <img src="./icons/icons8-heart-100-2.png" alt="">
                             </div>
                             <div>
-                                <span class="money">20</span>
+                                <!-- <span class="money">20</span> -->
                             </div>
                         </div>
                     </div>
@@ -165,7 +165,7 @@ session_start();
                                 <img src="./icons/icons8-eye-100-2.png" alt="">
                             </div>
                             <div>
-                                <span class="money">48</span>
+                                <!-- <span class="money">48</span> -->
                             </div>
                         </div>
                     </div>

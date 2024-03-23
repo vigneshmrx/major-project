@@ -71,18 +71,47 @@ const selectedBlogStatusChangedFun = (event) => {
     loadBlogs();
 }
 
-const loadPostsBx = () => {
+const insertIntoRespectiveSubSection = (content, sectionName) => {
+    let postsBoxNoDiv = document.getElementById("posts-bx-content").lastElementChild;
+    let archivesBoxNoDiv = document.getElementById("archives-bx-content").lastElementChild;
+    let viewsBoxNoDiv = document.getElementById("views-bx-content").lastElementChild;
+    let likesBoxNoDiv = document.getElementById("likes-bx-content").lastElementChild;
 
+    switch (sectionName) {
+        case "posts": postsBoxNoDiv.innerHTML = '<span class="money">' + content + '</span>';
+                            break;
+
+        case "archives": archivesBoxNoDiv.innerHTML = '<span class="money">' + content + '</span>';
+                            break;
+
+        case "views": viewsBoxNoDiv.innerHTML = '<span class="money">' + content + '</span>';
+                            break;
+
+        case "likes": likesBoxNoDiv.innerHTML = '<span class="money">' + content + '</span>';
+                            break;
+    }
 }
 
-const loadArchiveBx = () => {
-    
+const loadDashboardSubSections = (sectionName) => {
+    $.ajax({
+        type: "POST",
+        url: "../major-project/php-ajax/load-dashboard-sub-sections.php",
+        data: {
+            db_name: dbName,
+            section_name: sectionName
+        },
+        success: function(response) {
+            // showAlert(response);
+            // alert(response);
+            insertIntoRespectiveSubSection(response, sectionName);
+        },
+        error: function(response) {
+            alert(response);
+        }
+    });
 }
 
-const loadOverallLikesBx = () => {
-
-}
-
-const loadOverallViewsBx = () => {
-    
-}
+loadDashboardSubSections("posts");
+loadDashboardSubSections("archives");
+loadDashboardSubSections("likes");
+loadDashboardSubSections("views");
