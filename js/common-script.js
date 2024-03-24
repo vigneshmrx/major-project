@@ -257,3 +257,6 @@ const downloadPdf = (contentName) => {
 }
 
 
+const showSelectedBlog = (objRef) => {
+    window.location.href = "view_blog.php?ff1=" + objRef.parentElement.classList[1] + "&ff2=" + objRef.parentElement.id;
+}

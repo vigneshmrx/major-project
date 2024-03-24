@@ -38,6 +38,9 @@ if ($type == "upload") {
 
 mysqli_select_db($con, $db_name);
 
+$blog_content = str_replace("'", "\'", $blog_content);
+$blog_heading = str_replace("'", "\'", $blog_heading);
+
 try {
     $insert_blog_into_db = "insert into blog_posts (BlogTitle, BlogContent, CoverImage, UploadDate, Visibility, Likes, Views, Reports) values('$blog_heading', '$blog_content', '$cover_img_path', current_timestamp(), '$visibility', 0, 0, 0);";
 
@@ -50,5 +53,7 @@ try {
 catch (Exception $blog_upload_exc) {
     die($blog_upload_exc);
 }
+
+// echo $blog_heading . " " .  $blog_content;
 
 ?>

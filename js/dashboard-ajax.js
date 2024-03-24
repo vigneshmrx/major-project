@@ -1,5 +1,6 @@
 const dbName = localStorage.getItem("dbName");
 // const userName = localStorage.getItem("userName");
+const emailID = localStorage.getItem("emailID");
 
 const loadBlogs = (blogType) => {
     let blogInfoDisplayArea = document.getElementById("user-content-info-display-area");
@@ -12,11 +13,12 @@ const loadBlogs = (blogType) => {
 
     $.ajax({
         type: "POST",
-        url: "../major-project/php-ajax/load_blogs.php",
+        url: "../major-project/php-ajax/load_blogs_for_dashboard.php",
         data: {
             db_name: dbName,
             type: selectedBlogStatus,
-            user_name: userName
+            user_name: userName,
+            email_id : emailID
         },
         success: function(response) {
             // alert(response);
@@ -41,7 +43,9 @@ const changeBlogStatus = (status, blogId) => {
         },
         success: function(response) {
             showAlert(response);
-            loadBlogs("uploaded");
+            loadBlogs();
+            loadDashboardSubSections("posts");
+            loadDashboardSubSections("archives");
         }
     });
 }

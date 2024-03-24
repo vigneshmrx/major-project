@@ -71,6 +71,12 @@ session_start();
             window.location.replace("finance.php");
         }, 1500);
     }
+
+    let loggedIn = localStorage.getItem("logged-in");
+
+    if (loggedIn != null && loggedIn != undefined && loggedIn == true) {
+        window.location.href = "finance.php";
+    }
     </script>
 </head>
 
@@ -219,19 +225,26 @@ session_start();
             $full_name = $fname . " " . $lname;
             var_dump($full_name);
 
+            //creating db for the new user along with tables
+            $pos_of_a = strpos($email, "@");
+            $extracted_part_of_email = substr($email, 0, $pos_of_a);
+
+            $db_name = $extracted_part_of_email . "_user";
+            $db_name = str_replace(".", "_", $db_name);
+
             //creating account for the user
-            $adding_user_query = "insert into users_list (name, email, password, role, reading_goals, join_date) values('$full_name', '$email', '$hashed_pwd', 'reader', 0, current_timestamp())";
+            $adding_user_query = "insert into users_list (name, email, password, role, reading_goals, join_date, db_name) values('$full_name', '$email', '$hashed_pwd', 'reader', 0, current_timestamp(), '$db_name')";
             $adding_user_success = mysqli_query($con, $adding_user_query);
 
             $user_type = "reader";
 
             //creating db for the new user along with tables
-            $pos_of_a = strpos($email, "@");
-            $extracted_part_of_email = substr($email, 0, $pos_of_a);
+            // $pos_of_a = strpos($email, "@");
+            // $extracted_part_of_email = substr($email, 0, $pos_of_a);
             
             try {
-                $db_name = $extracted_part_of_email . "_user";
-                $db_name = str_replace(".", "_", $db_name);
+                // $db_name = $extracted_part_of_email . "_user";
+                // $db_name = str_replace(".", "_", $db_name);
                 $create_db_query = mysqli_query($con, "create database " . $db_name);
                 echo "Database created";
 

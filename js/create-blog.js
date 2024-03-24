@@ -475,6 +475,12 @@ const uploadBlog = (blogType) => {
         }
     });
 
+    // blogHeading = blogHeading.value.replace("'", "\'");
+    // blogHeading = blogHeading.value;
+
+    // blogHeading = blogHeading.replace("'", "\'");
+    // blogContent = blogContent.replace("'", "\'");
+
     console.log(blogContent);
     console.log(blogHeading);
     // console.log(blog_content);
@@ -494,13 +500,14 @@ const uploadBlog = (blogType) => {
         },
         success: function(response) {
             // showAlert(response);
-            // alert(response);
-            showAlert(response);
+            alert(response);
+            console.log(response);
+            // showAlert(response);
             editableDiv.innerHTML = "";
             blogHeading.value = "";
-            setTimeout(() => {
-                location.replace("dashboard.php");
-            }, 1200);
+            // setTimeout(() => {
+            //     location.replace("dashboard.php");
+            // }, 1200);
         },
         error: function(response) {
             alert(response);

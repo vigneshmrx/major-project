@@ -69,6 +69,12 @@ session_start();
         //         pwdArea.innerHTML = "Entered password is wrong";
         //     }
         // }
+
+        let loggedIn = localStorage.getItem("logged-in");
+
+        if (loggedIn != null && loggedIn != undefined && loggedIn == true) {
+            window.location.href = "finance.php";
+        }
     </script>
 </head>
 <body>
