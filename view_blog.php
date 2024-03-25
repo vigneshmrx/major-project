@@ -164,8 +164,7 @@
                 <div class="blog-upload-date">35th March, '24</div>
             </div>
 
-            <div id="blog-content">This is nothing but a test
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas eius aspernatur vel delectus alias inventore possimus unde beatae, impedit pariatur natus quia et omnis aperiam, rerum quos esse! Ad, eum optio autem voluptatum at magni amet quaerat voluptatibus minima incidunt hic repellat minus ratione veritatis nulla qui est modi officia cumque porro ea blanditiis! Laboriosam labore suscipit nisi sit tenetur quam itaque dolore accusamus provident! Dolore, amet nulla placeat fuga odio quas sint doloremque doloribus similique praesentium facere, quidem fugit ea, dicta autem asperiores! Exercitationem impedit maxime libero vero iure iusto cumque nobis ducimus molestias, ad, ex sed obcaecati explicabo eligendi harum? Natus hic commodi dolorem voluptates nulla eos iusto! Ex recusandae saepe iusto quis sequi magnam quam ipsam accusantium ipsa voluptatibus repellat cumque, maxime similique atque dolores provident officiis, possimus laudantium doloremque minima libero et assumenda excepturi. Voluptates, itaque. Ducimus maiores maxime, saepe eos sed similique nihil obcaecati hic placeat provident ratione quaerat at ea natus labore porro quam quo. Sequi aliquid distinctio, laborum, enim, maxime aliquam architecto veniam non qui accusamus sapiente. Magni molestias iusto libero dolorem? Voluptatem, quo dignissimos quaerat veritatis non perferendis assumenda unde laboriosam autem, officia culpa odit magnam corporis quod saepe excepturi debitis molestiae sapiente suscipit officiis laudantium. Necessitatibus soluta magni quod ipsam accusamus officia, dolor voluptatibus atque, blanditiis hic exercitationem amet aut omnis perferendis esse aspernatur placeat fugiat iste mollitia earum rerum quidem. Eligendi maxime explicabo sed recusandae labore commodi rem quia officiis ratione aperiam quos, dolorem fuga qui? Unde debitis rerum consequuntur est adipisci eligendi alias at autem quaerat quae! Obcaecati atque doloremque dignissimos cum commodi molestiae quas! Sed nobis dicta optio quas totam labore corporis quibusdam quae blanditiis doloribus? Nobis, accusamus. Ex vitae expedita placeat recusandae eveniet fuga officiis hic totam reiciendis voluptatum, doloremque iste praesentium, ullam velit, animi odio ducimus explicabo nemo incidunt officia ipsa perspiciatis eos aliquid dolore! Aut impedit modi, ipsam quis voluptas consequuntur beatae accusamus magni commodi amet maiores quo ratione itaque quibusdam vel minus expedita nostrum autem placeat omnis. In deserunt praesentium non laborum reprehenderit nihil. Architecto neque explicabo omnis adipisci! Cumque, vero officiis voluptates, unde quia quasi expedita ea vitae qui dolorum maiores explicabo quis fugiat distinctio modi! Optio, dolores quas. Tenetur, eius voluptatibus blanditiis nulla dolores reprehenderit error recusandae perspiciatis animi ipsum. Perferendis, ipsa quasi commodi quisquam illo debitis eum eveniet ad deleniti similique quas magni reiciendis eius. Nulla, debitis est! Voluptatem quidem officia illum rem dolores architecto accusamus sint omnis culpa libero nisi magnam minus nulla reiciendis ullam dolorum ipsum quia dicta, rerum eligendi autem tempora saepe. Quasi, cumque nam! Ipsa earum tempore mollitia. Illo quas eius ad sunt sit quisquam distinctio minus vero porro, aspernatur minima inventore itaque. Repudiandae sequi minima eum. Nostrum quidem voluptatem possimus, adipisci in ab fuga tempora! Atque aperiam qui voluptates perferendis nisi, voluptate ea officiis saepe alias accusamus ad distinctio mollitia placeat accusantium autem non eos vitae ut blanditiis dicta fugit. Cupiditate tenetur incidunt quibusdam, sapiente eius suscipit nobis vitae officia porro! Quisquam aliquid officiis quas assumenda?
+            <div id="blog-content">
             </div>
 
             <div id="likes-and-views-area">
@@ -185,12 +184,14 @@
     </script>
 
     <script>
+        const searchParams = new URLSearchParams(window.location.search);
+        let ff3 = searchParams.get("ff3");
+        let ff1 = searchParams.get("ff1");
+        let ff2 = searchParams.get("ff2");
+
         const loadTheSelectedBlog = () => {
             let blogArea = document.getElementById("blog-area");
-            const searchParams = new URLSearchParams(window.location.search);
-
-            let ff1 = searchParams.get("ff1");
-            let ff2 = searchParams.get("ff2");
+            
 
             console.log(ff1, ff2);
 
@@ -211,7 +212,31 @@
             })
         }
 
-        loadTheSelectedBlog();
+        // loadTheSelectedBlog();
+
+        const increaseTheView = () => {
+            if (ff3 == "v") {
+                $.ajax({
+                    type: "POST",
+                    url: "./php-ajax/increase_cur_blog_view_count.php",
+                    data: {
+                        ff1: ff1,
+                        ff2: ff2
+                    },
+                    success: function(response) {
+                        // alert(response);
+                        loadTheSelectedBlog();
+                    },
+                    error: function(response) {
+                        alert()
+                    }
+                });
+            } else {
+                loadTheSelectedBlog();
+            }
+        }
+
+        increaseTheView();
     </script>
 </body>
 </html>
