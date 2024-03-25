@@ -28,7 +28,12 @@ try {
     $upload_date = $row["UploadDate"];
     $upload_date = substr($upload_date, 8, 2) . " " . $months_array[((int) substr($upload_date, 5, 2)) - 1] . ", '" . substr($upload_date, 2, 2); 
 
-    $blog_content = '<div id="blog-heading">' . $row["BlogTitle"] . '</div><div id="blog-info-area"><div class="user-name">' . $user_name . '</div><div class="blog-upload-date">' . $upload_date . '</div></div><div id="blog-content">' . $row["BlogContent"] . '</div><div id="likes-and-views-area"><div id="likes-div"><img src="./icons/icons8-like-icon-outlined.png" alt=""><span class="money">' . $row["Likes"] . '</span></div><div id="views-div"><img src="./icons/icons8-eye-48.png" alt=""><span class="money">' . $row["Views"] . '</span></div></div></div>';
+    $likes = $row["Likes"];
+    // if ($likes == "") {
+    //     $likes = 0;
+    // }
+
+    $blog_content = '<div id="blog-heading">' . $row["BlogTitle"] . '</div><div id="blog-info-area"><div class="user-name">' . $user_name . '</div><div class="blog-upload-date">' . $upload_date . '</div></div><div id="blog-content">' . $row["BlogContent"] . '</div><div id="likes-and-views-area"><div id="likes-div"><img src="./icons/icons8-like-icon-outlined.png" alt=""><span class="money">' . $likes . '</span></div><div id="views-div"><img src="./icons/icons8-eye-48.png" alt=""><span class="money">' . $row["Views"] . '</span></div></div></div>';
 
     echo $blog_content;
 

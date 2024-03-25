@@ -448,6 +448,7 @@ function handleCursorPositionChange() {
 const uploadBlog = (blogType) => {
     let blogHeading = document.getElementById("editable-heading");
     let blogContent = editableDiv.innerHTML;
+    let blogCategory = document.getElementById("editable-category");
     // console.log(editableDiv);    
 
     if (blogHeading.value == "") {
@@ -456,7 +457,12 @@ const uploadBlog = (blogType) => {
     } else if (blogContent == '\n        ' || blogContent == "") {
         showAlert("Please have a valid content before uploading");
         return;
-    } else if (coverImgPath == null) {
+    } 
+    else if (blogCategory.value == "") {
+        showAlert("Please enter a category before uploading!");
+        return;
+    }
+    else if (coverImgPath == null) {
         showAlert("Please select a cover image for your blog");
         let imageUploadPg = document.getElementById("image-upload-pg");
         imageUploadPg.style.zIndex = 150;
@@ -496,7 +502,8 @@ const uploadBlog = (blogType) => {
             blog_content: blogContent,
             db_name: dbName,
             type: blogType,
-            cover_img_path: coverImgPath
+            cover_img_path: coverImgPath,
+            blog_category: blogCategory.value
         },
         success: function(response) {
             // showAlert(response);
@@ -505,6 +512,7 @@ const uploadBlog = (blogType) => {
             // showAlert(response);
             editableDiv.innerHTML = "";
             blogHeading.value = "";
+            blogCategory.value = "";
             // setTimeout(() => {
             //     location.replace("dashboard.php");
             // }, 1200);

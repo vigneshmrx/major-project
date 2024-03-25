@@ -99,7 +99,8 @@ header {
     color: grey;
 } */
 
-#editable-heading-area {
+#editable-heading-area,
+#editable-category-area {
     width: 1000px;
     margin: auto;
     min-height: 10vh;
@@ -107,7 +108,8 @@ header {
     overflow: visible;
 }
 
-#editable-heading-area input {
+#editable-heading-area input,
+#editable-category-area input {
     width: 100%;
     /* min-height: 10vh; */
     /* box-sizing: border-box; */
@@ -130,13 +132,25 @@ header {
 
 #editable-content-area {
     width: 1000px;
-    min-height: 70vh;
+    min-height: 65vh;
     margin: auto;
     border: 1px solid rgb(225, 199, 199);
     padding: 15px 30px 30px 30px;
     background-color: var(--main-white);
     color: #000;
     font-size: 16px; 
+    /* border-bottom: 0px; */
+}
+
+#editable-category-area input {
+    height: 5vh;
+    font-size: 16px;
+    text-align: left;
+    /* border-top: 0px; */
+    margin-top: 5px;
+    border-bottom: 1px solid rgb(225, 199, 199);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
 }
 
 /* #editable-content-area .temp-heading-span {
@@ -158,7 +172,8 @@ header {
 }
 
 #editable-content-area:focus,
-#editable-heading-area input:focus {
+#editable-heading-area input:focus,
+#editable-category-area input:focus {
     outline: none;
 }
 

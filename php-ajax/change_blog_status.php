@@ -14,6 +14,10 @@ try {
         $delete_blog_q = "delete from blog_posts where SNo = $blog_id";
 
         if (mysqli_query($con, $delete_blog_q)) {
+
+            mysqli_query($con, "delete from prodo_db.users_blog_posts_list where UserDbName = '$db_name' and BlogId = $blog_id");
+
+
             echo "Blog deleted successfully!";
         } else {
             die("Some error occured. Please try again later!");

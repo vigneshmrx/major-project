@@ -293,6 +293,9 @@
         </div>
         <div id="editable-content-area" contenteditable="true">
         </div>
+        <div id="editable-category-area">
+            <input type="text" placeholder="Your category here. Ex: anime, space..." id="editable-category">
+        </div>
     </div>
     <script src="./js/common-script.js"></script>
     <script src="./js/create-blog.js"></script>
