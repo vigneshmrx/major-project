@@ -3,7 +3,7 @@
 $con = null;
 
 try {
-    $con = mysqli_connect("localhost:3308//", "root", "");
+    $con = mysqli_connect("localhost", "root", "");
 } catch (Exception $e) {
     die("<script>callErr(3);</script>");
 }

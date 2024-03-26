@@ -250,6 +250,15 @@
     width: 25px;
 }
 
+.blog-box .on-hover-extras .archive-and-trash abbr {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.blog-box .on-hover-extras .archive-and-trash abbr:last-child {
+    margin-right: 0px;
+}
+
 .blog-box .on-hover-extras .archive-and-trash img:hover {
     scale: 1.1;
     cursor: pointer;

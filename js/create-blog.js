@@ -9,6 +9,16 @@ let currentStateIndex = -1;
 let imageInfoArray = [];
 let coverImgPath = null;
 let uploadedImgActionArea = document.getElementById("uploaded-image-action-area");
+let ci = "";
+
+if (searchParams.has("ci")) {
+    ci = searchParams.get("ci");
+}
+
+if (ci != "") {
+    var bytes = CryptoJS.AES.decrypt(ci, 'secret key 123');
+    coverImgPath = bytes.toString(CryptoJS.enc.Utf8);
+}
 
 function saveState() {
     const content = editableDiv.innerHTML;
@@ -447,7 +457,7 @@ function handleCursorPositionChange() {
 
 const uploadBlog = (blogType) => {
     let blogHeading = document.getElementById("editable-heading");
-    let blogContent = editableDiv.innerHTML;
+    let blogContent = document.getElementById("editable-content-area").innerHTML;
     let blogCategory = document.getElementById("editable-category");
     // console.log(editableDiv);    
 
@@ -493,6 +503,12 @@ const uploadBlog = (blogType) => {
     console.log(dbName);
     console.log(blogType);
 
+    // let ff1 = "";
+
+    // const searchParams = new URLSearchParams(window.location.search);
+
+    
+
     //sending blog content to php to be saved in the database
     $.ajax({
         type: "POST",
@@ -503,14 +519,17 @@ const uploadBlog = (blogType) => {
             db_name: dbName,
             type: blogType,
             cover_img_path: coverImgPath,
-            blog_category: blogCategory.value
+            blog_category: blogCategory.value,
+            ff2: ff2
         },
         success: function(response) {
             // showAlert(response);
             alert(response);
             console.log(response);
             // showAlert(response);
-            editableDiv.innerHTML = "";
+            // editableDiv.innerHTML = "";
+            // blogContent.innerHTML = "";
+            document.getElementById("editable-content-area").innerHTML = "";
             blogHeading.value = "";
             blogCategory.value = "";
             // setTimeout(() => {
@@ -521,8 +540,14 @@ const uploadBlog = (blogType) => {
             alert(response);
         }
     })
+
 }
 
+// const test = () => {
+//     console.log("Here: " + ff1);
+// }
+
+// test();
 
 //special quote box
 

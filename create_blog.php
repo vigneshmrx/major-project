@@ -9,6 +9,8 @@
         <?php include './css/create-blog.css'; ?>
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script>
         if (localStorage.getItem("user-type") != "writer") {
             location.replace("finance.php");
@@ -287,18 +289,19 @@
             </div>
         </div>
 
-        <div id="editable-heading-area">
-            <input type="text" placeholder="Your Heading Here" id="editable-heading">
-            <!-- <textarea name="" id="" placeholder="Your Heading Here"></textarea> -->
-        </div>
-        <div id="editable-content-area" contenteditable="true">
-        </div>
-        <div id="editable-category-area">
-            <input type="text" placeholder="Your category here. Ex: anime, space..." id="editable-category">
+        <div id="writable-area">
+            <div id="editable-heading-area">
+                <input type="text" placeholder="Your Heading Here" id="editable-heading">
+                <!-- <textarea name="" id="" placeholder="Your Heading Here"></textarea> -->
+            </div>
+            <div id="editable-content-area" contenteditable="true">
+            </div>
+            <div id="editable-category-area">
+                <input type="text" placeholder="Your category here. Ex: anime, space..." id="editable-category">
+            </div>
         </div>
     </div>
     <script src="./js/common-script.js"></script>
-    <script src="./js/create-blog.js"></script>
     <script>
         document.getElementsByClassName("greeting")[0].innerHTML = "Hello, " + localStorage.getItem("userName").split(" ")[0];
 
@@ -323,6 +326,52 @@
             imageUploadPg.style.zIndex = 150;
             imageUploadPg.style.visibility = "visible";
         }
+
+        const searchParams = new URLSearchParams(window.location.search);
+
+        let ff1 = "";
+        let ff2 = "";
+        
+
+        if (searchParams.has("ff1")) {
+            ff1 = searchParams.get("ff1");
+        }
+
+        if (searchParams.has("ff2")) {
+            ff2 = searchParams.get("ff2");
+        }
+
+        // if (searchParams.has("ci")) {
+        //     ci = searchParams.get("ci");
+        // }
+
+        // console.log(ff2);
+
+        const inputUpdateBlogContent = () => {
+            let writableArea = document.getElementById("writable-area");
+
+            $.ajax({
+                type: "POST",
+                url: "../major-project/php-ajax/get_edit_blog_content.php",
+                data: {
+                    ff1: ff1,
+                    ff2: ff2
+                },
+                success: function(response) {
+                    // alert(response);
+                    writableArea.innerHTML = response;
+                },
+                error: function(response) {
+                    alert(response);
+                }
+            })
+        }
+
+        if (ff1 != "" && ff2 != "") {
+            inputUpdateBlogContent();
+        }
+
     </script>
+    <script src="./js/create-blog.js"></script>
 </body>
 </html>

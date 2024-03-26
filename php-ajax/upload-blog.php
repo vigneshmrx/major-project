@@ -9,6 +9,7 @@ $type = $_POST["type"];
 $table_name = "blog_posts";
 $cover_img_path = $_POST["cover_img_path"];
 $blog_category = $_POST["blog_category"];
+$ff2 = $_POST["ff2"];
 
 date_default_timezone_set("Asia/Kolkata");
 
@@ -47,25 +48,36 @@ $blog_category = str_replace("'", "\'", $blog_category);
 
 try {
 
-    $curDate = date("Y-m-d");
+    if ($ff2 == "") {
+        $curDate = date("Y-m-d");
 
-    $insert_blog_into_db = "insert into blog_posts (BlogTitle, BlogContent, CoverImage, Category, UploadDate, Visibility, Likes, LikedBy, Views, Reports) values('$blog_heading', '$blog_content', '$cover_img_path', '$blog_category', '$curDate', '$visibility', 0, '', 0, 0);";
+        $insert_blog_into_db = "insert into blog_posts (BlogTitle, BlogContent, CoverImage, Category, UploadDate, Visibility, Likes, LikedBy, Views, Reports) values('$blog_heading', '$blog_content', '$cover_img_path', '$blog_category', '$curDate', '$visibility', 0, '', 0, 0);";
 
-    if (mysqli_query($con, $insert_blog_into_db)) {
+        if (mysqli_query($con, $insert_blog_into_db)) {
 
-        $get_just_uploaded_blog_details = mysqli_query($con, "select SNo, Category from blog_posts order by SNo desc;");
+            $get_just_uploaded_blog_details = mysqli_query($con, "select SNo, Category from blog_posts order by SNo desc;");
 
-        $row = mysqli_fetch_assoc($get_just_uploaded_blog_details);
+            $row = mysqli_fetch_assoc($get_just_uploaded_blog_details);
 
-        $just_uploaded_blog_id = $row["SNo"];
-        $just_uploaded_blog_category = $row["Category"];
+            $just_uploaded_blog_id = $row["SNo"];
+            $just_uploaded_blog_category = $row["Category"];
 
-        mysqli_query($con, "insert into prodo_db.users_blog_posts_list (UserDbName, BlogId, Category) values('$db_name', $just_uploaded_blog_id, '$just_uploaded_blog_category');");
+            mysqli_query($con, "insert into prodo_db.users_blog_posts_list (UserDbName, BlogId, Category) values('$db_name', $just_uploaded_blog_id, '$just_uploaded_blog_category');");
 
 
-        echo "Blog Uploaded Successfully";
-    } else {
-        echo "Couldn't upload";
+            echo "Blog Uploaded Successfully";
+        } else {
+            echo "Couldn't upload";
+        }
+    }
+    else {
+        $update_the_blog_q = "update blog_posts set BlogTitle = '$blog_heading', BlogContent = '$blog_content', Category = '$blog_category', CoverImage = '$cover_img_path' where SNo = $ff2;";
+
+        if (mysqli_query($con, $update_the_blog_q)) {
+            echo "Blog updated successfully!";
+        } else {
+            echo "Some error occured. Please try updating later!";
+        }
     }
 }
 catch (Exception $blog_upload_exc) {

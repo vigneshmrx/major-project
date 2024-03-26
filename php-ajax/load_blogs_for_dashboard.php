@@ -41,7 +41,7 @@ try {
             $upload_date = substr($upload_date, 8, 2) . " " . $months_array[((int) substr($upload_date, 5, 2)) - 1] . ", '" . substr($upload_date, 2, 2); 
 
             $content = '<div class="blog-box ' . $user_id . ' ' . substr($visibility, 0, 1) .'" id="' . $row["SNo"] . '"><div class="on-hover-extras"><div class="like-and-views"><div><img src="./icons/icons8-heart-48.png" alt=""> <span class="money">' . $row["Likes"] . '</span></div>
-            <div><img src="./icons/icons8-eye-48-grey.png" alt=""> <span class="money">' . $row["Views"] . '</span></div></div><div class="archive-and-trash">';
+            <div><img src="./icons/icons8-eye-48-grey.png" alt=""> <span class="money">' . $row["Views"] . '</span></div></div><div class="archive-and-trash"><abbr title="Edit"><img src="./icons/icons8-edit-grey.png" onclick="editThisBlog(this);"></abbr>';
 
             if ($visibility == "visible") {
                 $content = $content . '<abbr title="Archive"><img src="./icons/icons8-archive-48.png" alt="" onclick="changeBlogVisibility(this);"></abbr>';

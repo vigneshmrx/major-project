@@ -46,6 +46,11 @@ const changeBlogStatus = (status, blogId) => {
             loadBlogs();
             loadDashboardSubSections("posts");
             loadDashboardSubSections("archives");
+
+            if (status == "delete") {
+                loadDashboardSubSections("views");
+                loadDashboardSubSections("likes");
+            }
         }
     });
 }
@@ -94,6 +99,10 @@ const insertIntoRespectiveSubSection = (content, sectionName) => {
         case "likes": likesBoxNoDiv.innerHTML = '<span class="money">' + content + '</span>';
                             break;
     }
+}
+
+const ecryText = () => {
+    
 }
 
 const loadDashboardSubSections = (sectionName) => {

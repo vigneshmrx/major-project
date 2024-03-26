@@ -17,6 +17,8 @@ session_start();
     <?php include './css/dashboard.css'; ?>
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
     <script>
         if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
@@ -239,6 +241,54 @@ session_start();
 
         const redirectToWriteBlogPg = () => {
             location.replace("create_blog.php");
+        }
+
+        const editThisBlog = (objRef) => {
+            let ff1 = objRef.parentElement.parentElement.parentElement.parentElement.classList[1];
+            let ff2 = objRef.parentElement.parentElement.parentElement.parentElement.id;
+            let ciUrl = objRef.parentElement.parentElement.parentElement.parentElement.childNodes[1].style.backgroundImage;
+
+            let ci = ciUrl.substring(5, ciUrl.length - 2);
+
+            // var encrypted = CryptoJS.AES.encrypt(ci, "Secret Passphrase");
+            // var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+
+            // var encryptedAES = CryptoJS.AES.encrypt("Message", "My Secret Passphrase");
+            // var decryptedBytes = CryptoJS.AES.decrypt(encryptedAES, "My Secret Passphrase");
+            // var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
+
+            console.log("INside edit this blog");
+            // console.log(encrypted.toString(CryptoJS.enc.Utf8));
+            // console.ldecrypted);
+            // console.log(encryptedAES);
+
+            // console.log(decrypted.toString(CryptoJS.enc.Utf8));
+
+            // console.log(ff1, ff2);
+
+            //this works
+            // var ciphertext = CryptoJS.AES.encrypt('my message', 'secret key 123');
+
+            // var bytes = CryptoJS.AES.decrypt(ciphertext.toString(), 'secret key 123');
+            // var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+            // console.log(ciphertext);
+            // console.log(ciphertext.toString());
+            // console.log(bytes);
+            // console.log(plaintext);
+
+            var ciphertext = CryptoJS.AES.encrypt(ci, 'secret key 123');
+            var bytes = CryptoJS.AES.decrypt(ciphertext.toString(), 'secret key 123');
+            var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+            // console.log(ciphertext.toString());
+            // console.log(plaintext);
+
+            ci = ciphertext.toString();
+            // console.log(ci);
+
+            location.href = "create_blog.php?ff1=" + ff1 + "&ff2=" + ff2;
+            // location.href = "create_blog.php?ff1=" + ff1 + "&ff2=" + ff2 + "&ci=" + ci;
         }
     </script> 
     <script src="./js/dashboard-ajax.js"></script>  
