@@ -20,6 +20,7 @@
             border: 1px solid rgb(225, 199, 199);
             font-size: 16px; 
             border-radius: var(--common-value);
+            box-shadow: 10px 10px var(--main-black);
         }
 
         #blog-heading {
@@ -70,6 +71,10 @@
         #likes-and-views-area div img {
             width: 25px;
             margin-right: 5px;
+        }
+
+        #page-right-area {
+            padding-bottom: 15px;
         }
     </style>
 
@@ -189,6 +194,14 @@
         let ff1 = searchParams.get("ff1");
         let ff2 = searchParams.get("ff2");
 
+        const setTheTitle = () => {
+            // setTimeout(() => {
+                let title = document.getElementById("blog-heading").innerHTML;
+                document.title = title;
+            // }, 600)
+            
+        }
+
         const loadTheSelectedBlog = () => {
             let blogArea = document.getElementById("blog-area");
             
@@ -205,6 +218,7 @@
                 success: function(response) {
                     // alert(response);
                     blogArea.innerHTML = response;
+                    setTheTitle();
                 },
                 error: function(response) {
                     alert(response);

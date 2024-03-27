@@ -11,6 +11,23 @@ const loadBlogs = (blogType) => {
 
     let selectedBlogStatus = sessionStorage.getItem("selected-blog-status");
 
+    let blogStatusDropDown = document.getElementById("manage-blogs-drop-down");
+
+    let blogStatusArray = ["uploaded", "archived"];
+
+    let blogStatusDropDownContent = "";
+
+    blogStatusArray.forEach((ele) => {
+        let modStr = ele.charAt(0).toUpperCase() + ele.slice(1);
+        if (ele == selectedBlogStatus) {
+            blogStatusDropDownContent+= `<option value=${ele} selected>${modStr}</option>`;
+        } else {
+            blogStatusDropDownContent+= `<option value=${ele} >${modStr}</option>`;
+        }
+    });
+
+    blogStatusDropDown.innerHTML = blogStatusDropDownContent;
+
     $.ajax({
         type: "POST",
         url: "../major-project/php-ajax/load_blogs_for_dashboard.php",

@@ -235,8 +235,6 @@ session_start();
     <script>
         let userName = localStorage.getItem("userName");
         let userNameArr = userName.split(" ");
-        // document.getElementById("dashboard-greeting").innerHTML = userNameArr[0] + "'s Dashboard";
-        // document.getElementById("dashboard-greeting").innerHTML = "Hello";
         document.getElementById("dashboard-greeting").innerHTML = userNameArr[0] + "'s Dashboard";
 
         const redirectToWriteBlogPg = () => {

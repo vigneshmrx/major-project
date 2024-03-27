@@ -10,7 +10,7 @@ mysqli_select_db($con, $db_name);
 try {
     
     switch ($section_name) {
-        case "posts": $get_q = mysqli_query($con, "select count(*) as NoOfRows from blog_posts;");
+        case "posts": $get_q = mysqli_query($con, "select count(*) as NoOfRows from blog_posts where Visibility='visible';");
                     break;
 
         case "archives": $get_q = mysqli_query($con, "select count(*) NoOfRows from blog_posts where Visibility='hidden';");

@@ -109,8 +109,8 @@ const addExpenseToDb = () => {
     //setting the correct index for monthsArray
     month != 0 ? month = month - 1 : month = month;
 
-    console.log("Unqiue id: " + uniqueId);
-    console.log("Cat: " + expCat.value);
+    // console.log("Unqiue id: " + uniqueId);
+    // console.log("Cat: " + expCat.value);
 
 
     $.ajax({

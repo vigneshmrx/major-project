@@ -523,18 +523,18 @@ const uploadBlog = (blogType) => {
             ff2: ff2
         },
         success: function(response) {
-            // showAlert(response);
-            alert(response);
-            console.log(response);
+            showAlert(response);
+            // alert(response);
+            // console.log(response);
             // showAlert(response);
             // editableDiv.innerHTML = "";
             // blogContent.innerHTML = "";
             document.getElementById("editable-content-area").innerHTML = "";
             blogHeading.value = "";
             blogCategory.value = "";
-            // setTimeout(() => {
-            //     location.replace("dashboard.php");
-            // }, 1200);
+            setTimeout(() => {
+                location.replace("dashboard.php");
+            }, 1200);
         },
         error: function(response) {
             alert(response);

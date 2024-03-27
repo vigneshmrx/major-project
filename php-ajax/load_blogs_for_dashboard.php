@@ -38,6 +38,12 @@ try {
 
             $upload_date = $row["UploadDate"];
 
+            $category = $row["Category"];
+
+            if (strlen($category) > 18) {
+                $category = substr($category, 0, 19, ) . "...";
+            }
+
             $upload_date = substr($upload_date, 8, 2) . " " . $months_array[((int) substr($upload_date, 5, 2)) - 1] . ", '" . substr($upload_date, 2, 2); 
 
             $content = '<div class="blog-box ' . $user_id . ' ' . substr($visibility, 0, 1) .'" id="' . $row["SNo"] . '"><div class="on-hover-extras"><div class="like-and-views"><div><img src="./icons/icons8-heart-48.png" alt=""> <span class="money">' . $row["Likes"] . '</span></div>
@@ -49,7 +55,7 @@ try {
                 $content = $content . '<abbr title="Upload"><img src="./icons/upload-blog-icon-grey.png" alt="" onclick="changeBlogVisibility(this);"></abbr>';
             }
 
-            $content = $content . '<abbr title="Delete"><img src="./icons/icons8-delete-trash-48.png" alt="" onclick="deleteBlog(this);"></abbr></div></div><div class="blog-img" style="background: url(' . $cover_img_path . '); background-size: cover; background-position: center;" onclick="showSelectedBlog(this);"></div><div class="blog-title">' . $row["BlogTitle"] . '</div><div class="blog-secondary-info"><b>Writer</b> : ' . $user_name . '<br><b>Published</b> : ' . $upload_date . '<br><b>Category</b> : <span class="category">' . $row["Category"] . '</span></div></div>';
+            $content = $content . '<abbr title="Delete"><img src="./icons/icons8-delete-trash-48.png" alt="" onclick="deleteBlog(this);"></abbr></div></div><div class="blog-img" style="background: url(' . $cover_img_path . '); background-size: cover; background-position: center;" onclick="showSelectedBlog(this);"></div><div class="blog-title">' . $row["BlogTitle"] . '</div><div class="blog-secondary-info"><b>Writer</b> : ' . $user_name . '<br><b>Published</b> : ' . $upload_date . '<br><b>Category</b> : <span class="category">' . $category . '</span></div></div>';
 
             echo $content;
 

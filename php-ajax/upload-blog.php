@@ -71,7 +71,7 @@ try {
         }
     }
     else {
-        $update_the_blog_q = "update blog_posts set BlogTitle = '$blog_heading', BlogContent = '$blog_content', Category = '$blog_category', CoverImage = '$cover_img_path' where SNo = $ff2;";
+        $update_the_blog_q = "update blog_posts set BlogTitle = '$blog_heading', BlogContent = '$blog_content', Category = '$blog_category', CoverImage = '$cover_img_path', Visibility = '$visibility' where SNo = $ff2;";
 
         if (mysqli_query($con, $update_the_blog_q)) {
             echo "Blog updated successfully!";
