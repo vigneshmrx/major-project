@@ -302,6 +302,7 @@
         </div>
     </div>
     <script src="./js/common-script.js"></script>
+    <script src="./js/create-blog.js"></script>
     <script>
         document.getElementsByClassName("greeting")[0].innerHTML = "Hello, " + localStorage.getItem("userName").split(" ")[0];
 
@@ -372,6 +373,6 @@
         }
 
     </script>
-    <script src="./js/create-blog.js"></script>
+    <!-- <script src="./js/create-blog.js"></script> -->
 </body>
 </html>
