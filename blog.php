@@ -24,7 +24,8 @@ session_start();
 
     <script>
         if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
-            location.replace("login.php");
+            // location.replace("login.php");
+            location.href = "login.php";
         }
     </script>
     
@@ -101,11 +102,11 @@ session_start();
             <br><br>
             <div id="search-and-cat-area">
                 <div>
-                    <input type="text" name="" id="" placeholder="Search..">
+                    <input type="text" name="" id="search-bar" placeholder="Search..">
                 </div>
                 <div class="categories">
-                    <div class="individual-categories">All</div>
-                    <div class="individual-categories current-category">Finance</div>
+                    <div class="individual-categories current-category">All</div>
+                    <div class="individual-categories">Finance</div>
                     <div class="individual-categories">Productivity</div>
                     <div class="individual-categories">Mindfulness</div>
                     <div class="individual-categories">Meditation</div>
@@ -119,21 +120,202 @@ session_start();
             <hr>
         </div>
 
-        <div class="main-content-area"></div>
+        <div class="main-content-area">
+            <div class="category-heading">
+                Fiction:
+            </div>
+
+            <div class="blog-scroll-with-scroll-btn">
+                <!-- <div class="move-left-arrow" onclick="scrollLeft(this);"><</div>
+                <div class="move-right-arrow" onclick="scrollRight(this);">></div> -->
+
+                <div class="move-left-arrow" onclick="horizontalScroll(this, 'left');">
+                    <img src="./icons/icons8-forward-arrow-60.png" alt="">
+                </div>
+                <div class="move-right-arrow" onclick="horizontalScroll(this, 'right');">
+                    <img src="./icons/icons8-forward-arrow-60.png" alt="">
+                </div>
+
+                <div class="blogs-area">
+                
+                    <div class="blog-box">
+                        <div class="on-hover-extras">
+                            <div class="like-and-views">
+                                <div>
+                                    <img src="./icons/icons8-heart-48.png" alt="">
+                                    <span class="money">0</span>
+                                </div>
+
+                                <div>
+                                    <img src="./icons/icons8-eye-48-grey.png" alt="">
+                                    <span class="money">9</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
+
+                        <div class="blog-title">J. Robert oppenheimer</div>
+
+                        <div class="blog-secondary-info">
+                            <b>Writer</b> : Writer
+                            <br>
+                            <b>Published</b> : 27 Mar, '24
+                            <br>
+                            <b>Category</b> : <span class="category">Data Science, Codin...</span>
+                        </div>
+                    </div>
+
+                    <div class="blog-box">
+                        <div class="on-hover-extras">
+                            <div class="like-and-views">
+                                <div>
+                                    <img src="./icons/icons8-heart-48.png" alt="">
+                                    <span class="money">0</span>
+                                </div>
+
+                                <div>
+                                    <img src="./icons/icons8-eye-48-grey.png" alt="">
+                                    <span class="money">9</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
+
+                        <div class="blog-title">J. Robert oppenheimer</div>
+
+                        <div class="blog-secondary-info">
+                            <b>Writer</b> : Writer
+                            <br>
+                            <b>Published</b> : 27 Mar, '24
+                            <br>
+                            <b>Category</b> : <span class="category">Data Science, Codin...</span>
+                        </div>
+                    </div>
+
+                    <div class="blog-box">
+                        <div class="on-hover-extras">
+                            <div class="like-and-views">
+                                <div>
+                                    <img src="./icons/icons8-heart-48.png" alt="">
+                                    <span class="money">0</span>
+                                </div>
+
+                                <div>
+                                    <img src="./icons/icons8-eye-48-grey.png" alt="">
+                                    <span class="money">9</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
+
+                        <div class="blog-title">J. Robert oppenheimer</div>
+
+                        <div class="blog-secondary-info">
+                            <b>Writer</b> : Writer
+                            <br>
+                            <b>Published</b> : 27 Mar, '24
+                            <br>
+                            <b>Category</b> : <span class="category">Data Science, Codin...</span>
+                        </div>
+                    </div>
+
+                    <div class="blog-box">
+                        <div class="on-hover-extras">
+                            <div class="like-and-views">
+                                <div>
+                                    <img src="./icons/icons8-heart-48.png" alt="">
+                                    <span class="money">0</span>
+                                </div>
+
+                                <div>
+                                    <img src="./icons/icons8-eye-48-grey.png" alt="">
+                                    <span class="money">9</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
+
+                        <div class="blog-title">J. Robert oppenheimer</div>
+
+                        <div class="blog-secondary-info">
+                            <b>Writer</b> : Writer
+                            <br>
+                            <b>Published</b> : 27 Mar, '24
+                            <br>
+                            <b>Category</b> : <span class="category">Data Science, Codin...</span>
+                        </div>
+                    </div>
+
+                    <div class="blog-box">
+                        <div class="on-hover-extras">
+                            <div class="like-and-views">
+                                <div>
+                                    <img src="./icons/icons8-heart-48.png" alt="">
+                                    <span class="money">0</span>
+                                </div>
+
+                                <div>
+                                    <img src="./icons/icons8-eye-48-grey.png" alt="">
+                                    <span class="money">9</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
+
+                        <div class="blog-title">J. Robert oppenheimer</div>
+
+                        <div class="blog-secondary-info">
+                            <b>Writer</b> : Writer
+                            <br>
+                            <b>Published</b> : 27 Mar, '24
+                            <br>
+                            <b>Category</b> : <span class="category">Data Science, Codin...</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="./js/common-script.js"></script>
     <script>
-        let quotesObj = [];
 
-        // displayQuote(quotesObj);
+        const horizontalScroll = (objRef, toDirection) => {
+            let blogsArea;
 
+            if (toDirection == "left") {
+                blogsArea = objRef.nextElementSibling.nextElementSibling;
 
-    // let currentPageLinkElement = document.getElementsByClassName("current-page")[0];
+                blogsArea.scrollBy(330, 0);
+            } else {
+                blogsArea = objRef.nextElementSibling;
 
-    // if (currentPageLinkElement.previousElementSibling.tagName == "DIV") {
-    //     currentPageLinkElement.previousElementSibling.style.borderBottomRightRadius = "10px";
-    // }
+                blogsArea.scrollBy(-330, 0);
+            }
+        }
+
+        // const scrollRight = (objRef) => {
+        //     let blogsArea = objRef.nextElementSibling;
+
+        //     blogsArea.scrollBy(-350, 0);
+        // }
+
+        // const scrollLeft = (objRef) => {
+        //     let blogsArea = objRef.nextElementSibling.nextElementSibling;
+
+        //     blogsArea.scrollBy(350, 0);
+        // }
     </script>
 </body>
 

@@ -81,7 +81,7 @@
     font-weight: bold;
     /* padding: var(--common-value); */
     border-radius: var(--common-value);
-    background-color: var(--main-white);
+    background-color: var(--main-white);    
 }
 
 /* #show-user-content-info {

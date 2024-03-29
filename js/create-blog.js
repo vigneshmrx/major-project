@@ -11,14 +11,14 @@ let coverImgPath = null;
 let uploadedImgActionArea = document.getElementById("uploaded-image-action-area");
 let ci = "";
 
-if (searchParams.has("ci")) {
-    ci = searchParams.get("ci");
-}
+// if (searchParams.has("ci")) {
+//     ci = searchParams.get("ci");
+// }
 
-if (ci != "") {
-    var bytes = CryptoJS.AES.decrypt(ci, 'secret key 123');
-    coverImgPath = bytes.toString(CryptoJS.enc.Utf8);
-}
+// if (ci != "") {
+//     var bytes = CryptoJS.AES.decrypt(ci, 'secret key 123');
+//     coverImgPath = bytes.toString(CryptoJS.enc.Utf8);
+// }
 
 function saveState() {
     const content = editableDiv.innerHTML;
