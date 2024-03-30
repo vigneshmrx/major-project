@@ -122,19 +122,16 @@ session_start();
 
         <div class="main-content-area">
             <div class="category-heading">
-                Fiction:
+                Recent blog posts
             </div>
 
             <div class="blog-scroll-with-scroll-btn">
                 <!-- <div class="move-left-arrow" onclick="scrollLeft(this);"><</div>
                 <div class="move-right-arrow" onclick="scrollRight(this);">></div> -->
 
-                <div class="move-left-arrow" onclick="horizontalScroll(this, 'left');">
-                    <img src="./icons/icons8-forward-arrow-60.png" alt="">
-                </div>
-                <div class="move-right-arrow" onclick="horizontalScroll(this, 'right');">
-                    <img src="./icons/icons8-forward-arrow-60.png" alt="">
-                </div>
+                <!-- <div class=
+            
+             -->
 
                 <div class="blogs-area">
                 
@@ -142,12 +139,12 @@ session_start();
                         <div class="on-hover-extras">
                             <div class="like-and-views">
                                 <div>
-                                    <img src="./icons/icons8-heart-48.png" alt="">
+                                    <img src="./icons/icons8-like-icon.png" alt="">
                                     <span class="money">0</span>
                                 </div>
 
                                 <div>
-                                    <img src="./icons/icons8-eye-48-grey.png" alt="">
+                                    <img src="./icons/icons8-eye-48.png" alt="">
                                     <span class="money">9</span>
                                 </div>
                             </div>
@@ -159,127 +156,10 @@ session_start();
                         <div class="blog-title">J. Robert oppenheimer</div>
 
                         <div class="blog-secondary-info">
-                            <b>Writer</b> : Writer
-                            <br>
-                            <b>Published</b> : 27 Mar, '24
-                            <br>
-                            <b>Category</b> : <span class="category">Data Science, Codin...</span>
+                            <span class="category">Data Science, Coding</span>
                         </div>
-                    </div>
-
-                    <div class="blog-box">
-                        <div class="on-hover-extras">
-                            <div class="like-and-views">
-                                <div>
-                                    <img src="./icons/icons8-heart-48.png" alt="">
-                                    <span class="money">0</span>
-                                </div>
-
-                                <div>
-                                    <img src="./icons/icons8-eye-48-grey.png" alt="">
-                                    <span class="money">9</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
-
-                        <div class="blog-title">J. Robert oppenheimer</div>
-
-                        <div class="blog-secondary-info">
-                            <b>Writer</b> : Writer
-                            <br>
-                            <b>Published</b> : 27 Mar, '24
-                            <br>
-                            <b>Category</b> : <span class="category">Data Science, Codin...</span>
-                        </div>
-                    </div>
-
-                    <div class="blog-box">
-                        <div class="on-hover-extras">
-                            <div class="like-and-views">
-                                <div>
-                                    <img src="./icons/icons8-heart-48.png" alt="">
-                                    <span class="money">0</span>
-                                </div>
-
-                                <div>
-                                    <img src="./icons/icons8-eye-48-grey.png" alt="">
-                                    <span class="money">9</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
-
-                        <div class="blog-title">J. Robert oppenheimer</div>
-
-                        <div class="blog-secondary-info">
-                            <b>Writer</b> : Writer
-                            <br>
-                            <b>Published</b> : 27 Mar, '24
-                            <br>
-                            <b>Category</b> : <span class="category">Data Science, Codin...</span>
-                        </div>
-                    </div>
-
-                    <div class="blog-box">
-                        <div class="on-hover-extras">
-                            <div class="like-and-views">
-                                <div>
-                                    <img src="./icons/icons8-heart-48.png" alt="">
-                                    <span class="money">0</span>
-                                </div>
-
-                                <div>
-                                    <img src="./icons/icons8-eye-48-grey.png" alt="">
-                                    <span class="money">9</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
-
-                        <div class="blog-title">J. Robert oppenheimer</div>
-
-                        <div class="blog-secondary-info">
-                            <b>Writer</b> : Writer
-                            <br>
-                            <b>Published</b> : 27 Mar, '24
-                            <br>
-                            <b>Category</b> : <span class="category">Data Science, Codin...</span>
-                        </div>
-                    </div>
-
-                    <div class="blog-box">
-                        <div class="on-hover-extras">
-                            <div class="like-and-views">
-                                <div>
-                                    <img src="./icons/icons8-heart-48.png" alt="">
-                                    <span class="money">0</span>
-                                </div>
-
-                                <div>
-                                    <img src="./icons/icons8-eye-48-grey.png" alt="">
-                                    <span class="money">9</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
-
-                        <div class="blog-title">J. Robert oppenheimer</div>
-
-                        <div class="blog-secondary-info">
-                            <b>Writer</b> : Writer
-                            <br>
-                            <b>Published</b> : 27 Mar, '24
-                            <br>
-                            <b>Category</b> : <span class="category">Data Science, Codin...</span>
+                        <div class="blog-by-line">
+                            Eren Yeager | 27 Mar, '24
                         </div>
                     </div>
 
