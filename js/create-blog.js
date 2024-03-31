@@ -1,4 +1,5 @@
 const dbName = localStorage.getItem("dbName");
+const userName = localStorage.getItem("userName");
 
 //undo and redo code begins here
 const editableDiv = document.getElementById('editable-content-area');
@@ -520,7 +521,8 @@ const uploadBlog = (blogType) => {
             type: blogType,
             cover_img_path: coverImgPath,
             blog_category: blogCategory.value,
-            ff2: ff2
+            ff2: ff2,
+            user_name: userName
         },
         success: function(response) {
             showAlert(response);

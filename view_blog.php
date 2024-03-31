@@ -190,9 +190,15 @@
 
     <script>
         const searchParams = new URLSearchParams(window.location.search);
-        let ff3 = searchParams.get("ff3");
+        // let ff3 = searchParams.get("ff3");
         let ff1 = searchParams.get("ff1");
         let ff2 = searchParams.get("ff2");
+
+        let ff3 = "";
+
+        if (temp = searchParams.has("ff3")) {
+            ff3 = temp;
+        }
 
         const setTheTitle = () => {
             // setTimeout(() => {
@@ -207,6 +213,7 @@
             
 
             console.log(ff1, ff2);
+            console.log(ff3);
 
             $.ajax({
                 type: "POST",
@@ -229,7 +236,8 @@
         // loadTheSelectedBlog();
 
         const increaseTheView = () => {
-            if (ff3 == "v") {
+            if (ff3 == "v" || ff3 == "") {
+                console.log("called");
                 $.ajax({
                     type: "POST",
                     url: "./php-ajax/increase_cur_blog_view_count.php",

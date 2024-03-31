@@ -258,5 +258,18 @@ const downloadPdf = (contentName) => {
 
 
 const showSelectedBlog = (objRef) => {
-    window.location.href = "view_blog.php?ff1=" + objRef.parentElement.classList[1] + "&ff2=" + objRef.parentElement.id + "&ff3=" + objRef.parentElement.classList[2];
+
+    // let ff3;
+
+    // if (objRef.parentElement.classList.contains("v") || objRef.parentElement.classList.contains("h")) {
+    //     ff3 = objRef.parentElement.classList[2];
+    // }
+
+    if (objRef.parentElement.classList[2] != undefined) {
+        window.location.href = "view_blog.php?ff1=" + objRef.parentElement.classList[1] + "&ff2=" + objRef.parentElement.id + "&ff3=" + objRef.parentElement.classList[2];
+    } else {
+        window.location.href = "view_blog.php?ff1=" + objRef.parentElement.classList[1] + "&ff2=" + objRef.parentElement.id;
+    }
+
+    
 }

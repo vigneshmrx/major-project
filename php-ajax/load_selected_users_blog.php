@@ -10,12 +10,23 @@ $months_array = array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "S
 
 
 try {
-    $get_db_name_q = mysqli_query($con, "select db_name, name from prodo_db.users_list where SNo = $ff1");
+    // $get_db_name_q = mysqli_query($con, "select db_name, name from prodo_db.users_list where SNo = $ff1");
+
+    // $row = mysqli_fetch_assoc($get_db_name_q);
+
+    // $db_name = $row["db_name"];
+    // $user_name = $row["name"];
+
+    // Changes made here
+
+    $get_db_name_q = mysqli_query($con, "select UserDbName, Username from prodo_db.users_blog_posts_list where SNo = $ff1");
 
     $row = mysqli_fetch_assoc($get_db_name_q);
 
-    $db_name = $row["db_name"];
-    $user_name = $row["name"];
+    $db_name = $row["UserDbName"];
+    $user_name = $row["Username"];
+
+    // changes ends here
 
     // echo $db_name;
 

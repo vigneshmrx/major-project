@@ -125,15 +125,7 @@ session_start();
                 Recent blog posts
             </div>
 
-            <div class="blog-scroll-with-scroll-btn">
-                <!-- <div class="move-left-arrow" onclick="scrollLeft(this);"><</div>
-                <div class="move-right-arrow" onclick="scrollRight(this);">></div> -->
-
-                <!-- <div class=
-            
-             -->
-
-                <div class="blogs-area">
+            <div class="blogs-area">
                 
                     <div class="blog-box">
                         <div class="on-hover-extras">
@@ -163,27 +155,55 @@ session_start();
                         </div>
                     </div>
 
-                </div>
+                    <div class="blog-box">
+                        <div class="on-hover-extras">
+                            <div class="like-and-views">
+                                <div>
+                                    <img src="./icons/icons8-like-icon.png" alt="">
+                                    <span class="money">0</span>
+                                </div>
+
+                                <div>
+                                    <img src="./icons/icons8-eye-48.png" alt="">
+                                    <span class="money">9</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
+
+                        <div class="blog-title">J. Robert oppenheimer</div>
+
+                        <div class="blog-secondary-info">
+                            <span class="category">Data Science, Coding</span>
+                        </div>
+                        <div class="blog-by-line">
+                            Eren Yeager | 27 Mar, '24
+                        </div>
+                    </div>
+
             </div>
+                
         </div>
     </div>
 
     <script src="./js/common-script.js"></script>
     <script>
 
-        const horizontalScroll = (objRef, toDirection) => {
-            let blogsArea;
+        // const horizontalScroll = (objRef, toDirection) => {
+        //     let blogsArea;
 
-            if (toDirection == "left") {
-                blogsArea = objRef.nextElementSibling.nextElementSibling;
+        //     if (toDirection == "left") {
+        //         blogsArea = objRef.nextElementSibling.nextElementSibling;
 
-                blogsArea.scrollBy(330, 0);
-            } else {
-                blogsArea = objRef.nextElementSibling;
+        //         blogsArea.scrollBy(330, 0);
+        //     } else {
+        //         blogsArea = objRef.nextElementSibling;
 
-                blogsArea.scrollBy(-330, 0);
-            }
-        }
+        //         blogsArea.scrollBy(-330, 0);
+        //     }
+        // }
 
         // const scrollRight = (objRef) => {
         //     let blogsArea = objRef.nextElementSibling;
@@ -196,6 +216,28 @@ session_start();
 
         //     blogsArea.scrollBy(350, 0);
         // }
+
+        const loadBlogs = (cat = "") => {
+            let blogsArea = document.getElementsByClassName("blogs-area")[0];
+            const userName = localStorage.getItem("userName");
+
+            $.ajax({
+                type: "POST",
+                url: "../major-project/php-ajax/load-blogs.php",
+                data: {
+                    category: cat
+                },
+                success: function(response) {
+                    // alert(response);
+                    blogsArea.innerHTML = response;
+                },
+                error: function(response) {
+                    alert("Error: " + response);
+                }
+            })
+        }
+
+        loadBlogs();
     </script>
 </body>
 

@@ -10,6 +10,7 @@ $table_name = "blog_posts";
 $cover_img_path = $_POST["cover_img_path"];
 $blog_category = $_POST["blog_category"];
 $ff2 = $_POST["ff2"];
+$user_name = $_POST["user_name"];
 
 date_default_timezone_set("Asia/Kolkata");
 
@@ -62,7 +63,7 @@ try {
             $just_uploaded_blog_id = $row["SNo"];
             $just_uploaded_blog_category = $row["Category"];
 
-            mysqli_query($con, "insert into prodo_db.users_blog_posts_list (UserDbName, BlogId, Category) values('$db_name', $just_uploaded_blog_id, '$just_uploaded_blog_category');");
+            mysqli_query($con, "insert into prodo_db.users_blog_posts_list (Username, UserDbName, BlogId, Category) values('$user_name', '$db_name', $just_uploaded_blog_id, '$just_uploaded_blog_category');");
 
 
             echo "Blog Uploaded Successfully";
