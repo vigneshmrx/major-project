@@ -238,46 +238,20 @@ session_start();
         document.getElementById("dashboard-greeting").innerHTML = userNameArr[0] + "'s Dashboard";
 
         const redirectToWriteBlogPg = () => {
-            location.replace("create_blog.php");
+            // location.replace("create_blog.php");
+            location.href = "create_blog.php";
         }
 
         const editThisBlog = (objRef) => {
             let ff1 = objRef.parentElement.parentElement.parentElement.parentElement.classList[1];
             let ff2 = objRef.parentElement.parentElement.parentElement.parentElement.id;
-            let ciUrl = objRef.parentElement.parentElement.parentElement.parentElement.childNodes[1].style.backgroundImage;
+            // let ciUrl = objRef.parentElement.parentElement.parentElement.parentElement.childNodes[1].style.backgroundImage;
 
-            let ci = ciUrl.substring(5, ciUrl.length - 2);
+            // let ci = ciUrl.substring(5, ciUrl.length - 2);
 
-            // var encrypted = CryptoJS.AES.encrypt(ci, "Secret Passphrase");
-            // var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
-
-            // var encryptedAES = CryptoJS.AES.encrypt("Message", "My Secret Passphrase");
-            // var decryptedBytes = CryptoJS.AES.decrypt(encryptedAES, "My Secret Passphrase");
-            // var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
-
-            console.log("INside edit this blog");
-            // console.log(encrypted.toString(CryptoJS.enc.Utf8));
-            // console.ldecrypted);
-            // console.log(encryptedAES);
-
-            // console.log(decrypted.toString(CryptoJS.enc.Utf8));
-
-            // console.log(ff1, ff2);
-
-            //this works
-            // var ciphertext = CryptoJS.AES.encrypt('my message', 'secret key 123');
-
+            // var ciphertext = CryptoJS.AES.encrypt(ci, 'secret key 123');
             // var bytes = CryptoJS.AES.decrypt(ciphertext.toString(), 'secret key 123');
             // var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-
-            // console.log(ciphertext);
-            // console.log(ciphertext.toString());
-            // console.log(bytes);
-            // console.log(plaintext);
-
-            var ciphertext = CryptoJS.AES.encrypt(ci, 'secret key 123');
-            var bytes = CryptoJS.AES.decrypt(ciphertext.toString(), 'secret key 123');
-            var plaintext = bytes.toString(CryptoJS.enc.Utf8);
 
             // console.log(ciphertext.toString());
             // console.log(plaintext);

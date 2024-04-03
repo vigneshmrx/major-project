@@ -63,7 +63,7 @@ try {
             $just_uploaded_blog_id = $row["SNo"];
             $just_uploaded_blog_category = $row["Category"];
 
-            mysqli_query($con, "insert into prodo_db.users_blog_posts_list (Username, UserDbName, BlogId, Category) values('$user_name', '$db_name', $just_uploaded_blog_id, '$just_uploaded_blog_category');");
+            mysqli_query($con, "insert into prodo_db.users_blog_posts_list (Username, UserDbName, BlogId, Category, Visibility) values('$user_name', '$db_name', $just_uploaded_blog_id, '$just_uploaded_blog_category', '$visibility');");
 
 
             echo "Blog Uploaded Successfully";
@@ -79,6 +79,8 @@ try {
         } else {
             echo "Some error occured. Please try updating later!";
         }
+
+        mysqli_query($con, "update prodo_db.users_blog_posts_list set Category = '$blog_category', Visibility = '$visibility' where BlogId = $ff2 and UserDbName = '$db_name'");
     }
 }
 catch (Exception $blog_upload_exc) {

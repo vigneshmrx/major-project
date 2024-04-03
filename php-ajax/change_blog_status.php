@@ -39,6 +39,9 @@ try {
 
         if (mysqli_query($con, $change_blog_status_q)) {
             echo "Blog Status Changed successfully!";
+
+            mysqli_query($con, "update prodo_db.users_blog_posts_list set Visibility = '$visibility' where UserDbName = '$db_name' and BlogId = $blog_id;");
+            
         } else {
             die("Some error occured. Please try again later!");
         }

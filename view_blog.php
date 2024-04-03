@@ -66,6 +66,7 @@
 
         #likes-div {
             margin-right: 15px;
+            cursor: pointer;
         }
 
         #likes-and-views-area div img {
@@ -194,6 +195,8 @@
         let ff1 = searchParams.get("ff1");
         let ff2 = searchParams.get("ff2");
 
+        let user = localStorage.getItem("dbName");
+
         let ff3 = "";
 
         if (temp = searchParams.has("ff3")) {
@@ -220,7 +223,8 @@
                 url: "./php-ajax/load_selected_users_blog.php",
                 data: {
                     ff1: ff1,
-                    ff2: ff2
+                    ff2: ff2,
+                    user: user
                 },
                 success: function(response) {
                     // alert(response);
@@ -250,7 +254,7 @@
                         loadTheSelectedBlog();
                     },
                     error: function(response) {
-                        alert()
+                        alert(response);
                     }
                 });
             } else {
@@ -259,6 +263,39 @@
         }
 
         increaseTheView();
+
+        const toggleLike = (objRef) => {
+            let likesDiv = document.getElementById("likes-div");
+            let userHasLiked = "no";
+            let alreadyExistingLikes = parseInt(objRef.lastChild.innerHTML);
+
+            if (objRef.firstChild.src.includes("outlined")) {
+                userHasLiked = "yes";
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "../major-project/php-ajax/toggle_like.php",
+                data: {
+                    user_has_liked: userHasLiked,
+                    already_existing_likes: alreadyExistingLikes,
+                    ff1: ff1,
+                    ff2: ff2,
+                    liked_user: user
+                },
+                success: function (response) {
+                    // alert(response);
+                    likesDiv.innerHTML = response;
+                    // console.log(likesDiv);
+                },
+                error: function(response) {
+                    alert(response);
+                }
+            });
+        }
+
+        // let l = "0";
+        // l = parseInt(l);
     </script>
 </body>
 </html>

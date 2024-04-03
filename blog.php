@@ -102,7 +102,7 @@ session_start();
             <br><br>
             <div id="search-and-cat-area">
                 <div>
-                    <input type="text" name="" id="search-bar" placeholder="Search..">
+                    <input type="search" name="" id="search-bar" placeholder="Search..">
                 </div>
                 <div class="categories">
                     <div class="individual-categories current-category">All</div>
@@ -125,63 +125,7 @@ session_start();
                 Recent blog posts
             </div>
 
-            <div class="blogs-area">
-                
-                    <div class="blog-box">
-                        <div class="on-hover-extras">
-                            <div class="like-and-views">
-                                <div>
-                                    <img src="./icons/icons8-like-icon.png" alt="">
-                                    <span class="money">0</span>
-                                </div>
-
-                                <div>
-                                    <img src="./icons/icons8-eye-48.png" alt="">
-                                    <span class="money">9</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
-
-                        <div class="blog-title">J. Robert oppenheimer</div>
-
-                        <div class="blog-secondary-info">
-                            <span class="category">Data Science, Coding</span>
-                        </div>
-                        <div class="blog-by-line">
-                            Eren Yeager | 27 Mar, '24
-                        </div>
-                    </div>
-
-                    <div class="blog-box">
-                        <div class="on-hover-extras">
-                            <div class="like-and-views">
-                                <div>
-                                    <img src="./icons/icons8-like-icon.png" alt="">
-                                    <span class="money">0</span>
-                                </div>
-
-                                <div>
-                                    <img src="./icons/icons8-eye-48.png" alt="">
-                                    <span class="money">9</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="blog-img" style="background: url('./images/user-images/eren_user/wp12639246-oppenheimer-4k-wallpapers.jpg'); background-position: center; background-size: cover;"></div>
-
-                        <div class="blog-title">J. Robert oppenheimer</div>
-
-                        <div class="blog-secondary-info">
-                            <span class="category">Data Science, Coding</span>
-                        </div>
-                        <div class="blog-by-line">
-                            Eren Yeager | 27 Mar, '24
-                        </div>
-                    </div>
+            <div class="blogs-area">    
 
             </div>
                 
@@ -230,6 +174,7 @@ session_start();
                 success: function(response) {
                     // alert(response);
                     blogsArea.innerHTML = response;
+                    loadTheBlogsArray();
                 },
                 error: function(response) {
                     alert("Error: " + response);
@@ -238,6 +183,55 @@ session_start();
         }
 
         loadBlogs();
+
+        let blogs = [];
+
+        const loadTheBlogsArray = () => {
+            let blogDivs = Array.from(document.getElementsByClassName("blog-box"));
+
+            blogs = blogDivs.map(blogD => {
+                let blogName = blogD.getElementsByClassName("blog-title")[0].innerHTML;
+                let blogCategory = blogD.getElementsByClassName("category")[0].innerHTML;
+                let writer = blogD.getElementsByClassName("blog-by-line")[0].innerHTML;
+
+                return {name: blogName.toLowerCase(), category: blogCategory.toLowerCase(), writer: writer.toLowerCase(), element: blogD};
+            });
+        }
+
+        let searchInput = document.getElementById("search-bar");
+
+        searchInput.addEventListener("input", (e) => {
+            const value = e.target.value.toLowerCase();
+            console.log(value);
+
+            blogs.forEach(blog => {
+                // console.log(blog);
+
+                // if (value == "") {
+                //     blog.element.classList.toggle("hide", false);
+                // } else {
+                    // const isVisible = blog.name.includes(value) || blog.category.includes(value) || blog.writer.includes(value);
+
+                    const matchingName = blog.name.indexOf(value);
+                    const matchingCat = blog.category.indexOf(value);
+                    const matchingWriter = blog.writer.indexOf(value);
+
+                    if (matchingName >= 0 || matchingCat >= 0 || matchingWriter >= 0) {
+                        isVisible = true;
+                    } else {
+                        isVisible = false;
+                    }
+
+                    // console.log(isVisible);
+                    console.log("Value: " + value);
+                    // console.log("Name: " + blog.name + " Match? " + blog.name.includes(value));
+                    console.log("Name: " + blog.name + " Match? " + blog.name.indexOf(value));
+                    // console.log("Title: " + blog.name + "\nMatch? " + isVisible);
+
+                    blog.element.classList.toggle("hide", !isVisible);
+                // }
+            });
+        });
     </script>
 </body>
 
