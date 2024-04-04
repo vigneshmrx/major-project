@@ -53,6 +53,42 @@ session_start();
         </nav>
     </div>
 
+    <div id="request-writer-permission-popup-pg">
+        <div id="request-writer-permission-popup-bx">
+            <div id="request-writer-permission-heading-area">
+                <div class="request-writer-permission-heading">
+                    Request Writer Permission
+                </div>
+                <div class="close-pop-up-icon-area" onclick="removePopUp(this, []);">
+                    <img src="./icons/icons8-close-32.png" alt="">
+                </div>
+            </div>
+
+            <hr class="popup-box-hr">
+
+            <div style="font-weight: bold;">
+            &nbsp;&nbsp;&nbsp;To upload blogs, you must be a verified writer.
+
+            <br><br>
+
+            &nbsp;&nbsp;&nbsp;To verify and promote you as a writer, provide us with links to at least three previous works.
+
+            <br><br>
+
+            &nbsp;&nbsp;&nbsp;If already requested, please wait for the response from our team.
+            </div>
+
+            <br><br>
+
+            <textarea name="" id="upload-links-textarea" cols="30" rows="5" placeholder="Website links, drive links etc." ></textarea>
+
+            <br><br>
+
+            <input type="button" value="REQUEST" id="requestBtn"
+            style="width: 100px; margin-left: auto; margin-right: auto; display: block;" onclick="submitPrevContentLinks();">
+        </div>
+    </div>
+
 
     <div id="page-left-area">
         <div id="logo">
@@ -126,40 +162,18 @@ session_start();
             </div>
 
             <div class="blogs-area">    
-
             </div>
-                
+        </div>
+
+        <div id="add-post-btn" onclick="addNewPost();">
+            <abbr title="Add New Blog">
+                <img src="./icons/icons8-add-new-50.png" alt="">
+            </abbr>
         </div>
     </div>
 
     <script src="./js/common-script.js"></script>
     <script>
-
-        // const horizontalScroll = (objRef, toDirection) => {
-        //     let blogsArea;
-
-        //     if (toDirection == "left") {
-        //         blogsArea = objRef.nextElementSibling.nextElementSibling;
-
-        //         blogsArea.scrollBy(330, 0);
-        //     } else {
-        //         blogsArea = objRef.nextElementSibling;
-
-        //         blogsArea.scrollBy(-330, 0);
-        //     }
-        // }
-
-        // const scrollRight = (objRef) => {
-        //     let blogsArea = objRef.nextElementSibling;
-
-        //     blogsArea.scrollBy(-350, 0);
-        // }
-
-        // const scrollLeft = (objRef) => {
-        //     let blogsArea = objRef.nextElementSibling.nextElementSibling;
-
-        //     blogsArea.scrollBy(350, 0);
-        // }
 
         const loadBlogs = (cat = "") => {
             let blogsArea = document.getElementsByClassName("blogs-area")[0];
@@ -232,6 +246,50 @@ session_start();
                 // }
             });
         });
+
+        let requestPermissionPopupPage = document.getElementById("request-writer-permission-popup-pg");
+
+        const addNewPost = () => {
+            let userType = localStorage.getItem("user-type");
+
+            if (userType == "reader") {
+                popUpBgFun();
+
+                requestPermissionPopupPage.style.visibility = "visible";
+                requestPermissionPopupPage.style.zIndex = 150;
+            } else {
+                location.href = "create_blog.php";
+            }
+        }
+
+        const submitPrevContentLinks = () => {
+            let links = document.getElementById("upload-links-textarea");
+            let un = localStorage.getItem("userName");
+            let e = localStorage.getItem("emailID");
+
+            if (links.value == "") {
+                showAlert("Please fill the necessary details before requesting!");
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "../major-project/php-ajax/make-writer-request.php",
+                data: {
+                    email: e,
+                    links: links.value,
+                    user_name: un
+                },
+                success: function(response) {
+                    // alert(response);
+                    showAlert(response);
+                    links.value = "";
+                    popUpBgFun();
+                    requestPermissionPopupPage.style.visibility = "hidden";
+                    requestPermissionPopupPage.style.zIndex = -150;
+                }
+            })
+        }
     </script>
 </body>
 
