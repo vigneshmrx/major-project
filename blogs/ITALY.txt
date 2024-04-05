@@ -1,0 +1,23 @@
+ITALY:
+
+- Uni. of Milan
+  Computer Science
+
+- Uni. of Padua
+
+- Sapienza uni. of rome
+  Data Science
+
+- Uni. of bologna
+- Politechnic uni. of milan
+
+FRANCE:
+- Uni. PSL
+- Uni. Paris Sacle
+
+NETHERLANDS:
+- Uni. of Amsterdam
+
+GERMANY
+- TUM
+- Paderborn Uni.

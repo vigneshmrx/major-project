@@ -50,13 +50,21 @@ session_start();
             pwdArea.innerHTML = "Entered password is wrong";
         }
 
-        function loginSuccess() {
+        function loginSuccess(type = "") {
             let commonMsgArea = document.getElementsByClassName("common-error")[0];
             commonMsgArea.innerHTML = "Login Successful!!";
 
-            setTimeout(() => {
+            if (type == "admin") {
+                setTimeout(() => {
+                window.location.replace("admin.php");
+                }, 1400);
+            } else {
+                setTimeout(() => {
                 window.location.replace("finance.php");
-            }, 1400);
+                }, 1400);
+            }
+
+            
         }
 
         // function checkPwdFun(thePwd, userName) {
@@ -167,6 +175,10 @@ session_start();
 
                         $full_name = $row["name"];
                         $user_type = $row["role"];
+
+                        if ($user_type == "admin") {
+                            die("<script>loginSuccess('admin');</script>");
+                        }
 
                         // $_SESSION["user_name"] = $full_name;
                         // $_SESSION["db_name"] = $db_name;
