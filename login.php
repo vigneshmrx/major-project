@@ -176,10 +176,6 @@ session_start();
                         $full_name = $row["name"];
                         $user_type = $row["role"];
 
-                        if ($user_type == "admin") {
-                            die("<script>loginSuccess('admin');</script>");
-                        }
-
                         // $_SESSION["user_name"] = $full_name;
                         // $_SESSION["db_name"] = $db_name;
                         // $_SESSION["email"] = $email;
@@ -192,6 +188,10 @@ session_start();
                         echo "<script>localStorage.setItem('emailID', '$email');</script>";
                         echo "<script>localStorage.setItem('user-type', '$user_type');</script>"; 
                         echo "<script>localStorage.setItem('logged-in', true);</script>";
+
+                        if ($user_type == "admin") {
+                            die("<script>loginSuccess('admin');</script>");
+                        }
                         
                         echo "<script>loginSuccess();</script>";
                     } else {

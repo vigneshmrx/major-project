@@ -219,12 +219,6 @@ session_start();
             console.log(value);
 
             blogs.forEach(blog => {
-                // console.log(blog);
-
-                // if (value == "") {
-                //     blog.element.classList.toggle("hide", false);
-                // } else {
-                    // const isVisible = blog.name.includes(value) || blog.category.includes(value) || blog.writer.includes(value);
 
                     const matchingName = blog.name.indexOf(value);
                     const matchingCat = blog.category.indexOf(value);
@@ -236,10 +230,9 @@ session_start();
                         isVisible = false;
                     }
 
-                    // console.log(isVisible);
-                    console.log("Value: " + value);
+                    // console.log("Value: " + value);
                     // console.log("Name: " + blog.name + " Match? " + blog.name.includes(value));
-                    console.log("Name: " + blog.name + " Match? " + blog.name.indexOf(value));
+                    // console.log("Name: " + blog.name + " Match? " + blog.name.indexOf(value));
                     // console.log("Title: " + blog.name + "\nMatch? " + isVisible);
 
                     blog.element.classList.toggle("hide", !isVisible);

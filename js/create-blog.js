@@ -1,5 +1,6 @@
 const dbName = localStorage.getItem("dbName");
 const userName = localStorage.getItem("userName");
+const userEmail = localStorage.getItem("emailID");
 
 //undo and redo code begins here
 const editableDiv = document.getElementById('editable-content-area');
@@ -522,15 +523,11 @@ const uploadBlog = (blogType) => {
             cover_img_path: coverImgPath,
             blog_category: blogCategory.value,
             ff2: ff2,
-            user_name: userName
+            user_name: userName,
+            email: userEmail
         },
         success: function(response) {
             showAlert(response);
-            // alert(response);
-            // console.log(response);
-            // showAlert(response);
-            // editableDiv.innerHTML = "";
-            // blogContent.innerHTML = "";
             document.getElementById("editable-content-area").innerHTML = "";
             blogHeading.value = "";
             blogCategory.value = "";
