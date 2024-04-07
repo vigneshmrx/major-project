@@ -12,71 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        #blog-area {
-            width: 1000px;
-            margin: auto;
-            padding: 15px 30px 30px 30px;
-            background-color: var(--main-white);
-            border: 1px solid rgb(225, 199, 199);
-            font-size: 16px; 
-            border-radius: var(--common-value);
-            box-shadow: 10px 10px var(--main-black);
-        }
-
-        #blog-heading {
-            text-align: center;
-            font-size: 36px;
-        }
-
-        #blog-info-area {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            /* border: 1px solid; */
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-
-        #blog-info-area div {
-            background: var(--main-black);
-            color: var(--main-white);
-            padding: 5px 15px;
-            border-radius: 10px;
-        }
-
-        #blog-content {
-            margin-top: 30px;
-        }
-
-        /* hr {
-            width: 100%;
-        } */
-
-        #likes-and-views-area {
-            margin-top: 30px;
-            display: flex;
-            /* border: 1px solid; */
-        }
-
-        #likes-and-views-area div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #likes-div {
-            margin-right: 15px;
-            cursor: pointer;
-        }
-
-        #likes-and-views-area div img {
-            width: 25px;
-            margin-right: 5px;
-        }
-
-        #page-right-area {
-            padding-bottom: 15px;
-        }
+        <?php include './css/view-blog.css'; ?>
     </style>
 
     <script>

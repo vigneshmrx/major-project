@@ -63,19 +63,37 @@ session_start();
         pwdArea.innerHTML = "The two passwords do not match";
     }
 
-    function loginSuccess() {
+    function loginSuccess(type = "") {
         let errorMsgArea = document.getElementsByClassName("common-error")[0];
         errorMsgArea.innerHTML = "Registration Successful";
 
-        setTimeout(() => {
-            window.location.replace("finance.php");
-        }, 1500);
+        if (type == "admin") {
+
+            setTimeout(() => {
+                window.location.replace("admin.php");
+            }, 1500);
+
+        }
+        else 
+        {
+
+            setTimeout(() => {
+                window.location.replace("finance.php");
+            }, 1500);
+
+        }
+        
     }
 
     let loggedIn = localStorage.getItem("logged-in");
+    let userType = localStorage.getItem("user-type");
 
     if (loggedIn != null && loggedIn != undefined && loggedIn == true) {
-        window.location.href = "finance.php";
+        if (userType == "admin") {
+            window.location.href = "admin.php";
+        } else {
+            window.location.href = "finance.php";
+        }
     }
     </script>
 </head>
@@ -168,25 +186,80 @@ session_start();
     </div>
 
     <?php
+    // include "connect.php";
 
-        if(isset($_POST["sign_up"])) {
+        function adminFunction($admin_email, $passone, $passtwo, $fname, $lname) {
+
+            echo("ADminf funtion");
             include "connect.php";
-
-            //usernmae mistake checking
-            // $contains_dollar = str_contains($username, "$");
-            // $contains_hiphen = str_contains($username, "-");
-            // $contains_dot = str_contains($username, ".");
-
-            // if ($contains_dollar || $contains_dot || $contains_hiphen) {
-            //     echo "<script>console.log('It has reached here');</script>";
-            //     die("<script>callErr(4);</script>");
-            // }
 
             try {
                 mysqli_select_db($con, "prodo_db");
             } catch (Exception $e2) {
                 die("<script>callErr(3);</script>");
             }
+
+            $admin_email_q = "select * from admin_table where Email = '$admin_email'";
+            $admin_email_res = mysqli_query($con, $admin_email_q);
+
+            try {
+                $row = mysqli_fetch_assoc($admin_email_res);
+                if ($row != NULL) {
+                    if ($row["Email"] != NULL) {
+                        die("<script>callErr(1);</script>");
+                    }
+                }
+                else {
+                    echo("Email not in use");
+                }
+            } catch (Exception $e) {}
+
+            if ($passone != $passtwo) {
+                die("<script>callErr(2);</script>");
+            } else {
+                echo("They match"); 
+            }
+
+            $hashed_pwd = password_hash($passone, PASSWORD_DEFAULT);
+            $full_name = $fname . " " . $lname;
+
+            $adding_admin_query = "insert into admin_table (Name, Email, Password) values('$full_name', '$admin_email', '$hashed_pwd');";
+            
+
+            try {
+
+                $admin_adding_success = mysqli_query($con, $adding_admin_query);
+
+                if ($admin_adding_success) {
+
+                    echo "<script>localStorage.setItem('user-type', 'reader');</script>";
+                    echo "<script>localStorage.setItem('logged-in', true);</script>";
+                    echo "<script>localStorage.setItem('emailID', '$email');</script>";
+                    
+
+                    die("<script>loginSuccess('admin');</script>");
+                }
+            }
+            catch (Exception $some_exctwo) {
+                die("<script>callErr(3);</script>");
+            }
+
+        }
+
+        if(isset($_POST["sign_up"])) {
+            include "connect.php";
+
+            if (str_contains($email, ".prodoad")) {
+                adminFunction($email, $passone, $passtwo, $fname, $lname);
+            }
+
+            try {
+                mysqli_select_db($con, "prodo_db");
+            } catch (Exception $e2) {
+                die("<script>callErr(3);</script>");
+            }
+
+            
 
             //email checking
             $email_query = "select * from users_list where email='$email'";

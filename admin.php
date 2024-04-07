@@ -50,7 +50,7 @@
         }
 
         .option-bar-options:hover {
-            text-decoration: underline wavy;
+            text-decoration: underline;
         }
 
         .currently-selected {
@@ -63,7 +63,7 @@
         }
 
         #dynamic-content-area {
-            border: 2px solid;
+            /* border: 2px solid; */
             margin-top: 100px;
         }
 
@@ -95,8 +95,9 @@
         }
 
         #dynamic-table td {
-            border-right: 1px solid;
-            border-left: 1px solid;
+            /* border-right: 1px solid;
+            border-left: 1px solid; */
+            /* border-bottom: 1px solid; */
             text-align: center;
             padding: 5px 10px;
         }
@@ -145,10 +146,127 @@
             display: none;
         }
 
+        #mail-area {
+            width: 55%;
+            margin: auto;
+            font-weight: bold;
+            border: 2px solid;
+            border-radius: var(--common-value);
+            padding: 15px;
+            background: var(--main-white);
+            box-shadow: 15px 15px var(--main-black);
+            margin-top: 15px;
+        }
+
+        .mail-flex-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .mail-flex-line div {
+            flex: 1;
+        }
+
+        .from-div {
+            margin-right: 15px;
+        }
+
+        .to-div {
+            margin-left: 15px;
+        }
+
+        input[type=text],
+        textarea {
+            width: 100%;
+            height: 28px;
+            border: none;
+            background: var(--secondary-white);
+            border-radius: 5px;
+            border-bottom: 2px solid;
+            /* padding: 2px 5px; */
+            padding: 5px 15px;
+            margin-top: 5px;
+            font-family: "Roboto Mono";
+            font-size: 15px;
+            font-weight: normal;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        input[type=button] {
+            margin: auto;
+            padding: 6px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            font-size: 15px;
+            background: var(--main-black);
+            color: var(--main-white);
+            font-family: "Roboto Mono";
+        }
+
+        .custom-confirm-page {
+            z-index: -150;
+            position: fixed;
+            visibility: hidden;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+        }
+
+        .custom-confirm-box {
+            width: 400px;
+            background-color: var(--main-white);
+            box-shadow: 11px 11px  var(--main-black);
+            padding: var(--common-value);
+            border: 2px solid var(--main-black);
+            font-weight: bold;
+            text-align: justify;
+        }
+
+        .confirm-btns-area {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .confirm-btns-area input[type=button] {
+            width: 120px;
+        }
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+
+    <div class="custom-confirm-page">
+        <div class="custom-confirm-box">
+            <div class="custom-confirm-text">
+                Are you sure you want to delete this blog? This action cannot be reversed!
+            </div> <br><br>
+            <div class="confirm-btns-area">
+                <input type="button" value="YES" onclick="toggleEnterBlogReasonAlert(true);">
+                <input type="button" value="NO" onclick="toggleBlogDeleteAlert(false, true);">
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-confirm-page">
+        <div class="custom-confirm-box">
+            <div class="custom-confirm-text" style="text-align: left;">
+                Please enter the reason for deletion of the blog: <br><br>
+                <input type="text" name="" id="reason-for-deletion-of-blog">
+            </div> <br><br>
+            <div class="confirm-btns-area">
+                <input type="button" value="SUBMIT" onclick="getReasonDeleteBlog();">
+                <input type="button" value="CANCEL" onclick="toggleEnterBlogReasonAlert(false, true);">
+            </div>
+        </div>
+    </div>
+
     <div class="secondary-nav-bar">
         <div class="sec-bar-logo">
             ProDo
@@ -180,73 +298,36 @@
         </div>
 
         <div id="dynamic-content-area">
-            
 
             <div class="sub-headings" style="">
-                Unattended Requests:
+                Send Email:
             </div>
 
-            <div id="dynamic-table">
-                <table cellspacing="0">
-                    <tr>
-                        <th>SNo</th>
-                        <th>User</th>
-                        <th>Email</th>
-                        <th>Work Links</th>
-                        <th>Requested On</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
+            <div id="mail-area">
+                <div class="mail-flex-line">
+                    <div class="from-div">
+                        From: <br>
+                        <input type="text" name="" id="from-input" value="prodo@gmail.com" disabled>
+                    </div>
+                    <div class="to-div">
+                        To: <br>
+                        <input type="text" name="" id="to-input">
+                    </div>
+                </div>
 
-                    <tr class="info-row">
-                        <td>1</td>
-                        <td>Eren Yeager</td>
-                        <td>erenyeager@gmail.com</td>
-                        <td>https:,.fdjldsjflsdjlksdjfdl</td>
-                        <td>2024-04-02</td>
-                        <td>Pending</td>
-                        <td class="action-cell">
-                            <abbr title="Accept Request">
-                            <img src="./icons/accept-request.png" alt="">
-                            </abbr>
-                            <abbr title="Reject Request">
-                            <img src="./icons/reject-request.png" alt="">
-                            </abbr>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+                <div>
+                    Subject: <br>
+                    <input type="text" name="" id="subject-input">
+                </div>
 
-            <div class="sub-headings">
-                Previous Requests:
-            </div>
+                <div style="margin-top: 25px;">
+                    Message: <br>
+                    <textarea name="" id="message-input" cols="30" rows="10"></textarea>
+                </div>
 
-            <div id="dynamic-table">
-                <table cellspacing="0">
-                    <tr>
-                        <th>SNo</th>
-                        <th>User</th>
-                        <th>Email</th>
-                        <th>Work Links</th>
-                        <th>Requested On</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-
-                    <tr class="info-row">
-                        <td>1</td>
-                        <td>Eren Yeager</td>
-                        <td>erenyeager@gmail.com</td>
-                        <td>https:,.fdjldsjflsdjlksdjfdl</td>
-                        <td>2024-04-02</td>
-                        <td>Pending</td>
-                        <td class="action-cell">
-                            <abbr title="Revoke Writer Permission">
-                            <img src="./icons/reject-request.png" alt="">
-                            </abbr>
-                        </td>
-                    </tr>
-                </table>
+                <div style="text-align: center; margin-top: 25px;">
+                    <input type="button" value="SEND MAIL" onclick="sendEmail();" >
+                </div>
             </div>
         </div>
     </div>
@@ -263,146 +344,12 @@
             currentlySelectedOptionId = adminSelectedOption;
         }
 
-        const optionChangeFun = (objRef) => {
-            let uniqueId = objRef.id;
-
-            if (currentlySelectedOptionId == uniqueId) {
-                return;
-            } else {
-                let currentlyClickedOption = document.getElementById(uniqueId);
-                // console.log(currentlyClickedOption);
-
-                currentlyClickedOption.classList.add("currently-selected");
-
-                sessionStorage.setItem("admin-selected-option", uniqueId);
-
-                let previousClickedOption = document.getElementById(currentlySelectedOptionId);
-
-                previousClickedOption.classList.remove("currently-selected");
-
-                currentlySelectedOptionId = uniqueId;
-
-                // highlightSelectedOptionFun(uniqueId);
-            }
-
-            adminSelectedOptionFun(uniqueId);
-        }
-
-        const highlightSelectedOption = (uniqueId) => {
-            let currentlyClickedOption = document.getElementById(uniqueId);
-                // console.log(currentlyClickedOption);
-
-                currentlyClickedOption.classList.add("currently-selected");
-        }
-
-        highlightSelectedOption(currentlySelectedOptionId);
-
-        const showSelectedOptionData = (type) => {
-            let dynamicContentArea = document.getElementById("dynamic-content-area");
-
-            $.ajax({
-                type: "POST",
-                url: "../major-project/php-ajax/show-admin-selected-option.php",
-                data: {
-                    data_request_type: type
-                },
-                success: function(response) {
-                    dynamicContentArea.innerHTML = response;
-
-                    if (type == "writer-requests") {
-                        loadWriterRequestInfoRowsInArray();
-                    } else if (type == "reports") {
-                        loadReportedBlogsInfoRowsInArray();
-                    }
-                }
-            });
-
-        }
-
-        const adminSelectedOptionFun = (uniqueId) => {
-            switch (uniqueId) {
-                case "1" : showSelectedOptionData("writer-requests");
-                            break;
-
-                case "2" : showSelectedOptionData("reports");
-                            break;
-
-                case "3" : showSelectedOptionData("users-list"); 
-                            break;
-
-                case "4" : showSelectedOptionData("send-mail");
-            }
-        }
-
-        adminSelectedOptionFun(currentlySelectedOptionId);
-
-        // showSelectedOptionData("writer-requests")
-
-        let infoRowsArr = [];
-
-        const loadWriterRequestInfoRowsInArray = () => {
-
-            console.log("In Hre");
-
-                let infoRows = Array.from(document.getElementsByClassName("info-row"));
-
-                infoRowsArr = infoRows.map(indiRow => {
-                    let username = indiRow.getElementsByClassName("request-username")[0].innerHTML;
-                    let email = indiRow.getElementsByClassName("request-email")[0].innerHTML;
-                    let links = indiRow.getElementsByClassName("request-links")[0].innerHTML;
-                    let requestDate = indiRow.getElementsByClassName("request-requested-date")[0].innerHTML;
-                    let status = indiRow.getElementsByClassName("request-status")[0].innerHTML;
-
-                    return {username: username.toLowerCase(), emailId: email.toLowerCase(), workLinks: links.toLowerCase(), requestedDate: requestDate.toLowerCase(), requestStatus: status.toLowerCase(), element: indiRow}
-                });
-        }
-
-        const loadReportedBlogsInfoRowsInArray = () => {
-            let infoRows = Array.from(document.getElementsByClassName("info-row"));
-
-            infoRowsArr = infoRows.map(indiRow => {
-                let username = indiRow.getElementsByClassName("reported-user")[0].innerHTML;
-                let email = indiRow.getElementsByClassName("reported-email")[0].innerHTML;
-                let blogName = indiRow.getElementsByClassName("reported-blog-name")[0].innerHTML;
-                let category = indiRow.getElementsByClassName("reported-category")[0].innerHTML;
-                let noOfReports = indiRow.getElementsByClassName("reported-no")[0].innerHTML;
-
-                return {username: username.toLowerCase(), email: email.toLowerCase(), blogName: blogName.toLowerCase(), category: category.toLowerCase(), noOfReports: noOfReports.toLowerCase(), element: indiRow}
-
-            });
-        }
-
         SearchBar = document.getElementById("search-bar");
 
-        // loadTheInfoRowsArray();
+        let searchBarDiv = document.getElementById("search-bar-area");
 
-        SearchBar.addEventListener("input", (e) => {
-            const value = e.target.value.toLowerCase();
 
-            console.log('in here 2');
-
-            
-
-            infoRowsArr.forEach(infoRow => {
-
-                console.log('in here 3');
-
-                let isVisible = true;
-
-                if (currentlySelectedOptionId == "1") {
-
-                    isVisible = infoRow.username.includes(value) || infoRow.emailId.includes(value) || infoRow.workLinks.includes(value) || infoRow.requestedDate.includes(value) || infoRow.requestStatus.includes(value);
-
-                } else if (currentlySelectedOptionId == "2") {
-                    isVisible = infoRow.username.includes(value) || infoRow.email.includes(value) || infoRow.blogName.includes(value) || infoRow.category.includes(value) || infoRow.noOfReports.includes(value);
-                }
-
-                // const isVisible = infoRow.username.includes(value) || infoRow.emailId.includes(value) || infoRow.workLinks.includes(value) || infoRow.requestedDate.includes(value) || infoRow.requestStatus.includes(value);
-
-                infoRow.element.classList.toggle("hide", !isVisible);
-
-            })
-        })
     </script>
+    <script src="./js/admin-ajax.js"></script>
 </body>
 </html>

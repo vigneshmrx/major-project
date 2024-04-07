@@ -67,21 +67,15 @@ session_start();
             
         }
 
-        // function checkPwdFun(thePwd, userName) {
-        //     let enteredPwd = document.getElementsByName("pass_one")[0].value;
-
-        //     if (enteredPwd == thePwd) {
-        //         loginSuccess(userName);
-        //     } else {
-        //         let pwdArea = document.getElementsByClassName("pwd-error")[0];
-        //         pwdArea.innerHTML = "Entered password is wrong";
-        //     }
-        // }
-
         let loggedIn = localStorage.getItem("logged-in");
+        let userType = localStorage.getItem("user-type");
 
         if (loggedIn != null && loggedIn != undefined && loggedIn == true) {
-            window.location.href = "finance.php";
+            if (userType == "admin") {
+                window.location.href = "admin.php";
+            } else {
+                window.location.href = "finance.php";
+            }
         }
     </script>
 </head>
@@ -143,8 +137,50 @@ session_start();
 
     <?php
 
+        function adminFunction($admin_email, $passone) {
+            include "connect.php";
+
+            try {
+                mysqli_select_db($con, "prodo_db");
+            } catch (Exception $e2) {
+                die("<script>callErr(3);</script>");
+            }
+
+            $admin_email_q = "select * from admin_table where Email = '$admin_email'";
+            $admin_email_res = mysqli_query($con, $admin_email_q);
+
+            try {
+
+                $row = mysqli_fetch_assoc($admin_email_res);
+                if ($row == NULL) {
+                    // echo "admin inside";
+                    die("<script>callErr(1);</script>");
+                } else {
+                    $original_pwd = $row["Password"];
+
+                    if (password_verify($passone, $original_pwd)) {
+                        echo "<script>localStorage.setItem('emailID', '$admin_email');</script>";
+                        echo "<script>localStorage.setItem('user-type', 'admin');</script>"; 
+                        echo "<script>localStorage.setItem('logged-in', true);</script>";
+
+                        die("<script>loginSuccess('admin');</script>");
+                    }
+                    else {
+                        die("<script>pwdErr();</script>");
+                    }
+                }
+
+            }
+            catch (Exception $some_excone) {}
+
+        }
+
         if(isset($_POST["login"])) {
             include "connect.php";
+
+            if (str_contains($email, ".prodoad")) {
+                adminFunction($email, $passone);
+            }
 
             //selecting the database
             try {
@@ -188,10 +224,6 @@ session_start();
                         echo "<script>localStorage.setItem('emailID', '$email');</script>";
                         echo "<script>localStorage.setItem('user-type', '$user_type');</script>"; 
                         echo "<script>localStorage.setItem('logged-in', true);</script>";
-
-                        if ($user_type == "admin") {
-                            die("<script>loginSuccess('admin');</script>");
-                        }
                         
                         echo "<script>loginSuccess();</script>";
                     } else {

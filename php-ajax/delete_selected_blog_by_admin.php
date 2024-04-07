@@ -1,0 +1,58 @@
+<?php
+
+include '../connect.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../phpmailer/src/Exception.php';
+require '../phpmailer/src/PHPMailer.php';
+require '../phpmailer/src/SMTP.php';
+
+$blog_id_in_prodo_db = $_POST["blog_id"];
+$reason_for_deleting = $_POST["deletion_message"];
+
+try {
+    $mail = new PHPMailer(true);
+
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'vs.prodowebapp@gmail.com';
+    $mail->Password = 'rwtydtnzgcxrfosu';
+    $mail->SMTPSecure = 'ssl';
+    $mail->Port = 465;
+
+    $mail->setFrom('vs.prodowebapp@gmail.com');
+
+    $get_blog_db_q = mysqli_query($con, "select Email, UserDbName, BlogId from prodo_db.users_blog_posts_list where SNo = $blog_id_in_prodo_db;");
+
+    $row = mysqli_fetch_assoc($get_blog_db_q);
+
+    $db_name = $row["UserDbName"];
+    $unique_blog_id = $row["BlogId"];
+    $user_email = $row["Email"];
+
+    // echo $db_name;
+    // echo $unique_blog_id;
+
+    $delete_the_blog_from_users_db_q = mysqli_query($con, "delete from $db_name.blog_posts where SNo = $unique_blog_id");
+
+    $delete_from_prodo_db_q = mysqli_query($con, "delete from prodo_db.users_blog_posts_list where SNo = $blog_id_in_prodo_db;");
+
+    $mail->addAddress($user_email);
+
+    $mail->isHTML(true);
+
+    $mail->Subject = "Deletion of your blog";
+    $mail->Body = "";
+
+    $mail->send();
+
+    echo "Blog deleted successfully!";
+}
+catch (Exception $some_exc) {
+    echo "Some error occured. Please try again later!";
+}
+
+?>
