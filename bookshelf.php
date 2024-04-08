@@ -50,7 +50,7 @@
                 <div class="nav-items">Blog</div>
             </a>
             <a href="#">
-                <div class="nav-items">Settings</div>
+                <div class="nav-items" onclick="showSettings(true);">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
             <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
@@ -126,23 +126,9 @@
         </div>
     </div>
 
-    <!-- <div id="add-book-popup-pg-two">
-        <div id="add-book-popup-box-two">
-            <div class="add-book-heading-area">
-                <div class="add-book-heading">ADD BOOK</div>
-                <div class="close-pop-up-icon-area" onclick="removePopUp(this);">
-                    <img src="./icons/icons8-close-32.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <!-- LEFT AREA - THE NAVIGATION ~~~~ -->
     <div id="page-left-area">
         <div id="logo">
-            <!-- <lord-icon src="https://cdn.lordicon.com/abwrkdvl.json" trigger="in" delay="1500" state="in-growth"
-                style="width:40px;height:40px; ">
-            </lord-icon> -->
             ProDo
         </div>
 
@@ -161,7 +147,7 @@
                 <div class="nav-items">Blog</div>
             </a>
             <a href="#">
-                <div class="nav-items">Settings</div>
+                <div class="nav-items" onclick="showSettings(true);">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
             <!-- <a href="" onclick="showLogOutBox();">

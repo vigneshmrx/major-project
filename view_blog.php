@@ -23,6 +23,19 @@
 
 </head>
 <body>
+        <div class="custom-confirm-page">
+            <div class="custom-confirm-box">
+                <div class="custom-confirm-text">
+                    Are you sure you want to report this blog?
+                </div> <br><br>
+
+                <div class="confirm-btns-area">
+                    <input type="button" value="YES" onclick="reportThisBlog();">
+                    <input type="button" value="NO" onclick="toggleConfirmReportBlogBox(false);">
+                </div>
+            </div>
+        </div>
+
     <div id="secondary-menu">
         <div class="menu-close-icon" onclick="secondaryMenuFun();">
             <img src="./icons/icons8-close-50_white.png" alt="">
@@ -99,26 +112,7 @@
         </div>
 
         <div id="blog-area">
-            <div id="blog-heading">TESTING</div>
-
-            <div id="blog-info-area">
-                <div class="user-name">Eren Yeager</div>
-                <div class="blog-upload-date">35th March, '24</div>
-            </div>
-
-            <div id="blog-content">
-            </div>
-
-            <div id="likes-and-views-area">
-                <div id="likes-div">
-                    <img src="./icons/icons8-like-icon-outlined.png" alt="">
-                    <span class="money">5</span>
-                </div>
-                <div id="views-div">
-                    <img src="./icons/icons8-eye-48.png" alt="">
-                    <span class="money">5</span>
-                </div>
-            </div>
+            
         </div>
 
     </div>
@@ -135,8 +129,8 @@
 
         let ff3 = "";
 
-        if (temp = searchParams.has("ff3")) {
-            ff3 = temp;
+        if (searchParams.has("ff3")) {
+            ff3 = searchParams.get("ff3");
         }
 
         const setTheTitle = () => {
@@ -226,6 +220,34 @@
                 },
                 error: function(response) {
                     alert(response);
+                }
+            });
+        }
+
+        const toggleConfirmReportBlogBox = (toShow) => {
+            let reportBlogConfirmPage = document.getElementsByClassName("custom-confirm-page")[0];
+
+            popUpBgFun();
+
+            if (toShow == true) {
+                reportBlogConfirmPage.style.visibility = "visible";
+                reportBlogConfirmPage.style.zIndex = "150";
+            } else {
+                reportBlogConfirmPage.style.visibility = "hidden";
+                reportBlogConfirmPage.style.zIndex = "150";
+            }
+        }
+
+        const reportThisBlog = () => {
+            $.ajax({
+                type: "POST",
+                url: "../major-project/php-ajax/report-this-blog.php",
+                data: {
+                    ff1: ff1
+                },
+                success: function(response) {
+                    showAlert(response);
+                    toggleConfirmReportBlogBox(false);
                 }
             });
         }

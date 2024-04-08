@@ -28,6 +28,8 @@ try {
 
     $get_blogs_q = "select * from blog_posts where Visibility='$visibility' order by UploadDate desc;";
 
+    $get_users_blog_posts_list_id_q = mysqli_query($con, "select SNo from prodo_db.users_blog_posts_list where Email='$email_id' and Visibility = '$visibility' order by SNo desc;");
+
     $res = mysqli_query($con, $get_blogs_q);
 
     if ($res == true && $res -> num_rows > 0) {
@@ -45,6 +47,9 @@ try {
             }
 
             $upload_date = substr($upload_date, 8, 2) . " " . $months_array[((int) substr($upload_date, 5, 2)) - 1] . ", '" . substr($upload_date, 2, 2); 
+
+            $row_two = mysqli_fetch_assoc($get_users_blog_posts_list_id_q);
+            $user_id = $row_two["SNo"];
 
             $content = '<div class="blog-box ' . $user_id . ' ' . substr($visibility, 0, 1) .'" id="' . $row["SNo"] . '"><div class="on-hover-extras"><div class="like-and-views"><div><img src="./icons/icons8-heart-48.png" alt=""> <span class="money">' . $row["Likes"] . '</span></div>
             <div><img src="./icons/icons8-eye-48-grey.png" alt=""> <span class="money">' . $row["Views"] . '</span></div></div><div class="archive-and-trash"><abbr title="Edit"><img src="./icons/icons8-edit-grey.png" onclick="editThisBlog(this);"></abbr>';

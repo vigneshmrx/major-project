@@ -9,7 +9,6 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
-    <!-- <link rel="stylesheet" href="signup.css"> -->
     <style>
     <?php include './css/common-styles.css';
     ?>
@@ -296,7 +295,7 @@ session_start();
 
             // var_dump($hashed_pwd);
             $full_name = $fname . " " . $lname;
-            var_dump($full_name);
+            // var_dump($full_name);
 
             //creating db for the new user along with tables
             $pos_of_a = strpos($email, "@");
@@ -366,9 +365,14 @@ session_start();
                 echo "<script>localStorage.setItem('user-type', 'reader');</script>";
                 echo "<script>localStorage.setItem('logged-in', true);</script>";
 
+                date_default_timezone_set('Asia/Kolkata');
+
+                $today_date = date("Y") . "-" . date("m") . "-" . date("d");
+
                 echo "<script>localStorage.setItem('userName', '$full_name');</script>";
                 echo "<script>localStorage.setItem('dbName', '$db_name');</script>";
                 echo "<script>localStorage.setItem('emailID', '$email');</script>";
+                echo "<script>localStorage.setItem('joinDate', '$today_date');</script>";
                 
                 die("<script>loginSuccess();</script>");
             } else {

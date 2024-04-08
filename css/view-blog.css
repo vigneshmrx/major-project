@@ -7,6 +7,7 @@
     font-size: 16px; 
     border-radius: var(--common-value);
     box-shadow: 10px 10px var(--main-black);
+    position: relative;
 }
 
 #blog-heading {
@@ -55,6 +56,10 @@
     cursor: pointer;
 }
 
+#views-div {
+    margin-right: 15px;
+}
+
 #likes-and-views-area div img {
     width: 25px;
     margin-right: 5px;
@@ -62,4 +67,47 @@
 
 #page-right-area {
     padding-bottom: 15px;
+}
+
+.report-blog-area {
+    cursor: pointer;
+}
+
+.report-blog-area abbr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.report-blog-area:hover {
+    scale: 1.05;
+}
+
+.custom-confirm-page {
+    z-index: -150;
+    position: fixed;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.custom-confirm-box {
+    width: 400px;
+    background-color: var(--main-white);
+    box-shadow: 11px 11px  var(--main-black);
+    padding: var(--common-value);
+    border: 2px solid var(--main-black);
+    font-weight: bold;
+    text-align: justify;
+}
+
+.confirm-btns-area {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.confirm-btns-area input[type=button] {
+    width: 120px;
 }

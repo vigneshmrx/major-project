@@ -25,13 +25,14 @@ try {
 
     $mail->setFrom('vs.prodowebapp@gmail.com');
 
-    $get_blog_db_q = mysqli_query($con, "select Email, UserDbName, BlogId from prodo_db.users_blog_posts_list where SNo = $blog_id_in_prodo_db;");
+    $get_blog_db_q = mysqli_query($con, "select Email, UserDbName, BlogId, BlogName from prodo_db.users_blog_posts_list where SNo = $blog_id_in_prodo_db;");
 
     $row = mysqli_fetch_assoc($get_blog_db_q);
 
     $db_name = $row["UserDbName"];
     $unique_blog_id = $row["BlogId"];
     $user_email = $row["Email"];
+    $deleted_blog_name = $row["BlogName"];
 
     // echo $db_name;
     // echo $unique_blog_id;
@@ -45,7 +46,7 @@ try {
     $mail->isHTML(true);
 
     $mail->Subject = "Deletion of your blog";
-    $mail->Body = "";
+    $mail->Body = "Dear User,<br><br>We are sorry to inform you that we had to take down your blog - $deleted_blog_name for the following reasons:<br>&nbsp;&nbsp;&nbsp;&nbsp;$reason_for_deleting.<br><br>Please make sure that your future blogs do not voilate these things so that it can stay on our platform forever,<br><br>Thank you<br>Team ProDo";
 
     $mail->send();
 

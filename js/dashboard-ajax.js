@@ -118,10 +118,6 @@ const insertIntoRespectiveSubSection = (content, sectionName) => {
     }
 }
 
-const ecryText = () => {
-    
-}
-
 const loadDashboardSubSections = (sectionName) => {
     $.ajax({
         type: "POST",

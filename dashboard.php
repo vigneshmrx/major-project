@@ -53,7 +53,7 @@ session_start();
                 <div class="nav-items current-page">Dashboard</div>
             </a>
             <a href="#">
-                <div class="nav-items">Settings</div>
+                <div class="nav-items" onclick="showSettings(true);">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
             <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
@@ -83,7 +83,7 @@ session_start();
                 <div class="nav-items current-page">Dashboard</div>
             </a>
             <a href="#">
-                <div class="nav-items">Settings</div>
+                <div class="nav-items" onclick="showSettings(true);">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
             <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
@@ -245,19 +245,8 @@ session_start();
         const editThisBlog = (objRef) => {
             let ff1 = objRef.parentElement.parentElement.parentElement.parentElement.classList[1];
             let ff2 = objRef.parentElement.parentElement.parentElement.parentElement.id;
-            // let ciUrl = objRef.parentElement.parentElement.parentElement.parentElement.childNodes[1].style.backgroundImage;
-
-            // let ci = ciUrl.substring(5, ciUrl.length - 2);
-
-            // var ciphertext = CryptoJS.AES.encrypt(ci, 'secret key 123');
-            // var bytes = CryptoJS.AES.decrypt(ciphertext.toString(), 'secret key 123');
-            // var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-
-            // console.log(ciphertext.toString());
-            // console.log(plaintext);
 
             ci = ciphertext.toString();
-            // console.log(ci);
 
             location.href = "create_blog.php?ff1=" + ff1 + "&ff2=" + ff2;
             // location.href = "create_blog.php?ff1=" + ff1 + "&ff2=" + ff2 + "&ci=" + ci;

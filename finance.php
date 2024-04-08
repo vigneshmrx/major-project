@@ -64,7 +64,7 @@
                 <div class="nav-items">Blog</div>
             </a>
             <a href="#">
-                <div class="nav-items">Settings</div>
+                <div class="nav-items" onclick="showSettings(true);">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
             <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
@@ -245,7 +245,7 @@
                 <div class="nav-items">Blog</div>
             </a>
             <a href="#">
-                <div class="nav-items">Settings</div>
+                <div class="nav-items" onclick="showSettings(true);">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
             <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->

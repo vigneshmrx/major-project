@@ -21,11 +21,11 @@ try {
         $db_name = $row["UserDbName"];
         $user_name = $row["Username"];
 
-        $get_unique_user_id_q = mysqli_query($con, "select sno from prodo_db.users_list where db_name = '$liked_db_name';");
+        $get_unique_user_id_q = mysqli_query($con, "select SNo from prodo_db.users_list where db_name = '$liked_db_name';");
 
         $row = mysqli_fetch_assoc($get_unique_user_id_q);
 
-        $user_id = (string) $row["sno"];
+        $user_id = (string) $row["SNo"];
 
         $get_the_blog = mysqli_query($con, "select * from $db_name.blog_posts where SNo = $ff2;");
 
@@ -46,7 +46,7 @@ try {
             $blog_content = $blog_content . '<img src="./icons/icons8-like-icon-outlined.png" alt="">';
         }
 
-        $blog_content = $blog_content . '<span class="money">' . $likes . '</span></div><div id="views-div"><img src="./icons/icons8-eye-48.png" alt=""><span class="money">' . $row["Views"] . '</span></div></div></div>';
+        $blog_content = $blog_content . '<span class="money">' . $likes . '</span></div><div id="views-div"><img src="./icons/icons8-eye-48.png" alt=""><span class="money">' . $row["Views"] . '</span></div><div class="report-blog-area" onclick="toggleConfirmReportBlogBox(true);"><abbr title="Report Blog"><img src="./icons/icons8-error-50.png" alt=""></abbr></div></div></div>';
 
     }
     else 

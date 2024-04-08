@@ -335,10 +335,11 @@ const getReasonDeleteBlog = () => {
         url: "../major-project/php-ajax/delete_selected_blog_by_admin.php",
         data: {
             blog_id: toDeleteBlogId,
-            deletion_message: blogDeletionReason.value
+            deletion_message: theReason
         },
         success: function(response) {
-            alert(response);
+            showAlert(response);
+            showSelectedOptionData("reports");  
         }
     });
 }

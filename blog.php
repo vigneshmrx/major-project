@@ -47,8 +47,7 @@ session_start();
                 <div class="nav-items current-page">Blog</div>
             </a>
             <a href="#">
-                <div class="nav-items">Settings</div>
-            </a>
+            <div class="nav-items" onclick="showSettings(true);">Settings</div></a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
         </nav>
     </div>
@@ -103,7 +102,7 @@ session_start();
             <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
             <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
             <a href="#"><div class="nav-items current-page">Blog</div></a>
-            <a href="#"><div class="nav-items">Settings</div></a>
+            <a href="#"><div class="nav-items" onclick="showSettings(true);">Settings</div></a>
             <a href="#"><div class="nav-items" onclick="logOutBoxFun();">Log Out</div></a>
         </nav>
 
@@ -124,14 +123,6 @@ session_start();
                 <img src="./icons/icons8-logout-50.png" alt="">
             </div>
         </div>
-
-        <!-- <div id="main-heading">
-        </div> -->
-
-        <!-- <div id="underline-box"></div>
-
-        <div id="quote-box">
-        </div> -->
 
         <div id="find-interesting-blogs-description">
             <h2>Discover Interesting Blogs Here</h2>
@@ -230,11 +221,6 @@ session_start();
                         isVisible = false;
                     }
 
-                    // console.log("Value: " + value);
-                    // console.log("Name: " + blog.name + " Match? " + blog.name.includes(value));
-                    // console.log("Name: " + blog.name + " Match? " + blog.name.indexOf(value));
-                    // console.log("Title: " + blog.name + "\nMatch? " + isVisible);
-
                     blog.element.classList.toggle("hide", !isVisible);
                 // }
             });
@@ -283,6 +269,7 @@ session_start();
                 }
             })
         }
+        // changeSettingsBoxGreeting();
     </script>
 </body>
 

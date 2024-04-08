@@ -212,6 +212,8 @@ session_start();
                         $full_name = $row["name"];
                         $user_type = $row["role"];
 
+                        $join_date = substr($row["join_date"], 0, 10);
+
                         // $_SESSION["user_name"] = $full_name;
                         // $_SESSION["db_name"] = $db_name;
                         // $_SESSION["email"] = $email;
@@ -224,6 +226,7 @@ session_start();
                         echo "<script>localStorage.setItem('emailID', '$email');</script>";
                         echo "<script>localStorage.setItem('user-type', '$user_type');</script>"; 
                         echo "<script>localStorage.setItem('logged-in', true);</script>";
+                        echo "<script>localStorage.setItem('joinDate', '$join_date');</script>";
                         
                         echo "<script>loginSuccess();</script>";
                     } else {
