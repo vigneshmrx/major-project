@@ -15,7 +15,6 @@ const optionChangeFun = (objRef) => {
         return;
     } else {
         let currentlyClickedOption = document.getElementById(uniqueId);
-        // console.log(currentlyClickedOption);
 
         currentlyClickedOption.classList.add("currently-selected");
 
@@ -26,8 +25,6 @@ const optionChangeFun = (objRef) => {
         previousClickedOption.classList.remove("currently-selected");
 
         currentlySelectedOptionId = uniqueId;
-
-        // highlightSelectedOptionFun(uniqueId);
     }
 
     adminSelectedOptionFun(uniqueId);
@@ -35,23 +32,26 @@ const optionChangeFun = (objRef) => {
 
 const highlightSelectedOption = (uniqueId) => {
     let currentlyClickedOption = document.getElementById(uniqueId);
-        // console.log(currentlyClickedOption);
 
-        currentlyClickedOption.classList.add("currently-selected");
+    currentlyClickedOption.classList.add("currently-selected");
 }
 
 highlightSelectedOption(currentlySelectedOptionId);
 
 const showSelectedOptionData = (type) => {
     let dynamicContentArea = document.getElementById("dynamic-content-area");
+    let adminEmail = localStorage.getItem("emailID");
 
     if (type != "send-mail") {
+
+
 
         $.ajax({
             type: "POST",
             url: "../major-project/php-ajax/show-admin-selected-option.php",
             data: {
-                data_request_type: type
+                data_request_type: type,
+                admin_email: adminEmail
             },
             success: function(response) {
                 dynamicContentArea.innerHTML = response;
@@ -62,10 +62,12 @@ const showSelectedOptionData = (type) => {
                     loadReportedBlogsInfoRowsInArray();
                 } else if (type == "users-list") {
                     loadUsersListInfoRowsInArray();
-                }
+                } 
 
             }
         });
+
+        console.log("In here");
 
     }
     else {
@@ -91,6 +93,9 @@ const adminSelectedOptionFun = (uniqueId) => {
                     break;
 
         case "4" : showSelectedOptionData("send-mail");
+                    break;
+
+        case "5" : showSelectedOptionData("manage-admins");
     }
 }
 
@@ -99,8 +104,6 @@ adminSelectedOptionFun(currentlySelectedOptionId);
 let infoRowsArr = [];
 
         const loadWriterRequestInfoRowsInArray = () => {
-
-            console.log("In Hre");
 
                 let infoRows = Array.from(document.getElementsByClassName("info-row"));
 
@@ -145,20 +148,10 @@ let infoRowsArr = [];
             });
         }
 
-        // SearchBar = document.getElementById("search-bar");
-
-        // loadTheInfoRowsArray();
-
         SearchBar.addEventListener("input", (e) => {
             const value = e.target.value.toLowerCase();
 
-            console.log('in here 2');
-
-            
-
             infoRowsArr.forEach(infoRow => {
-
-                console.log('in here 3');
 
                 let isVisible = true;
 
@@ -177,8 +170,6 @@ let infoRowsArr = [];
 
                 }
 
-                // const isVisible = infoRow.username.includes(value) || infoRow.emailId.includes(value) || infoRow.workLinks.includes(value) || infoRow.requestedDate.includes(value) || infoRow.requestStatus.includes(value);
-
                 infoRow.element.classList.toggle("hide", !isVisible);
 
             });
@@ -194,8 +185,6 @@ const sendEmail = () => {
         showAlert("Please fill all the required details before sending a mail!");
         return;
     }
-
-    console.log(toEmail.value, subject.value, message.value);
 
     if (toEmail.value.includes("@")) {
         if (toEmail.value.includes(".in") || toEmail.value.includes(".com")) {
@@ -342,4 +331,89 @@ const getReasonDeleteBlog = () => {
             showSelectedOptionData("reports");  
         }
     });
+}
+
+let toDeleteAdminId = 0;
+
+const toggleAdminDeleteAlert = (toShow, objRef) => {
+    let customConfirmPageThree = document.getElementsByClassName("custom-confirm-page")[2];
+
+    popUpBgFun();
+
+    if (toShow == true) {
+        toDeleteAdminId = objRef.parentElement.parentElement.classList[1];
+
+        customConfirmPageThree.style.visibility = "visible";
+        customConfirmPageThree.style.zIndex = "150";
+    }
+    else 
+    {
+        customConfirmPageThree.style.visibility = "hidden";
+        customConfirmPageThree.style.zIndex = "-150";
+    }
+}
+
+const deleteSelectedAdmin = () => {
+    toggleAdminDeleteAlert(false);
+
+    $.ajax({
+        type: "POST",
+        url: "../major-project/php-ajax/admin_add_delete.php",
+        data: {
+            admin_id: toDeleteAdminId,
+            action: "delete"
+        },
+        success: function(response) {
+            showAlert(response);
+            showSelectedOptionData("manage-admins");
+        }
+    });
+}
+
+const addAdminPopUpToggle = (toShow) => {
+
+    let addAdminPopupPage = document.getElementById("add-admin-popup-pg");
+
+    popUpBgFun();
+
+    if (toShow == true) {
+        addAdminPopupPage.style.visibility = "visible";
+        addAdminPopupPage.style.zIndex = "150";
+    }
+    else
+    {
+        addAdminPopupPage.style.visibility = "hidden";
+        addAdminPopupPage.style.zIndex = "-150";
+    }
+}
+
+const addNewAdmin = () => {
+    let adminEmail = document.getElementById("admin-email");
+
+    if (adminEmail.value == "") {
+        showAlert("Please enter valid email before submitting");
+        return;
+    }
+
+    if (adminEmail.value.includes("@")) {
+        if (adminEmail.value.includes(".in") || adminEmail.value.includes(".com")) {
+            $.ajax({
+                type: "POST",
+                url: "../major-project/php-ajax/admin_add_delete.php",
+                data: {
+                    admin_id: adminEmail.value,
+                    action: "add"
+                },
+                success: function(response) {
+                    alert(response);
+                    adminEmail.value = "";
+                    showSelectedOptionData("manage-admins");
+                }
+            });
+        } else {
+            showAlert("Please enter valid email before submitting");
+        }
+    } else {
+        showAlert("Please enter valid email before submitting");
+    }
 }

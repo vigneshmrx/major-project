@@ -37,15 +37,14 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 30px;
-    /* font-family: 'Josefin Sans', sans-serif; */
-    font-family: 'Play', sans-serif;
-    font-family: 'Skyscapers';
-    /* font-family: 'pilowlava-regular';
-    font-family: 'Nighty'; */
-    /* border: 1px solid var(--main-white); */
+    /* font-family: 'Play', sans-serif; */
+    /* font-family: 'Skyscapers'; */
     margin-bottom: 10px;
-    margin-top: 20px;
-    /* text-align: bottom; */
+    margin-top: 10px;
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--main-white);
 }
 
 hr {
@@ -113,12 +112,8 @@ a {
     border-left: 5px solid var(--main-black);
     padding-left: 25px;
     position: relative;
-    /* font-family: 'Josefin Sans', sans-serif; */
     font-family: "Roboto Mono";
     text-align: center;
-    /* font-family: 'Roboto', sans-serif; */
-    /* font-size: 20px; */
-    /* font-weight: bold; */
 }
 
 .by-line {
@@ -142,16 +137,17 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* display: none; */
-    /* z-index: -500;
-    visibility: none; */
     display: none;
 }
 
 .secondary-nav-bar .sec-bar-logo {
     font-size: 30px;
-    font-family: 'Skyscapers';
-    margin-top: 10px;
+    /* font-family: 'Skyscapers';
+    margin-top: 10px; */
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--main-black);
 }
 
 .secondary-nav-bar .sec-bar-ham-menu {

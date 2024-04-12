@@ -77,40 +77,24 @@ const addExpenseToDb = () => {
     let month;
     const uniqueId = parseInt(document.getElementsByClassName("expLogForm")[0].id);
 
-    // alert("CHecked value = " + expCat.value);
-    // console.log("DATE: " + expDate.value)
-
     if (expTitle.value == "" || expTitle.value == null || expCost.value == null || expCost.value == "") {
-        showAlert("Please enter all the necessary details!");
+        showAlert("Please enter all the necessary details correctly!");
         return;
     }
 
     if (expDate.value == "" || expDate.value == null) {
 
-        // expDate = new Date().toJSON().slice(0, 10);
         expDate = new Date();
-        // month = monthsArray[Number.parseInt(expDate.getMonth())];
         month = expDate.slice(5, 7);
         expDate = expDate.toJSON().slice(0, 10);
-        // showAlert(expCat.value);
     } else {
         expDate = expDate.value;
-        // alert(expDate);
-        // month = monthsArray[Number.parseInt(expDate.slice("5, 7"))];
         month = expDate.slice(5, 7);
     }
 
-    // const month = monthsArray[Number.parseInt(expDate.slice("5, 7"))];
-    // showAlert(month);
-    // alert("Month: " + month);
-
-    // uniqueId = (uniqueId == null || uniqueId == undefined ? 0 : uniqueId);
 
     //setting the correct index for monthsArray
     month != 0 ? month = month - 1 : month = month;
-
-    // console.log("Unqiue id: " + uniqueId);
-    // console.log("Cat: " + expCat.value);
 
 
     $.ajax({
@@ -193,9 +177,6 @@ const loadLoggedExpense = () => {
 
 loadLoggedExpense();
 
-// let selectedExpMonth = document.getElementById("expense-months");
-// console.log(selectedExpMonth);
-
 const monthChangeFun = (event) => {
     sessionStorage.setItem("selected-exp-month", event.target.value);
     loadLoggedExpense();
@@ -217,6 +198,7 @@ const removeThisExpFromDb = (objRef) => {
             loadLoggedExpense();
             loadRemainingIncome();
             // alert(response);
+            showAlert("Expense deleted successfully!");
         },
         error: function(response) {
             alert(response);
@@ -225,13 +207,8 @@ const removeThisExpFromDb = (objRef) => {
 } 
 
 const editThisExp = (objRef) => {
-    // const recUniqueId = parseInt(objRef.parentElement.id);
     const recUniqueId = objRef.parentElement.id;
     const expDate = objRef.parentElement.parentElement.parentElement.firstChild.firstChild.innerHTML; //getting the expense date
-
-    // let monthInNumb = parseInt(expDate.slice(5, 7));
-
-    // const month = monthsArray[monthInNumb == 0 ? 0 : monthInNumb - 1];
 
     const expDesc = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
     const cost = parseFloat(objRef.parentElement.previousElementSibling.lastElementChild.firstChild.innerHTML);

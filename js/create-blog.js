@@ -6,21 +6,10 @@ const userEmail = localStorage.getItem("emailID");
 const editableDiv = document.getElementById('editable-content-area');
 const undoStack = [];
 let currentStateIndex = -1;
-// let imagesUrlArray = [];
-// let imagesPathArray = [];
 let imageInfoArray = [];
 let coverImgPath = null;
 let uploadedImgActionArea = document.getElementById("uploaded-image-action-area");
 let ci = "";
-
-// if (searchParams.has("ci")) {
-//     ci = searchParams.get("ci");
-// }
-
-// if (ci != "") {
-//     var bytes = CryptoJS.AES.decrypt(ci, 'secret key 123');
-//     coverImgPath = bytes.toString(CryptoJS.enc.Utf8);
-// }
 
 function saveState() {
     const content = editableDiv.innerHTML;
@@ -104,9 +93,6 @@ function increaseFontSize(newFontSize) {
   
     const range = selection.getRangeAt(0);
   
-    // Approach 1: Wrap selection in span with increased font-size
-    // const newFontSize = parseInt(getComputedStyle(editableDiv).fontSize, 10) + 2; // Increase by 2px
-  
     const span = document.createElement("span");
     span.style.fontSize = newFontSize
     range.surroundContents(span);
@@ -139,11 +125,6 @@ const showColorPanel = (colorType) => {
 const setThisColor = (objRef) => {
     let color = objRef.id;
 
-    // colorPalletPg.style.zIndex = -150;
-    // colorPalletPg.style.visibility = "hidden";
-
-    // popUpBgFun();
-
     console.log(color);
 
     let selection = window.getSelection();
@@ -171,22 +152,11 @@ const setThisColor = (objRef) => {
 
         let selectedContent = range.extractContents().textContent.toString();
 
-        // const serializer = new XMLSerializer();
-        // let selectedContent = serializer.serializeToString(range.extractContents());
-
         console.log(typeof(selectedContent));
         console.log(selectedContent);   
-
-        // span.appendChild(range.extractContents());
-        // span.appendChild(selectedContent);
         span.innerText = selectedContent;
 
         console.log(span);
-
-        // range.surroundContents(span);
-
-        
-        // range.deleteContents();
         range.insertNode(span);
         selection.collapseToEnd();
     }
@@ -204,11 +174,6 @@ const imgUploadFun = (event) => {
     img.src = imageUrl;
 
     imagePath = "../major-project/images/user-images/" + dbName + "/" + selectedFile["name"];
-
-
-    //to get all the uploaded images in the blog
-    // imagesUrlArray.push(imageUrl);
-    // imagesPathArray.push(imagePath);
 
     let imageInfoObj = {"imageUrl" : imageUrl, "imagePath" : imagePath};
     imageInfoArray.push(imageInfoObj);
@@ -253,21 +218,17 @@ const selectedImgFun = (uploadType) => {
 
             div.appendChild(img);
 
-            // imageUploadPg.style.zIndex = -150;
-            // imageUploadPg.style.visibility = "hidden";
-
             const selection = window.getSelection();
             const range = selection.getRangeAt(0);
-            // range.insertNode(img);
+
             range.insertNode(div);
-            
-            // range.setStartAfter(img);
+
             range.setStartAfter(div);
             range.collapse(true);
 
             selection.removeAllRanges();
             selection.addRange(range);          
-            // document.execCommand('insertImage', false, imageUrl);\
+
         }
         else {
 
@@ -292,13 +253,7 @@ const selectedImgFun = (uploadType) => {
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '../major-project/php-ajax/upload_img.php', true);
-        // xhr.onload = function() {
-        //     if (xhr.status === 200) {
-        //         console.log('Response:', xhr.responseText);
-        //     } else {
-        //         console.error('Request failed:', xhr.status);
-        //     }
-        // };
+
         xhr.send(formData);
 
     } else {
@@ -314,12 +269,8 @@ function alignContent(sideName) {
 let alignmentDropDown = document.getElementById("alignment-select");
 
 alignmentDropDown.addEventListener("change", (e) => {
-    // console.log(e.target.value);
     alignContent(e.target.value);
 });
-
-
-
 
 let previousCursorPosition = 0;
 
@@ -404,13 +355,6 @@ const selectTheProperAlignment = (alignmentName) => {
 }
 
 function handleCursorPositionChange() {
-//   const selection = window.getSelection();
-//   const cursorPosition = selection.focusOffset;
-
-//   if (cursorPosition !== previousCursorPosition) {
-//     console.log('Cursor position changed:', cursorPosition);
-//     previousCursorPosition = cursorPosition;
-//   }
 
     if (document.queryCommandState("bold")) {
         highlightBold(true);
@@ -460,13 +404,12 @@ function handleCursorPositionChange() {
 const uploadBlog = (blogType) => {
     let blogHeading = document.getElementById("editable-heading");
     let blogContent = document.getElementById("editable-content-area").innerHTML;
-    let blogCategory = document.getElementById("editable-category");
-    // console.log(editableDiv);    
+    let blogCategory = document.getElementById("editable-category"); 
 
     if (blogHeading.value == "") {
         showAlert("Please give a valid title for your blog!");
         return;
-    } else if (blogContent == '\n        ' || blogContent == "") {
+    } else if (blogContent == '\n            ' || blogContent == "") {
         showAlert("Please have a valid content before uploading");
         return;
     } 
@@ -484,8 +427,6 @@ const uploadBlog = (blogType) => {
         uploadedImgActionArea.lastElementChild.style.visibility = "hidden";
         return;
     }
-
-    // console.log(imageInfoArray);
     imageInfoArray.forEach((ele) => {
         if ( blogContent.includes(ele["imageUrl"]) ) {
             console.log("Yes it includes");
@@ -493,23 +434,11 @@ const uploadBlog = (blogType) => {
         }
     });
 
-    // blogHeading = blogHeading.value.replace("'", "\'");
-    // blogHeading = blogHeading.value;
-
-    // blogHeading = blogHeading.replace("'", "\'");
-    // blogContent = blogContent.replace("'", "\'");
-
     console.log(blogContent);
     console.log(blogHeading);
     // console.log(blog_content);
     console.log(dbName);
     console.log(blogType);
-
-    // let ff1 = "";
-
-    // const searchParams = new URLSearchParams(window.location.search);
-
-    
 
     //sending blog content to php to be saved in the database
     $.ajax({

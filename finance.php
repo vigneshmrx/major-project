@@ -58,8 +58,6 @@
             <a href="./bookshelf.php">
                 <div class="nav-items">Bookshelf</div>
             </a>
-            <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
-            <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
             <a href="./blog.php">
                 <div class="nav-items">Blog</div>
             </a>
@@ -67,7 +65,6 @@
                 <div class="nav-items" onclick="showSettings(true);">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
-            <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
         </nav>
     </div>
 
@@ -179,7 +176,7 @@
                 <input type="text" name="expenseTitle" id="expenseTitle" placeholder="ex: Bought Jet Airways NSE"> <br><br>
 
                 <label for="expenseCost">Cost:</label>
-                <input type="number" name="expenseCost" id="expenseCost"> <br><br>
+                <input type="number" pattern="[0-9]*" name="expenseCost" id="expenseCost"> <br><br>
 
                 <label for="category">Category:</label>
                 <div id="expense-category-div">

@@ -30,18 +30,12 @@
                 <a href="./login.php"><button style="background: var(--main-white); color: var(--main-balck); margin-right: 20px;">Log In</button></a>
                 <a href="./signup.php"><button>Sign Up</button></a>
             </div> 
-
-            <!-- <div id="hamburger-menu">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div> -->
         </div>
     </header>
 
     <section>
         <div id="greeting-area">
-            Welcome to <span class="prodo">ProDo</span>. <br>Your Personal Productivity Assistant.
+            Welcome to <span class="prodo">ProDo</span>. <br>Your Personal Productivity System.
         </div>
         <div id="description-of-prodo">
             A web application where you can manage your finances, and bookshelf and even read and write blogs, all in one place.
@@ -69,7 +63,7 @@
                     <div>
                     <h1>Manage your finance</h1>
                     <div class="underline-box" style="margin-top: 10px; margin-bottom: 20px;"></div>
-                    <p>Prudent personal finance management at an early stage is essential for long-term stability.<!--This involves creating a realistic budget, tracking expenses, and setting clear financial goals.--> By cultivating smart financial habits early on, individuals can build a resilient foundation, ensuring financial well-being and adaptability in the future. Make this possible with ProDo.</p>
+                    <p>Prudent personal finance management at an early stage is essential for long-term stability. By cultivating smart financial habits early on, individuals can build a resilient foundation, ensuring financial well-being and adaptability in the future. Make this possible with ProDo.</p>
                     </div>
                 </div>
             </div>
@@ -130,7 +124,7 @@
         Copyright @ <?php echo date("Y"); ?>, ProDo. All rights reserved.
     </footer>
 
-    <script src="./js/common-script.js"></script>
+    <!-- <script src="./js/common-script.js"></script> -->
     <script>
         const toTop = document.querySelector(".to-top");
 

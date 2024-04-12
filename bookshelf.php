@@ -31,7 +31,6 @@
 </head>
 
 <body>
-    <!-- <div id="pop-up-menu-bg"></div> -->
 
     <div id="secondary-menu">
         <div class="menu-close-icon" onclick="secondaryMenuFun();">
@@ -53,7 +52,6 @@
                 <div class="nav-items" onclick="showSettings(true);">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
-            <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
         </nav>
     </div>
 

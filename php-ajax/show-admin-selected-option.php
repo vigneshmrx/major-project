@@ -3,6 +3,7 @@
 include '../connect.php';
 
 $requested_data_type = $_POST["data_request_type"];
+$admin_email = $_POST["admin_email"];
 
 $content = "";
 
@@ -69,9 +70,6 @@ try {
 
         die($content);
 
-
-        // echo $total_rows;
-        // echo $total_pending_requests;
     }
     else if ($requested_data_type == "reports") {
 
@@ -178,12 +176,46 @@ try {
         die($content);
 
     }
-    else {
+    else if ($requested_data_type == "manage-admins") {
+        
+        $get_admins_q = mysqli_query($con, "select * from prodo_db.admin_table;");
 
-        $content = $content . '<div class="sub-headings" >' . 'Send Email:' . '</div><div id="mail-area"><div class="mail-flex-line"><div class="from-div">From: <br><input type="text" name="" id="from-input" value="prodo@gmail.com" disabled></div>
-        <div class="to-div">To: <br><input type="text" name="" id="to-input"></div></div><div>Subject: <br><input type="text" name="" id="subject-input"></div>';
+        $total_admins = $get_admins_q -> num_rows;
+
+        $content = $content . '<div id="add-admin" onclick="addAdminPopUpToggle(true);"><abbr title="Add new admin"><img src="./icons/icons8-add-new-50.png" alt=""></abbr></div>' . '<div class="sub-headings" >' . 'Manage Admins:' . '</div>';
+
+        if ($total_admins > 1) {
+
+            $content = $content . '<div id="dynamic-table"><table cellspacing="0"><tr><th>SNo</th><th>Name</th><th>Email</th><th>Join Date</th><th>Action</th></tr>';
+
+            $count = 1;
+
+            while ($row = mysqli_fetch_assoc($get_admins_q)) {
+
+                if ($row["Email"] == $admin_email) {
+                    continue;
+                }
+
+                $content = $content . '<tr class="info-row ' . $row["SNo"] . '"><td>' . $count . '</td><td class="admin-name">' . $row["Name"] . '</td><td class="admin-email">' . $row["Email"] . '</td><td class="admin-join-date">' . $row["JoinDate"] . '</td><td class="action-cell">' . '<abbr title="Delete admin" onclick="toggleAdminDeleteAlert(true, this);"><img src="./icons/icons8-trash-48.png" alt=""></abbr></td></tr>';
+
+                $count++;
+
+            }
+
+            $content = $content . '</table></div>';
+
+        }
+        else 
+        {
+
+            $content = $content . '<div class="nothing-to-show"><img src="./icons/icons8-grinning-face-with-smiling-eyes-96.png"><br>Nothing to see here!</div>';
+
+        }
+
+        die($content);
 
     }
+   
 }
 catch (Exception $some_exc) {
     echo "Some Error Occured. Please try again later";

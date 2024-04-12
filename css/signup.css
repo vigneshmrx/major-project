@@ -121,10 +121,6 @@ input[type=submit] {
     font-family: "Roboto Mono";
 }
 
-/* input[type-submit]:hover {
-    background-color: #8094d4;
-} */
-
 .email-error,
 .pwd-error,
 .repeat-pwd-error,
@@ -137,11 +133,4 @@ input[type=submit] {
 .common-error {
     padding-bottom: 10px;
     text-align: center;
-}
-
-
-.prodo {
-    font-family: 'Skyscapers';
-    font-weight: normal;
-    color: var(--indigo);
 }

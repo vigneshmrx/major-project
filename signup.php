@@ -33,13 +33,19 @@ session_start();
                 techErr();
                 break;
 
-                // case 4: usernameMistake();
+            case 4: restrictedRegistration();
+                    break;
         }
     }
 
     function techErr() {
         let errorMsgArea = document.getElementsByClassName("common-error")[0];
         errorMsgArea.innerHTML = "Some error occured. Please try again later";
+    }
+
+    function restrictedRegistration() {
+        let errorMsgArea = document.getElementsByClassName("common-error")[0];
+        errorMsgArea.innerHTML = "You are not allowed to register yourself!";
     }
 
     function emailErr() {
@@ -51,11 +57,6 @@ session_start();
         let pwdArea = document.getElementsByClassName("pwd-error")[0];
         pwdErr.innerHTML = "Password should be less than 30 characters";
     }
-
-    // function usernameMistake() {
-    //     let usrnamArea = document.getElementsByClassName("username-error")[0];
-    //     usrnamArea.innerHTML = "Use only letters and underscores for username";
-    // }
 
     function pwdErr() {
         let pwdArea = document.getElementsByClassName("repeat-pwd-error")[0];
@@ -112,7 +113,6 @@ session_start();
                 die("<script>longPwdErr();</script>");
             }
         }
-        // $lname = $username = $passone = $passtwo = "";
     ?>
 
     <div class="container">
@@ -120,7 +120,7 @@ session_start();
             <div class="greeting-area">
                 Welcome to
                 <span class="prodo">ProDo</span> !<br>
-                Your ultimate personal productivity assistant.
+                Your Personal Productivity System.
             </div>
         </div>
         <div class="right-area">
@@ -166,7 +166,6 @@ session_start();
                     </div>
 
                     <div class="flex-line line">
-                        <!-- <input type="submit" value="Login" name="login"> -->
                         <input type="submit" value="SIGN UP" name="sign_up" id="signupBtn">
                     </div>
 
@@ -185,11 +184,8 @@ session_start();
     </div>
 
     <?php
-    // include "connect.php";
 
         function adminFunction($admin_email, $passone, $passtwo, $fname, $lname) {
-
-            echo("ADminf funtion");
             include "connect.php";
 
             try {
@@ -201,28 +197,34 @@ session_start();
             $admin_email_q = "select * from admin_table where Email = '$admin_email'";
             $admin_email_res = mysqli_query($con, $admin_email_q);
 
+            $blank_existing = 0;
+
             try {
                 $row = mysqli_fetch_assoc($admin_email_res);
                 if ($row != NULL) {
-                    if ($row["Email"] != NULL) {
+                    if ($row["Email"] != NULL && $row["JoinDate"] != "0000-00-00") {
                         die("<script>callErr(1);</script>");
+                    } else {
+                        $blank_existing = 1;
                     }
-                }
-                else {
-                    echo("Email not in use");
+                } else {
+                    die("<script>callErr(4);</script>");
                 }
             } catch (Exception $e) {}
 
             if ($passone != $passtwo) {
                 die("<script>callErr(2);</script>");
-            } else {
-                echo("They match"); 
             }
 
             $hashed_pwd = password_hash($passone, PASSWORD_DEFAULT);
             $full_name = $fname . " " . $lname;
 
-            $adding_admin_query = "insert into admin_table (Name, Email, Password) values('$full_name', '$admin_email', '$hashed_pwd');";
+            if ($blank_existing == 1) {
+                date_default_timezone_set("Asia/Kolkata");
+                $present_date = date("Y-m-d");
+                $adding_admin_query = "update admin_table set Name = '$full_name', Password='$hashed_pwd', JoinDate = '$present_date' where Email = '$admin_email'";
+            }
+
             
 
             try {
@@ -231,9 +233,9 @@ session_start();
 
                 if ($admin_adding_success) {
 
-                    echo "<script>localStorage.setItem('user-type', 'reader');</script>";
+                    echo "<script>localStorage.setItem('user-type', 'admin');</script>";
                     echo "<script>localStorage.setItem('logged-in', true);</script>";
-                    echo "<script>localStorage.setItem('emailID', '$email');</script>";
+                    echo "<script>localStorage.setItem('emailID', '$admin_email');</script>";
                     
 
                     die("<script>loginSuccess('admin');</script>");
@@ -257,8 +259,6 @@ session_start();
             } catch (Exception $e2) {
                 die("<script>callErr(3);</script>");
             }
-
-            
 
             //email checking
             $email_query = "select * from users_list where email='$email'";
@@ -326,7 +326,7 @@ session_start();
                 //creating bookshelf table
                 try {
 
-                    $create_bookshelf_table_q = mysqli_query($con, "create table bookshelf(SNo int AUTO_INCREMENT PRIMARY KEY, BookName varchar(40) not null, Author varchar(20) not null, Status varchar(9), Year int(4));");
+                    $create_bookshelf_table_q = mysqli_query($con, "create table bookshelf(SNo int AUTO_INCREMENT PRIMARY KEY, BookName varchar(60) not null, Author varchar(30) not null, Status varchar(10) not null, Year int(4) not null);");
 
                 } catch (Exception $ef) {
                     echo $ef;

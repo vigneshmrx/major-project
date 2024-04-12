@@ -40,11 +40,6 @@ session_start();
             commonMsgArea.innerHTML = "User doesn't exist";
         }
 
-        // function usernameMistake() {
-        //     let usrnamArea = document.getElementsByClassName("username-error")[0];
-        //     usrnamArea.innerHTML = "Use only letters and underscores for username";
-        // }
-
         function pwdErr() {
             let pwdArea = document.getElementsByClassName("pwd-error")[0];
             pwdArea.innerHTML = "Entered password is wrong";
@@ -63,8 +58,6 @@ session_start();
                 window.location.replace("finance.php");
                 }, 1400);
             }
-
-            
         }
 
         let loggedIn = localStorage.getItem("logged-in");
@@ -200,8 +193,6 @@ session_start();
                 } else {
                     $original_pwd = $row["password"];
 
-                    // echo "<script>checkPwdFun('$original_pwd', '$email');</script>";
-
                     if (password_verify($passone, $original_pwd)) {
                         $pos_of_a = strpos($email, "@");
                         $extracted_part_of_email = substr($email, 0, $pos_of_a);
@@ -213,13 +204,6 @@ session_start();
                         $user_type = $row["role"];
 
                         $join_date = substr($row["join_date"], 0, 10);
-
-                        // $_SESSION["user_name"] = $full_name;
-                        // $_SESSION["db_name"] = $db_name;
-                        // $_SESSION["email"] = $email;
-                        // echo "session is set";
-
-                        // $_SESSION["logged_in"] = true
 
                         echo "<script>localStorage.setItem('userName', '$full_name');</script>";
                         echo "<script>localStorage.setItem('dbName', '$db_name');</script>";

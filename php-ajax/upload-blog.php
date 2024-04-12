@@ -23,13 +23,11 @@ $result = mysqli_query($con, $query);
 if (!($result && $result->num_rows > 0)) {
     try {
         mysqli_select_db($con, $db_name);
-        $create_table_q = "create table blog_posts(SNo int AUTO_INCREMENT PRIMARY KEY, BlogTitle varchar(100) not null, BlogContent LONGTEXT not null, CoverImage TEXT not null, Category varchar(150), UploadDate char(10) not null, Visibility varchar(10) not null, Likes int(5), LikedBy LONGTEXT NULL, Views int(5), Reports int(2));";
+        $create_table_q = "create table blog_posts(SNo int AUTO_INCREMENT PRIMARY KEY, BlogTitle varchar(100) not null, BlogContent LONGTEXT not null, CoverImage TEXT not null, Category varchar(150) not null, UploadDate char(10) not null, Visibility varchar(10) not null, Likes int(5) not null, LikedBy LONGTEXT not null, Views int(5) not null, Reports int(2) not null);";
 
         if ((!mysqli_query($con, $create_table_q))) {
             die("Table couldn't be created");
         }
-
-        //make updates here
     }
     catch (Exception $table_creation_exc) {
         die($table_creation_exc);
@@ -87,7 +85,5 @@ try {
 catch (Exception $blog_upload_exc) {
     die($blog_upload_exc);
 }
-
-// echo $blog_heading . " " .  $blog_content;
 
 ?>

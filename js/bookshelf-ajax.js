@@ -45,7 +45,6 @@ const addBooktoDB = (bookStatus) => {
             }
         }
     }); //ajax call to add book to the database using php
-
 }
 
 //to load the to-read content area
@@ -65,8 +64,6 @@ const loadToReadContentArea = () => {
     });
 }
 
-// loadToReadContentArea();
-
 //to load the already-read content area
 const loadAlreadyReadBooks = () => {
     //this function loads already read books based on the year sleected in the drop down menu. The list of books changes if the selected year is changed (THIS IS AN IIFE FUNCTION)
@@ -76,8 +73,6 @@ const loadAlreadyReadBooks = () => {
     let presentYear = new Date().getFullYear();
 
     let theContent = `<select id='year-select-drop-down' onchange='yearChangeFun(event)'>`;
-
-    //setting session storage for selected year if not set
 
     if (sessionStorage.getItem("selected-drop-down-year") == null || sessionStorage.getItem("selected-drop-down-year") == undefined) {
         sessionStorage.setItem("selected-drop-down-year", presentYear);
@@ -111,8 +106,6 @@ const loadAlreadyReadBooks = () => {
     });
 };
 
-// loadAlreadyReadBooks();
-
 //to show the default / updated yearly reading goal
 const readingGoalModifierFun = () => {
     let goalsContentArea = document.getElementsByClassName("content-area")[0];
@@ -133,42 +126,9 @@ const readingGoalModifierFun = () => {
 
 }
 
-// readingGoalModifierFun();
-
-//to change ths status of a 'to-read' book to 'completed'
-// const changeStatusToCompleted = (objRef) => {
-//     let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-//     let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
-
-//     console.log("BOOk Name: " + bookName);
-//     console.log("Author: " + bookAuthor);
-
-//     $.ajax({
-//         type: "POST",
-//         url: "../major-project/php-ajax/change_book_status.php",
-//         data: {
-//             book_name: bookName,
-//             book_author: bookAuthor,
-//             db_name: dbName
-//         },
-//         success: function() {
-//             // location.reload();
-//             loadToReadContentArea();
-//             loadAlreadyReadBooks();
-//             readingGoalModifierFun();
-//             showAlert("Book status modified!");
-//         }
-//     }); //ajax call to change book status to 'completed' in the database
-// }
-
 //to remove this book from the DB
 const removeThisFromDb = (objRef) => {
-    // let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-    // let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-    // let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
     let uniqueID = parseInt(objRef.parentElement.id);
-
-    // console.log(uniqueID);
 
     $.ajax({
         type: "POST",
@@ -179,19 +139,15 @@ const removeThisFromDb = (objRef) => {
             unique_id: uniqueID
         },
         success: function () {
-            // location.reload();
-            // console.log();
             loadAlreadyReadBooks();
             loadToReadContentArea();
             readingGoalModifierFun();
+            showAlert("Book deleted successfully!");
         }
     }); //ajax call to remove this book from the database
 }
 
 const changeBookStatus = (objRef) => {
-    // let bookName = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-    // let bookAuthor = objRef.parentElement.previousElementSibling.lastElementChild.innerHTML;
-
     const uniqueID = parseInt(objRef.parentElement.id);
 
     $.ajax({
@@ -243,40 +199,9 @@ loadToReadContentArea();
 loadAlreadyReadBooks();
 readingGoalModifierFun();
 
-// let selectedYear = document.getElementById("year-select-drop-down");
-
 const yearChangeFun = (event) => {
     sessionStorage.setItem("selected-drop-down-year", event.target.value);
     loadAlreadyReadBooks();
 }
 
-// selectedYear.addEventListener("change", (e) => {
-    // console.log(this.value);
-    // console.log(e.target.value);
-    // sessionStorage.setItem("selected-drop-down-year", e.target.value);
-    // loadAlreadyReadBooks();
-    // location.reload(); // function call everytime is not working, so the only other way is refresh
-    // location.reload(); 
-// });
-
-
-// //remove this later if needed
 let leftBoxOne = document.getElementsByClassName("left-box")[0];
-
-// leftBoxOne.style.background = "black";
-// leftBoxOne.style.color = "white";
-// leftBoxOne.style.fontWeight = "normal";
-
-// let individualElementBtnAreaOne = document.getElementsByClassName("individual-element-btn-area")[0];
-
-// individualElementBtnAreaOne.firstElementChild.style.background = "white";
-// individualElementBtnAreaOne.firstElementChild.style.fontWeight = "bold";
-// individualElementBtnAreaOne.firstElementChild.style.color = "black";
-
-// firstBtn.style.background = "white";
-// firstBtn.style.fontWeight = "bold";
-// firstBtn.style.color = "black";
-
-// let progressBarValueCount = document.getElementById("progress-bar-value-count");
-
-// console.log(progressBarValueCount);

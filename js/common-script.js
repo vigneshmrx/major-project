@@ -1,7 +1,3 @@
-// const dbName = localStorage.getItem("dbName");
-// const userName = localStorage.getItem("userName");
-// const emailID = localStorage.getItem("emailID");
-
 (function () {
     if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
         location.replace("login.php");
@@ -10,8 +6,6 @@
 }) ();
 
 const userType = localStorage.getItem("user-type");
-// let thePrimaryNavTag = document.getElementById("primary-menu-nav");
-// let theSecondaryNavTag = document.getElementById("secondary-menu-nav");
 
 if (userType == "writer" && window.location.pathname != "/major-project/dashboard.php") {
     let theNavTag = Array.from(document.getElementsByTagName("nav"));
@@ -32,8 +26,6 @@ if (userType == "writer" && window.location.pathname != "/major-project/dashboar
 
 }
 
-// redirect();
-
 const displayQuote = (quotesObj, pageName) => {
     let quoteBox = document.getElementById("quote-box");
 
@@ -45,7 +37,7 @@ const displayQuote = (quotesObj, pageName) => {
         console.log("inside if");
     } else {
         randomQuoteObj = JSON.parse(sessionStorage.getItem(pageName));
-        // console.log(JSON.parse(randomQuoteObj));
+
         console.log("inside else");
     }
 
@@ -66,7 +58,6 @@ const popUpBgFun = () => {
 }
 
 const removePopUp = (closeBtnObjRef, funArray) => {
-    // console.log(closeBtnObjRef.parentElement.parentElement.parentElement);
 
     let topParent = closeBtnObjRef.parentElement.parentElement.parentElement;
     
@@ -74,13 +65,6 @@ const removePopUp = (closeBtnObjRef, funArray) => {
     topParent.style.visibility = "hidden";
 
     popUpBgFun(); // to get the bg page back to -100 z index
-
-    // if (boxName != null || boxName != undefined) {
-    //     // location.reload();
-    //     readingGoalModifierFun();
-    //     loadToReadContentArea();
-    //     loadAlreadyReadBooks();
-    // }
 
     if (funArray != null) {
         funArray.forEach(element => {
@@ -132,7 +116,6 @@ const logoutFromHere = () => {
         type: "POST",
         url: "./logout.php",
         success: function() {
-            // console.log("IT was a success");
             sessionStorage.clear();
             localStorage.clear();
             location.href = "login.php";
@@ -277,8 +260,6 @@ const showSettings = (toShow, removeBg) => {
     if (removeBg == undefined) {
         popUpBgFun();
     }
-
-    // settingsBoxContentToggle(true, false, false);
 }
 
 const settingsBoxContentToggle = (firstItemShow, secondItemShow, thirdItemShow) => {

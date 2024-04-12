@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Play:wght@700&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
@@ -21,6 +21,7 @@
 
 :root {
     --indigo: #6610f2;
+    --indigo-two: #39f;
     --main-black: #000;
     --main-white: #fff;
     --secondary-white: #f5f0e8;
@@ -28,6 +29,13 @@
     --common-value: 15px;
     --pink: #ff5666;
     --bg-color: rgb(233, 240, 245);
+}
+
+.prodo {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--main-black);
 }
 
 * {
