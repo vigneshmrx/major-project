@@ -67,8 +67,6 @@ const showSelectedOptionData = (type) => {
             }
         });
 
-        console.log("In here");
-
     }
     else {
         let content = "";
@@ -314,8 +312,6 @@ const getReasonDeleteBlog = () => {
     blogDeletionReason.value = "";
 
     toggleEnterBlogReasonAlert(false, true);
-
-    console.log("The reason: " + theReason);
 
     showAlert("Please wait!");
 

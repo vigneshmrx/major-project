@@ -4,18 +4,17 @@ session_start();
 
 include '../connect.php';
 
-// mysqli_select_db($con, $_SESSION["db_name"]);
-
 
 $income = $_POST["income"];
 $month = $_POST["month"];
 $bonus = $_POST["bonus"];
 $year = date("Y");
 $db_name = $_POST["db_name"];
+$total_income = $income + $bonus;
 
-$fifty_percent = ($income * 50) / 100;
-$thirty_percent = ($income * 30) / 100;
-$twenty_percent = ($income * 20) / 100;
+$fifty_percent = ($total_income * 50) / 100;
+$thirty_percent = ($total_income * 30) / 100;
+$twenty_percent = ($total_income * 20) / 100;
 
 mysqli_select_db($con, $db_name);
 

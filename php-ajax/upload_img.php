@@ -15,25 +15,16 @@ try {
             echo "Directory coulnd't be created";
         }
     }
-
-    // var_dump($_FILES["file"]);
-    // var_dump($_POST["folder_name"]);
     
     try {
         move_uploaded_file($_FILES["file"]["tmp_name"], $directory_path . "/" . $_FILES["file"]["name"]);
-
-        // if (move_uploaded_file($_FILES["file"]["tmp_name"], $directory_path . "/" . $_FILES["file"]["name"])) {
-        //     echo "Image uploaded successful";
-        // } else {
-        //     echo "Image coulnd't be uploaded";
-        // }
         
     } catch (Exception $image_upload_exc) {
-        echo $image_upload_exc;
+        echo 'Some error occured. Please try again later.';
     }
 }
 catch (Exception $some_exc) {
-    echo $some_exc;
+    echo 'Some error occured. Please try again later.';
 }
 
 

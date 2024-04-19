@@ -15,12 +15,6 @@ try {
 
     $db_name = $row["UserDbName"];
 
-    // if ($user_has_liked == true) {
-    //     echo "IT's true";
-    // } else {
-    //     echo $user_has_liked;
-    // }
-
     $get_unique_user_id_q = mysqli_query($con, "select sno from prodo_db.users_list where db_name = '$liked_user_db_name';");
 
     $row = mysqli_fetch_assoc($get_unique_user_id_q);
@@ -58,9 +52,7 @@ try {
 
     }
 }
-catch (Exception $some_exc) {
-    echo $some_exc;
-}
+catch (Exception $some_exc) {}
 
 
 ?>

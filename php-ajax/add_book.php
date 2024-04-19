@@ -14,8 +14,6 @@ if (isset($_POST["year"])) {
     $year = date("Y");
 }
 
-// mysqli_select_db($con, $_SESSION["db_name"]);
-
 mysqli_select_db($con, $db_name);
 
 $check_if_already_exists_q = mysqli_query($con, "select * from bookshelf where BookName = '$book_name' and Author = '$book_author';");

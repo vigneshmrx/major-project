@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Blog View</title>
 
     <style>
         <?php include './css/common-styles.css'; ?>
@@ -14,7 +14,7 @@
 
     <script>
         if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
-            location.replace("login.php");
+            location.href = "login.php";
         }
     </script>
 

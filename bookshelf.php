@@ -23,9 +23,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
-            // location.replace("login.php");
-            // console.log("NOt logged in");
-            location.replace("login.php");
+            location.href = "login.php";
         }
     </script>
 </head>
@@ -43,8 +41,6 @@
             <a href=".#">
                 <div class="nav-items current-page">Bookshelf</div>
             </a>
-            <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
-            <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
             <a href="./blog.php">
                 <div class="nav-items">Blog</div>
             </a>
@@ -139,8 +135,6 @@
             <a href="#">
                 <div class="nav-items current-page">Bookshelf</div>
             </a>
-            <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
-            <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
             <a href="./blog.php">
                 <div class="nav-items">Blog</div>
             </a>
@@ -148,9 +142,6 @@
                 <div class="nav-items" onclick="showSettings(true);">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
-            <!-- <a href="" onclick="showLogOutBox();">
-                
-            </a> -->
         </nav>
 
         <hr>
@@ -188,19 +179,6 @@
                 <div class="section-one-left">
                     <div class="left-box">
                         <div class="content-area">
-                            <!-- YEARLY GOALS:
-                            <div id="goals-counter"> -->
-                                <!-- 10 / 15 -->
-                                <!-- This is filled by AJAX CALL -->
-                            <!-- </div>
-
-                            PROGRESS:
-                            <div id="goal-progress-bar-area">
-                                <div id="progress-bar">
-                                    <div id="progress-bar-value"></div>
-                                </div>
-                                <div id="progress-bar-value-count">50.5%</div>
-                            </div> -->
                         </div>
                         <div class="individual-element-btn-area">
                             <input type="button" value="MODIFY" style="font-size: 12px; padding: 5px 10px;" onclick="showModifyReadingTargetBox();">
@@ -221,9 +199,6 @@
                         </div>
 
                         <div class="to-read-content-area">
-                            <!-- No books added yet <br> -->
-
-                            <!-- php function : load_to_read_books(); -->
                         </div>
 
                         <div class="individual-element-btn-area">
@@ -245,8 +220,6 @@
                         </div>
 
                         <div class="already-read-content-area">
-                            <!-- php function : load_already_read_books() -->
-                            <!-- Values here are inserted using JS + PHP (AJAX) -->
                         </div>
 
                         <div style="height: 15%; display: flex; justify-content: space-between; align-items: flex-end;">
@@ -334,11 +307,8 @@
     document.getElementById("main-heading").innerHTML = localStorage.getItem("userName").split(" ")[0] + "'s Bookshelf";
 
     let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
-    // toReadContentArea.classList.toggle("grid-toggle"); 
-    //this is to toggle grid mode for items that do not have anything added yet
 
     const showAddBookPopUp = (btnToShow) => {
-        // showPopUpBg();
         popUpBgFun();
 
         let addBookPopupPage = document.getElementById("add-book-popup-pg");

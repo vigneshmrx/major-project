@@ -47,19 +47,13 @@
             <a href="./bookshelf.php">
                 <div class="nav-items">Bookshelf</div>
             </a>
-            <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
-            <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
             <a href="./blog.php">
                 <div class="nav-items">Blog</div>
             </a>
-            <!-- <a href="./dashboard.php">
-                <div class="nav-items">Dashboard</div>
-            </a> -->
             <a href="#">
                 <div class="nav-items">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
-            <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
         </nav>
     </div>
 
@@ -77,19 +71,13 @@
             <a href="./bookshelf.php">
                 <div class="nav-items">Bookshelf</div>
             </a>
-            <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
-            <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
             <a href="./blog.php">
                 <div class="nav-items">Blog</div>
             </a>
-            <!-- <a href="./dashboard.php">
-                <div class="nav-items">Dashboard</div>
-            </a> -->
             <a href="#">
                 <div class="nav-items">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
-            <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
         </nav>
 
         <hr>
@@ -121,7 +109,6 @@
 
     <script>
         const searchParams = new URLSearchParams(window.location.search);
-        // let ff3 = searchParams.get("ff3");
         let ff1 = searchParams.get("ff1");
         let ff2 = searchParams.get("ff2");
 
@@ -143,10 +130,6 @@
 
         const loadTheSelectedBlog = () => {
             let blogArea = document.getElementById("blog-area");
-            
-
-            console.log(ff1, ff2);
-            console.log(ff3);
 
             $.ajax({
                 type: "POST",
@@ -167,11 +150,8 @@
             })
         }
 
-        // loadTheSelectedBlog();
-
         const increaseTheView = () => {
             if (ff3 == "v" || ff3 == "") {
-                console.log("called");
                 $.ajax({
                     type: "POST",
                     url: "./php-ajax/increase_cur_blog_view_count.php",
@@ -180,7 +160,6 @@
                         ff2: ff2
                     },
                     success: function(response) {
-                        // alert(response);
                         loadTheSelectedBlog();
                     },
                     error: function(response) {
@@ -214,9 +193,7 @@
                     liked_user: user
                 },
                 success: function (response) {
-                    // alert(response);
                     likesDiv.innerHTML = response;
-                    // console.log(likesDiv);
                 },
                 error: function(response) {
                     alert(response);
@@ -251,9 +228,6 @@
                 }
             });
         }
-
-        // let l = "0";
-        // l = parseInt(l);
     </script>
 </body>
 </html>

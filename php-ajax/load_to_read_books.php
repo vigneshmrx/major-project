@@ -7,22 +7,12 @@ include '../connect.php';
 $db_name = $_POST["db_name"];
 $status = "completed";
 
-// mysqli_select_db($con, $_SESSION["db_name"]);
-
 mysqli_select_db($con, $db_name);
 
-// function load_to_read_books() {
-    // GLOBAL $con;
 $books_to_read_q = mysqli_query($con, "select * from bookshelf where Status = 'to read';");
 
 if ($books_to_read_q->num_rows > 0) {
     while ($row = mysqli_fetch_assoc($books_to_read_q)) {
-
-        // if (strlen($row["BookName"]) >= 45) {
-        //     $book_name_updated = substr($row["BookName"], 0, 45) . "...";
-        // } else {
-        //     $book_name_updated = $row["BookName"];
-        // }
         
         echo '<div class="book-info-box">
         <div class="book-info">
@@ -30,6 +20,10 @@ if ($books_to_read_q->num_rows > 0) {
             <div class="book-info-author">' . $row["Author"] . '</div>
         </div>
         <div class="book-info-action" id="' . $row["SNo"] . '">
+            <div class="edit-this-book-icon" onclick="editThisBook(this);" style="height: 30px;">
+                <abbr title="Edit book">
+                <img src="./icons/icons8-edit-60.png" width="30" height="30"></abbr>
+            </div>
             <div class="done-reading-icon" onclick="changeBookStatus(this);" style="height: 30px;">
                 <abbr title="Completed reading">
                 <img src="./icons/icons8-normal-tick-60.png" alt="" width="30"></abbr>
@@ -44,6 +38,5 @@ if ($books_to_read_q->num_rows > 0) {
 } else {
     echo '<div class="no-content-grid-toggle"><img src="../major-project/images/no-books-illustration.png" width="30%" class="remove-bg">NO BOOKS IN READ LIST!</div>';
 }
-// }
 
 ?>

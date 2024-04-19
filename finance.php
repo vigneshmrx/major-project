@@ -21,14 +21,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        .main-content-area {
-            /* max-height: 75vh; */
-            /* height: 77%; */
-        }
 
         .individual-element-btn-area {
             height: 100%;
-            /* border: 1px solid; */
         }
     </style>
     <script>
@@ -75,8 +70,6 @@
                     <img src="./icons/icons8-close-32.png" alt="">
                 </div>
             </div>
-
-            <!-- <hr class="popup-box-hr"> -->
 
             <div id="info-area">
                 <h1><center>The 50-30-20 Rule</center></h1><br>
@@ -194,11 +187,6 @@
 
     <div id="show-full-details-pg">
         <div id="show-full-details-bx">
-            <!-- <div id="dowload-icon">
-                <abbr title="Download as pdf">
-                <img src="./icons/icons8-download-24.png" alt="" width="32" height="32">
-                </abbr>
-            </div> -->
             <div id="show-full-details-heading-area">
                 <div id="show-full-details-heading">FULL DETAILS</div>
                 <div class="close-pop-up-icon-area" onclick="removePopUp(this, []);">
@@ -221,9 +209,6 @@
 
     <div id="page-left-area">
         <div id="logo">
-            <!-- <lord-icon src="https://cdn.lordicon.com/abwrkdvl.json" trigger="in" delay="1500" state="in-growth"
-                style="width:40px;height:40px; ">
-            </lord-icon> -->
             ProDo
         </div>
 
@@ -236,8 +221,6 @@
             <a href="./bookshelf.php">
                 <div class="nav-items">Bookshelf</div>
             </a>
-            <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
-            <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
             <a href="./blog.php">
                 <div class="nav-items">Blog</div>
             </a>
@@ -245,7 +228,6 @@
                 <div class="nav-items" onclick="showSettings(true);">Settings</div>
             </a>
             <div class="nav-items" onclick="logOutBoxFun();">Log Out</div>
-            <!-- <a href="#"><div class="nav-items">Log Out</div></a> -->
         </nav>
 
         <hr>
@@ -281,46 +263,9 @@
 
                 <div class="left-section">
                     <div id="monthly-income-area">
-                        <!-- <div id="monthly-income-bx">
-                            MONTHLY INCOME 
-
-                            <div id="m-income-amt">
-                                15K
-                            </div>
-
-                            <div class="individual-element-btn-area">
-                                <input type="button" value="MODIFY INCOME" onclick="showModifyIncomeBox();"
-                                style="font-size: 12px; padding: 5px 10px;" >
-                            </div>
-                        </div>
-                        <div id="monthly-income-div-bx">
-                            INCOME DIVISION
-
-                            <div id="m-income-div-amt">
-                                50%: 7.5K <br>
-                                30%: 4.5K <br>
-                                20%: 3K
-                            </div>
-                        </div> -->
                     </div>
 
                     <div id="income-after-expense-area">
-                        <!-- <div id="income-after-expense-bx">
-                            REMAINING INCOME
-
-                            <div id="af-exp-income-amt">
-                                <span class="money">15220</span>
-                            </div>
-                        </div>
-                        <div id="income-after-expense-div-bx">
-                            AFTER SPENDING DIVISION
-
-                            <div id="af-exp-income-div-amt">
-                            <span class="money">50%</span>: <span class="money">7610</span> <br>
-                            <span class="money">30%</span>: <span class="money">4566</span> <br>
-                            <span class="money">20%</span>: <span class="money">3044</span>
-                            </div>
-                        </div> -->
                     </div>
 
                     <div class="calendar-box"> <!-- style="padding: 0px;" -->
@@ -530,12 +475,6 @@
                 document.getElementsByClassName("expLogForm")[0].id = "0";
             }
         }
-
-        Array.from(document.querySelectorAll("input[name='cat']")).forEach((ele) => {
-            ele.addEventListener("click", () => {
-                console.log(ele);
-            })
-        })
 
         const showIncomeRuleInfoBx = () => {
             popUpBgFun();

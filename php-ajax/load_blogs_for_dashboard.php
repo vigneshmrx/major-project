@@ -73,7 +73,6 @@ try {
     }
 }
 catch (Exception $blog_load_exc) {
-    // die($blog_load_exc);
     echo '<div id="no-blog-grid-toggle">
         <img src="./images/no-blog-exists-img.png" alt="">
         NOTHING TO SEE HERE!</div>';

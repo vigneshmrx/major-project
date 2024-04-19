@@ -105,21 +105,22 @@
     justify-content: flex-start;
     align-items: center;
     gap: 20px;
-    /* flex-wrap: wrap; */
-    /* overflow-x: auto; */
-    /* padding-left: 10px;
-    padding-right: 15px; */
-    /* padding-bottom: 10px; */
-    /* border: 1px solid; */
     position: relative;
     flex-wrap: wrap;
-    /* width: calc(100% + 20px); */
-    /* width: calc(100% + 20px); */
-    /* width: 97%; */
     width: 1077px;
     margin: auto;
-    /* overflow: visible; */
-    /* scroll-behavior: smooth; */
+    font-size: 20px;
+}
+
+.no-blogs-found-div {
+    width: 100%;
+    height: 60vh;
+    display: grid;
+    place-items: center;
+}
+
+.no-blogs-found-div img {
+    width: 400px;
 }
 
 .blogs-area::-webkit-scrollbar {

@@ -99,8 +99,6 @@ session_start();
         <nav id="primary-menu-nav">
             <a href="./finance.php"><div class="nav-items">Finance</div></a>
             <a href="./bookshelf.php"><div class="nav-items">Bookshelf</div></a>
-            <!-- <div class="nav-items"><a href="#">Finance</a></div> -->
-            <!-- <div class="nav-items current-page"><a href="#">BookShelf</a></div> -->
             <a href="#"><div class="nav-items current-page">Blog</div></a>
             <a href="#"><div class="nav-items" onclick="showSettings(true);">Settings</div></a>
             <a href="#"><div class="nav-items" onclick="logOutBoxFun();">Log Out</div></a>
@@ -132,11 +130,11 @@ session_start();
                     <input type="search" name="" id="search-bar" placeholder="Search..">
                 </div>
                 <div class="categories">
-                    <div class="individual-categories current-category">All</div>
-                    <div class="individual-categories">Finance</div>
-                    <div class="individual-categories">Productivity</div>
-                    <div class="individual-categories">Mindfulness</div>
-                    <div class="individual-categories">Meditation</div>
+                    <div class="individual-categories current-category" onclick="changeBlogCategory(this);" id="11">All</div>
+                    <div class="individual-categories" onclick="changeBlogCategory(this);" id="22">Finance</div>
+                    <div class="individual-categories" onclick="changeBlogCategory(this);" id="33">Productivity</div>
+                    <div class="individual-categories" onclick="changeBlogCategory(this);" id="44">Mindfulness</div>
+                    <div class="individual-categories" onclick="changeBlogCategory(this);" id="55">Meditation</div>
                 </div>
             </div>
         </div>
@@ -166,9 +164,9 @@ session_start();
     <script src="./js/common-script.js"></script>
     <script>
 
-        const loadBlogs = (cat = "") => {
+        const loadBlogs = (catId) => {
             let blogsArea = document.getElementsByClassName("blogs-area")[0];
-            const userName = localStorage.getItem("userName");
+            let cat = document.getElementById(catId).innerHTML;
 
             $.ajax({
                 type: "POST",
@@ -177,17 +175,42 @@ session_start();
                     category: cat
                 },
                 success: function(response) {
-                    // alert(response);
                     blogsArea.innerHTML = response;
                     loadTheBlogsArray();
-                },
-                error: function(response) {
-                    alert("Error: " + response);
                 }
-            })
+            });
         }
 
-        loadBlogs();
+        let currentlySelectedCategoryId;
+        
+        const setDefaultCategory = () => {
+            let getDefaultCategory = sessionStorage.getItem("currently-selected-blog-cat");
+
+            if (getDefaultCategory == undefined || getDefaultCategory == null) {
+                currentlySelectedCategoryId = "11";
+                sessionStorage.setItem("currently-selected-blog-cat", currentlySelectedCategoryId);
+            } else {
+                currentlySelectedCategoryId = getDefaultCategory;
+                document.getElementById("11").classList.remove("current-category");
+                document.getElementById(currentlySelectedCategoryId).classList.add("current-category");
+            }
+
+            loadBlogs(currentlySelectedCategoryId);
+        }
+
+        setDefaultCategory();
+
+        const changeBlogCategory = (objRef) => {
+            let newlySelectedBlogCategoryId = objRef.id;
+
+            document.getElementById(currentlySelectedCategoryId).classList.remove("current-category");
+            document.getElementById(newlySelectedBlogCategoryId).classList.add("current-category");
+
+            currentlySelectedCategoryId = newlySelectedBlogCategoryId;
+            sessionStorage.setItem("currently-selected-blog-cat", newlySelectedBlogCategoryId);
+
+            loadBlogs(currentlySelectedCategoryId);
+        }
 
         let blogs = [];
 
@@ -207,7 +230,6 @@ session_start();
 
         searchInput.addEventListener("input", (e) => {
             const value = e.target.value.toLowerCase();
-            console.log(value);
 
             blogs.forEach(blog => {
 
@@ -269,7 +291,6 @@ session_start();
                 }
             })
         }
-        // changeSettingsBoxGreeting();
     </script>
 </body>
 

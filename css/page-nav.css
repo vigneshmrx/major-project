@@ -126,9 +126,7 @@ a {
 .secondary-nav-bar {
     height: 60px;
     width: 100%;
-    /* border-bottom: 1px solid; */
     position: fixed;
-    /* position: sticky; */
     z-index: 100;
     top: 0;
     left: 0;
@@ -142,8 +140,6 @@ a {
 
 .secondary-nav-bar .sec-bar-logo {
     font-size: 30px;
-    /* font-family: 'Skyscapers';
-    margin-top: 10px; */
     font-family: "Pacifico", cursive;
     font-weight: 400;
     font-style: normal;

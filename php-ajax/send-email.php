@@ -14,12 +14,6 @@ $header = "From: Team ProDo";
 
 try {
 
-    // if (mail($to, $subject, $message, $header)) {
-    //     echo "Email Sent Successfully!!";
-    // } else {
-    //     echo "Email counldn't be sent";
-    // }
-
     $mail = new PHPMailer(true);
 
     $mail->isSMTP();
@@ -45,7 +39,7 @@ try {
     echo "Email Sent Successfully!";
 }
 catch (Exception $some_exc) {
-    echo $some_exc;
+    echo "Couldn't send mail. Please try again later.";
 }
 
 ?>

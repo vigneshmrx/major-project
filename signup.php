@@ -10,91 +10,98 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
     <style>
-    <?php include './css/common-styles.css';
-    ?>
-    </style>
-    <style>
-    <?php include './css/signup.css';
-    ?>
+    <?php include './css/common-styles.css'; ?>
+    <?php include './css/signup.css'; ?>
     </style>
     <script defer>
-    function callErr(errorNo) {
-        console.log("Call error has been called with " + errorNo);
-        switch (errorNo) {
-            case 1:
-                emailErr();
-                break;
-
-            case 2:
-                pwdErr();
-                break;
-
-            case 3:
-                techErr();
-                break;
-
-            case 4: restrictedRegistration();
+        function callErr(errorNo) {
+            switch (errorNo) {
+                case 1:
+                    emailErr();
                     break;
+
+                case 2:
+                    pwdErr();
+                    break;
+
+                case 3:
+                    techErr();
+                    break;
+
+                case 4: restrictedRegistration();
+                        break;
+            }
         }
-    }
 
-    function techErr() {
-        let errorMsgArea = document.getElementsByClassName("common-error")[0];
-        errorMsgArea.innerHTML = "Some error occured. Please try again later";
-    }
-
-    function restrictedRegistration() {
-        let errorMsgArea = document.getElementsByClassName("common-error")[0];
-        errorMsgArea.innerHTML = "You are not allowed to register yourself!";
-    }
-
-    function emailErr() {
-        let usrnamArea = document.getElementsByClassName("email-error")[0];
-        usrnamArea.innerHTML = "Email already in use";
-    }
-
-    function longPwdErr() {
-        let pwdArea = document.getElementsByClassName("pwd-error")[0];
-        pwdErr.innerHTML = "Password should be less than 30 characters";
-    }
-
-    function pwdErr() {
-        let pwdArea = document.getElementsByClassName("repeat-pwd-error")[0];
-        pwdArea.innerHTML = "The two passwords do not match";
-    }
-
-    function loginSuccess(type = "") {
-        let errorMsgArea = document.getElementsByClassName("common-error")[0];
-        errorMsgArea.innerHTML = "Registration Successful";
-
-        if (type == "admin") {
-
-            setTimeout(() => {
-                window.location.replace("admin.php");
-            }, 1500);
-
+        function techErr() {
+            let errorMsgArea = document.getElementsByClassName("common-error")[0];
+            errorMsgArea.innerHTML = "Some error occured. Please try again later";
         }
-        else 
-        {
 
-            setTimeout(() => {
-                window.location.replace("finance.php");
-            }, 1500);
-
+        function restrictedRegistration() {
+            let errorMsgArea = document.getElementsByClassName("common-error")[0];
+            errorMsgArea.innerHTML = "You are not allowed to register yourself!";
         }
-        
-    }
 
-    let loggedIn = localStorage.getItem("logged-in");
-    let userType = localStorage.getItem("user-type");
-
-    if (loggedIn != null && loggedIn != undefined && loggedIn == true) {
-        if (userType == "admin") {
-            window.location.href = "admin.php";
-        } else {
-            window.location.href = "finance.php";
+        function emailErr() {
+            let usrnamArea = document.getElementsByClassName("email-error")[0];
+            usrnamArea.innerHTML = "Email already in use";
         }
-    }
+
+        function emailMistake() {
+            let usrnamArea = document.getElementsByClassName("email-error")[0];
+            usrnamArea.innerHTML = "Please enter a valid email address";
+        }
+
+        function longPwdErr() {
+            let pwdArea = document.getElementsByClassName("pwd-error")[0];
+            pwdErr.innerHTML = "Password should be less than 30 characters";
+        }
+
+        function pwdErr() {
+            let pwdArea = document.getElementsByClassName("repeat-pwd-error")[0];
+            pwdArea.innerHTML = "The two passwords do not match";
+        }
+
+        function loginSuccess(type = "") {
+            let errorMsgArea = document.getElementsByClassName("common-error")[0];
+            errorMsgArea.innerHTML = "Registration Successful";
+
+            if (type == "admin") {
+                setTimeout(() => {
+                    window.location.replace("admin.php");
+                }, 1500);
+            }
+            else 
+            {
+                setTimeout(() => {
+                    window.location.replace("finance.php");
+                }, 1500);
+            }
+        }
+
+        let loggedIn = localStorage.getItem("logged-in");
+        let userType = localStorage.getItem("user-type");
+
+        if (loggedIn != null && loggedIn != undefined && loggedIn == true) {
+            if (userType == "admin") {
+                window.location.href = "admin.php";
+            } else {
+                window.location.href = "finance.php";
+            }
+        }
+
+        function togglePasswordShow() {
+            let showPasswordCB = document.querySelector("input[name=checkbox]");
+            let passwordAreaOne = document.querySelector("input[name=pass_one]");
+            let passwordAreaTwo = document.querySelector("input[name=pass_two]");
+
+            if (showPasswordCB.checked) {
+                passwordAreaOne.type = passwordAreaTwo.type = "text";
+            } else {
+                passwordAreaOne.type = passwordAreaTwo.type = "password";
+            }
+        }
     </script>
 </head>
 
@@ -129,12 +136,11 @@ session_start();
                     <div class="flex-line line" style="display: flex;">
                         <div class="fname">
                             FIRST NAME: <br>
-                            <input type="text" name="f_name" id="" value="<?php echo $fname; ?>" required>
-                            <!-- pattern="/^[A-Za-z\s]*$/" -->
+                            <input type="text" name="f_name" value="<?php echo $fname; ?>" required>
                         </div>
                         <div class="lname">
                             LAST NAME: <br>
-                            <input type="text" name="l_name" id="" value="<?php echo $lname; ?>" required>
+                            <input type="text" name="l_name" value="<?php echo $lname; ?>" required>
                         </div>
                     </div>
 
@@ -149,7 +155,7 @@ session_start();
 
                     <div class="line">
                         PASSWORD: <br>
-                        <input type="password" name="pass_one" maxlength="30" value="<?php echo $passone; ?>" required>
+                        <input type="password" name="pass_one" minlength="5" maxlength="30" value="<?php echo $passone; ?>" required>
                     </div>
 
                     <div class="line pwd-error">
@@ -158,12 +164,16 @@ session_start();
 
                     <div class="line">
                         REPEAT PASSWORD: <br>
-                        <input type="password" name="pass_two" maxlength="30" value="<?php echo $passtwo; ?>" required>
+                        <input type="password" name="pass_two" minlength="5" maxlength="30" value="<?php echo $passtwo; ?>" required>
                     </div>
 
                     <div class="line repeat-pwd-error">
                         <!-- Password doesn't match -->
                     </div>
+
+                    <div class="line" style="text-align: right;">
+                        <input type="checkbox" name="checkbox" id="showPasswordCB" style="margin-right: 5px;" onclick="togglePasswordShow();">Show Password
+                    </div><br>      
 
                     <div class="flex-line line">
                         <input type="submit" value="SIGN UP" name="sign_up" id="signupBtn">
@@ -185,8 +195,48 @@ session_start();
 
     <?php
 
+        function emailSpellingCheck($email) {
+
+            if (str_contains($email, ".in") || str_contains($email, ".com") || str_contains($email, ".org")) {
+                $pos_of_a = strpos($email, "@");
+
+                if ($email[$pos_of_a + 1] == 'o') {
+                    $pos_of_outlook_if_exists = strripos($email, "outlook");
+
+                    if ($pos_of_outlook_if_exists != false && $pos_of_outlook_if_exists - 1 == $pos_of_a) {
+                        return true;
+                    } else {
+                        die("<script>emailMistake();</script>");
+                    }
+                } else if ($email[$pos_of_a + 1] == 'y') {
+                    $pos_of_yahoo_if_exists = strripos($email, "yahoo");
+
+                    if ($pos_of_yahoo_if_exists != false && $pos_of_yahoo_if_exists - 1 == $pos_of_a) {
+                        return true;
+                    } else {
+                        die("<script>emailMistake();</script>");
+                    }
+                } else if ($email[$pos_of_a + 1] == 'g') {
+                    $pos_of_gmail_if_exists = strripos($email, "gmail");
+
+                    if ($pos_of_gmail_if_exists != false && $pos_of_gmail_if_exists - 1 == $pos_of_a) {
+                        return true;
+                    } else {
+                        die("<script>emailMistake();</script>");
+                    }
+
+                }
+
+                die("<script>emailMistake();</script>");
+            } else {
+                die("<script>emailMistake();</script>");
+            }
+        }
+
         function adminFunction($admin_email, $passone, $passtwo, $fname, $lname) {
             include "connect.php";
+
+            emailSpellingCheck($admin_email);
 
             try {
                 mysqli_select_db($con, "prodo_db");
@@ -225,8 +275,6 @@ session_start();
                 $adding_admin_query = "update admin_table set Name = '$full_name', Password='$hashed_pwd', JoinDate = '$present_date' where Email = '$admin_email'";
             }
 
-            
-
             try {
 
                 $admin_adding_success = mysqli_query($con, $adding_admin_query);
@@ -237,14 +285,12 @@ session_start();
                     echo "<script>localStorage.setItem('logged-in', true);</script>";
                     echo "<script>localStorage.setItem('emailID', '$admin_email');</script>";
                     
-
                     die("<script>loginSuccess('admin');</script>");
                 }
             }
             catch (Exception $some_exctwo) {
                 die("<script>callErr(3);</script>");
             }
-
         }
 
         if(isset($_POST["sign_up"])) {
@@ -254,9 +300,12 @@ session_start();
                 adminFunction($email, $passone, $passtwo, $fname, $lname);
             }
 
+            emailSpellingCheck($email);
+
             try {
                 mysqli_select_db($con, "prodo_db");
             } catch (Exception $e2) {
+                echo $e2;
                 die("<script>callErr(3);</script>");
             }
 
@@ -274,34 +323,29 @@ session_start();
                 
             } catch (Exception $e) {}
 
-
             //password checking
             if ($passone != $passtwo) {
                 die("<script>callErr(2);</script>");
             }
 
             try {
-
                 mysqli_select_db($con, "prodo_db");
-
             } catch (Exception $e2) {
-
+                echo $e2;
                 die("<script>callErr(3);</script>");
-                
             }
 
             //hashing pwd
             $hashed_pwd = password_hash($passone, PASSWORD_DEFAULT);
 
-            // var_dump($hashed_pwd);
             $full_name = $fname . " " . $lname;
-            // var_dump($full_name);
 
             //creating db for the new user along with tables
             $pos_of_a = strpos($email, "@");
             $extracted_part_of_email = substr($email, 0, $pos_of_a);
 
-            $db_name = $extracted_part_of_email . "_user";
+            date_default_timezone_set('Asia/Kolkata');
+            $db_name = $extracted_part_of_email . "_" . (int) date("i") . (int) date("H") . (int) date("d") . "_user";
             $db_name = str_replace(".", "_", $db_name);
 
             //creating account for the user
@@ -309,63 +353,42 @@ session_start();
             $adding_user_success = mysqli_query($con, $adding_user_query);
 
             $user_type = "reader";
-
-            //creating db for the new user along with tables
-            // $pos_of_a = strpos($email, "@");
-            // $extracted_part_of_email = substr($email, 0, $pos_of_a);
             
             try {
-                // $db_name = $extracted_part_of_email . "_user";
-                // $db_name = str_replace(".", "_", $db_name);
                 $create_db_query = mysqli_query($con, "create database " . $db_name);
-                echo "Database created";
 
                 //selecting the user's DB
                 mysqli_select_db($con, $db_name);
 
                 //creating bookshelf table
                 try {
-
                     $create_bookshelf_table_q = mysqli_query($con, "create table bookshelf(SNo int AUTO_INCREMENT PRIMARY KEY, BookName varchar(60) not null, Author varchar(30) not null, Status varchar(10) not null, Year int(4) not null);");
-
                 } catch (Exception $ef) {
                     echo $ef;
+                    die("<script>callErr(3)</script>");
                 }
-
 
                 //creating finance table
                 try {
-
                     $create_finance_table_q = mysqli_query($con, "create table finance(SNo int AUTO_INCREMENT PRIMARY KEY, Year int(4) not null, Month varchar(15) not null, Income double not null, FiftyPercent double not null, ThirtyPercent double not null, TwentyPercent double not null, Bonus double not null);");
-
                     //creating monthly_expense table
                     try {
-
                         $create_monthly_expense_tab_q = mysqli_query($con, "create table monthly_expense(SNo int AUTO_INCREMENT PRIMARY KEY, Date date not null, Month varchar(15) not null, TitleOfExpense varchar(200) not null, Cost double not null, Category char(2) not null);");
-
                     } catch (Exception $monthly_expense_exc) {
                         echo $monthly_expense_exc;
                     }
-
                 } catch (Exception $finance_creation_exc) {
                     echo $finance_creation_exc;
+                    die("<script>callErr(3)</script>");
                 }
-    
             } catch (Exception $ee) {
-                echo "Databse no";
                 echo $ee;
+                die("<script>callErr(3)</script>");
             }
 
             if ($adding_user_success) {
-                // $_SESSION["user_name"] = $full_name;
-                // $_SESSION["db_name"] = $db_name;
-                // $_SESSION["email"] = $email;
-                // $_SESSION["logged_in"] = true;
-                // $_SESSION["user_type"]
                 echo "<script>localStorage.setItem('user-type', 'reader');</script>";
                 echo "<script>localStorage.setItem('logged-in', true);</script>";
-
-                date_default_timezone_set('Asia/Kolkata');
 
                 $today_date = date("Y") . "-" . date("m") . "-" . date("d");
 

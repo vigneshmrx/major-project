@@ -12,6 +12,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script>
+        if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
+            location.href = "login.php";
+        }
         if (localStorage.getItem("user-type") != "writer") {
             location.replace("finance.php");
         }
@@ -40,17 +43,6 @@
             </div>
 
             <div id="uploaded-image-style-area">
-                <!-- <div class="uploaded-image-size-dropdown">
-                    Image Size:
-                    <select name="" id="">
-                        <option value="Small">Small</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Large">Large</option>
-                    </select>
-                </div> -->
-                <!-- <div class="set-this-as-cover">
-                    <input type="checkbox" name="set-img-as-cover" id="">&nbsp;Set this image as cover image
-                </div> -->
             </div>
 
             <div id="uploaded-image-action-area">
@@ -187,10 +179,6 @@
                 <div>
                     <!-- <img src="./icons/icons8-font-size-48-grey.png" alt=""> -->
                     <select name="" id="font-change-drop-down">
-                        <!-- <option value="Small">Small</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Large">Large</option>
-                        <option value="Extralarge">Extralarge</option> -->
                         <option value="12px">12px</option>
                         <option value="16px" selected>16px</option>
                         <option value="20px">20px</option>
@@ -199,13 +187,6 @@
                         <option value="32px">32px</option>
                     </select>
                 </div>
-                <!-- <div>
-                    <select name="" id="">
-                        <option value="Heading">Heading</option>
-                        <option value="Subheading">Subheading</option>
-                        <option value="Paragraph">Paragraph</option>
-                    </select>
-                </div> -->
 
                 <div class="seperator">
                     <img src="./icons/icons8-seperator-48-grey.png" alt="">
@@ -269,9 +250,6 @@
                     <img src="./icons/icons8-seperator-48-grey.png" alt="">
                 </div>
 
-                <!-- <div onclick="insertSpecialQuoteBox();">
-                    <img src="./icons/icons8-quote-50-grey.png" alt="">
-                </div> -->
                 <div id="unordered-list-div">
                     <img src="./icons/icons8-bullet-list-60-grey.png" alt="">
                 </div>
@@ -292,7 +270,6 @@
         <div id="writable-area">
             <div id="editable-heading-area">
                 <input type="text" placeholder="Your Heading Here" id="editable-heading">
-                <!-- <textarea name="" id="" placeholder="Your Heading Here"></textarea> -->
             </div>
             <div id="editable-content-area" contenteditable="true">
             </div>
@@ -342,12 +319,6 @@
             ff2 = searchParams.get("ff2");
         }
 
-        // if (searchParams.has("ci")) {
-        //     ci = searchParams.get("ci");
-        // }
-
-        // console.log(ff2);
-
         const inputUpdateBlogContent = () => {
             let writableArea = document.getElementById("writable-area");
 
@@ -373,6 +344,5 @@
         }
 
     </script>
-    <!-- <script src="./js/create-blog.js"></script> -->
 </body>
 </html>

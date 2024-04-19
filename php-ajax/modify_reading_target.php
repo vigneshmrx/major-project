@@ -3,7 +3,6 @@ session_start();
 
 include '../connect.php';
 
-// $email = $_SESSION["email"];
 $email = $_POST["email"];
 $yearly_target_reading_count = $_POST["target_count"];
 

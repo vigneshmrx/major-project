@@ -34,9 +34,6 @@ try {
     $user_email = $row["Email"];
     $deleted_blog_name = $row["BlogName"];
 
-    // echo $db_name;
-    // echo $unique_blog_id;
-
     $delete_the_blog_from_users_db_q = mysqli_query($con, "delete from $db_name.blog_posts where SNo = $unique_blog_id");
 
     $delete_from_prodo_db_q = mysqli_query($con, "delete from prodo_db.users_blog_posts_list where SNo = $blog_id_in_prodo_db;");

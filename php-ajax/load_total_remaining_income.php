@@ -16,15 +16,12 @@
         $finding_total_income_q = mysqli_query($con, "select sum(Income) as TotalIncome, Sum(Bonus) as TotalBonus from finance;");
 
         $row = mysqli_fetch_assoc($finding_total_income_q);
-        // echo var_dump($row);
 
         $row["TotalIncome"] != NULL ? $total_income = $row["TotalIncome"] : "" ;
 
         $row["TotalBonus"] != NULL ? $total_income += $row["TotalBonus"] : "" ;
 
         $twenty_percent = ($total_income * 20) / 100;
-
-        // echo $total_income;
 
         //finding total spent in Category A
         $finding_total_spent_cat_a_q = mysqli_query($con, "select sum(Cost) as TotalSpentA from monthly_expense where Category='A';");
@@ -46,10 +43,6 @@
         $row = mysqli_fetch_assoc($finding_total_spent_cat_c_q);
         $row["TotalSpentC"] != NULL ? $spent_cat_c = $row["TotalSpentC"] : "" ;
 
-        // echo "A: " . $spent_cat_a;
-        // echo "B: " . $spent_cat_b;
-        // echo "C: " . $spent_cat_c;
-
         $finding_total_in_div_a_q = mysqli_query($con, "select sum(FiftyPercent) as FiftyPercent from finance;");
         $finding_total_in_div_b_q = mysqli_query($con, "select sum(ThirtyPercent) as ThirtyPercent from finance;");
         $finding_total_in_div_c_q = mysqli_query($con, "select sum(TwentyPercent) as TwentyPercent from finance;");
@@ -63,13 +56,8 @@
         $row = mysqli_fetch_assoc($finding_total_in_div_c_q);
         $row["TwentyPercent"] != NULL ? $div_c = $row["TwentyPercent"] : "" ;
 
-        // echo "<br>50%: " . $div_a; 
-        // echo "<br>30%: " . $div_b; 
-        // echo "<br>20%: " . $div_c; 
-
         $total_remaining = $total_income - ($spent_cat_a + $spent_cat_b + $spent_cat_c);
 
-        // echo "Total Remaining: " . $total_remaining;
         $total_remaining_cat_a = $div_a - $spent_cat_a;
         $total_remaining_cat_b = $div_b - $spent_cat_b;
         $total_remaining_cat_c = $div_c - $spent_cat_c;
@@ -88,8 +76,6 @@
         }
 
         echo $page_content;
-
-        // echo "Tota A  remaining: " . $total_remaining_cat_a;
 
     }
     catch (Exception $some_exc) {

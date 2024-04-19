@@ -43,7 +43,6 @@ try {
 
             $mail->Body = "Dear User,<br><br>We are pleased to inform you that your request for being a blog writer is accepted. You can now write your own blogs. Make sure to be kind to the readers and do not use explicit language.<br><br>Thank You!<br>Team ProDo!";
 
-
             $change_user_status_q = mysqli_query($con, "update prodo_db.users_list set role='writer' where email='$user_email';");
 
             echo "Writer Request Accepted";
@@ -83,7 +82,6 @@ try {
     
 }
 catch (Exception $some_exc) {
-    // die("An error occured. Please try again later!");
-    die($some_exc);
+    die("An error occured. Please try again later!");
 }
 ?>

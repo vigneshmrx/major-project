@@ -34,11 +34,6 @@ if ($page_name == "expense") {
                     $cat = $cat . " (20%)";
                 }
 
-                // if ($previous_month != $row["Month"] ) {
-                //     $page_content = $page_content . "<br>";
-                //     $previous_month = $row["Month"];
-                // }
-
                 $page_content = $page_content . '<tr><td class="five">' . $count . '</td><td class="fifteen">' . $row["Date"] . '</td><td class="fifteen">' . $row["Month"] . '</td><td class="ten">' . $cat . '</td><td class="forty">' . $row["TitleOfExpense"] . '</td><td class="fifteen">' . $row["Cost"] . '</td></tr>';
 
                 $count++;

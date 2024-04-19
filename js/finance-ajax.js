@@ -30,10 +30,7 @@ const addNewIncomeToDb = () => {
 
     let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-    // console.log("THis called");
-
     if (income.value == null || income.value == undefined || income.value == "") {
-        console.log("In here");
         showAlert("Please enter all the details");
     } else {
         if (bonus.value == null || bonus.value == undefined || bonus.value == "") {
@@ -53,11 +50,9 @@ const addNewIncomeToDb = () => {
                 db_name: dbName
             },
             success: function(response) {
-                alert(response);
                 showAlert("Monthly income updated successfully");
                 income.value = "";
                 selectedMonth.value = months[new Date().getMonth()];
-                // bonus.value = "";
                 document.getElementById("bonus").value = "";
                 loadMonthlyIncomeDisplayArea();
             },
@@ -184,7 +179,6 @@ const monthChangeFun = (event) => {
 
 const removeThisExpFromDb = (objRef) => {
     const recUniqueId = parseInt(objRef.parentElement.id);
-    console.log(recUniqueId);
 
     $.ajax({
         type: "POST",

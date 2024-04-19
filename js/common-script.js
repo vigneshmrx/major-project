@@ -1,7 +1,6 @@
 (function () {
     if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
         location.replace("login.php");
-        // console.log("NOt logged in");
     }
 }) ();
 
@@ -34,11 +33,8 @@ const displayQuote = (quotesObj, pageName) => {
     if (sessionStorage.getItem(pageName) == null || sessionStorage.getItem(pageName) == undefined) {
         randomQuoteObj = quotesObj[Math.floor(Math.random() * quotesObj.length)];
         sessionStorage.setItem(pageName, JSON.stringify(randomQuoteObj));
-        console.log("inside if");
     } else {
         randomQuoteObj = JSON.parse(sessionStorage.getItem(pageName));
-
-        console.log("inside else");
     }
 
     quoteBox.innerHTML = `\"<i>${randomQuoteObj["Quote"]}</i>\"<br><br>`;
@@ -97,21 +93,16 @@ const logOutBoxFun = () => {
 
     let logOutPage = document.getElementById("log-out-page");
 
-    // console.log("INSIDE THE FUN");
-
     if (logOutPage.style.visibility == "visible") {
         logOutPage.style.visibility = "hidden";
         logOutPage.style.zIndex = -150;
-        // console.log("INSIDE IF");
     } else {
         logOutPage.style.zIndex = 150;
         logOutPage.style.visibility = "visible";
-        // console.log("INSIDE ELSE");
     }
 }
 
 const logoutFromHere = () => {
-    // console.log("INSIDE HERE");
     $.ajax({
         type: "POST",
         url: "./logout.php",
@@ -188,10 +179,7 @@ const decideOnDownloadBtn = (toShow) => {
         }
 
     } 
-    catch (downloadBtnExc) {
-        console.log(downloadBtnExc);
-        // downloadPdfDiv.style.visibility = "visible";
-    }
+    catch (downloadBtnExc) {}
 }
 
 const showFullDetails = (pageName) => {
@@ -230,7 +218,7 @@ const showFullDetailsBx = (nameOfCat) => {
 
 const downloadPdf = (contentName) => {
 
-    location.replace(`http://localhost:8080/major-project/content_to_pdf.php?param1=${dbName}&param2=${contentName}`);
+    location.href = `http://localhost/major-project/content_to_pdf.php?param1=${dbName}&param2=${contentName}`;
 }
 
 

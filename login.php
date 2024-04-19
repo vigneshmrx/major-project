@@ -12,11 +12,6 @@ session_start();
     <style><?php include './css/signup.css'; ?></style>
 
     <script defer>
-        window.history.forward(); 
-        function noBack() { 
-            window.history.forward(); 
-        }
-        
         function callErr(errorNo) {
             switch (errorNo) {
                 case 1: userNotExist();
@@ -110,7 +105,6 @@ session_start();
                     </div>
                     
                     <div class="flex-line line">
-                        <!-- <input type="submit" value="Login" name="login"> -->
                         <input type="submit" value="LOG IN" name="login" id="loginBtn">
                     </div>
 
@@ -146,7 +140,6 @@ session_start();
 
                 $row = mysqli_fetch_assoc($admin_email_res);
                 if ($row == NULL) {
-                    // echo "admin inside";
                     die("<script>callErr(1);</script>");
                 } else {
                     $original_pwd = $row["Password"];
@@ -197,8 +190,9 @@ session_start();
                         $pos_of_a = strpos($email, "@");
                         $extracted_part_of_email = substr($email, 0, $pos_of_a);
                         
-                        $db_name = $extracted_part_of_email . "_user";
-                        $db_name = str_replace(".", "_", $db_name);
+                        // $db_name = $extracted_part_of_email . "_user";
+                        // $db_name = str_replace(".", "_", $db_name);
+                        $db_name = $row["db_name"];
 
                         $full_name = $row["name"];
                         $user_type = $row["role"];

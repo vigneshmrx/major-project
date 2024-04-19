@@ -79,7 +79,6 @@ const getBlogId = (objRef) => {
 
 const deleteBlog = (objRef) => {
     const blogId = getBlogId(objRef);
-    console.log(blogId);
 
     changeBlogStatus("delete", blogId);
 }
@@ -87,7 +86,6 @@ const deleteBlog = (objRef) => {
 //chnages blog status, archive to uploaded and vice versa
 const changeBlogVisibility = (objRef) => {
     const blogId = getBlogId(objRef);
-    console.log(blogId);
 
     changeBlogStatus("", blogId);
 }

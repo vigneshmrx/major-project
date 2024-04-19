@@ -35,13 +35,10 @@
 
     #full-details-table td,
     th {
-        /* border: 1px solid; */
         padding: 10px;
     }
 
     #full-details-table td {
-        /* border-right: 1px solid;
-    border-left: 1px solid; */
         border-bottom: 1px solid;
     }
 
@@ -54,21 +51,7 @@
 
     #full-details-table tr {
         border-bottom: 2px solid;
-    } 
-
-    /* #full-details-table tr > td:nth-child(1),
-    #full-details-table tr > td:nth-child(3),
-    #full-details-table tr > td:nth-child(5), {
-        width: 10%;
     }
-
-    #full-details-table tr > td:nth-child(2) {
-        width: 20%;
-    }
-
-    #full-details-table tr > td:nth-child(4) {
-        width: 50%;
-    } */
 
     .ten {
         width: 10%;

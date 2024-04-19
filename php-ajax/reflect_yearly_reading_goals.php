@@ -2,8 +2,6 @@
 session_start();
 
 include '../connect.php';
-
-// $email = $_SESSION["email"];
 $email = $_POST["email"];
 $db_name = $_POST["db_name"];
 
@@ -24,12 +22,7 @@ $present_year = date("Y");
 
 $get_count_of_completed_books_this_year = mysqli_query($con, "select * from bookshelf where Status = 'completed' and Year = $present_year");
 
-// $row = mysqli_fetch_assoc($get_count_of_completed_books_this_year);
-
 $completed_books_count = $get_count_of_completed_books_this_year -> num_rows;
-// echo var_dump($get_count_of_completed_books_this_year);
-
-// echo "goal: $yearly_reading_goal, completed count: $completed_books_count";
 
 if ($yearly_reading_goal == 0) {
     $width_of_progress_bar = 0;
@@ -44,7 +37,3 @@ echo "YEARLY GOALS: " . "<div id='goals-counter'> $completed_books_count / $year
     "<div id='progress-bar-value' style='width: $width_of_progress_bar%;'>" . "</div></div>" . 
     "<div id='progress-bar-value-count'>" . ($width_of_progress_bar >= 10 ? $width_of_progress_bar : ($width_of_progress_bar == 0 ? 0 : "0" . $width_of_progress_bar)) . "%" . "</div></div>";
 ?>
-
-
-
-<!-- ($width_of_progress_bar >= 10? $width_of_progress_bar : "0" . $width_of_progress_bar) . "%" . "</div></div>"; -->

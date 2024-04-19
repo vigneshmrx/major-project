@@ -1,5 +1,4 @@
 <?php
-    // session_start();
     include '../connect.php';
 
     $db_name = $_POST["db_name"];

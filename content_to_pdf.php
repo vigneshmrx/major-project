@@ -161,9 +161,6 @@ try {
 
     $content = $content . '</table></div></body></html>';
 
-    // $contentt = $db_name;
-    // $contentt = $data_name;
-
     $dompdf->loadHtml($content);
 
     $dompdf->render();
@@ -176,10 +173,7 @@ try {
 
     
 } catch (Exception $some_exception) {
-    // echo "<script>alert($some_exception);</script>";
     echo $some_exception;
 }
-
-?>
 
 ?>

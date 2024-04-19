@@ -110,8 +110,6 @@ let colorPalletPg = document.getElementById("color-pallet-pg");
 const showColorPanel = (colorType) => {
     popUpBgFun();
 
-    console.log("Show color panel called"); 
-
     colorPalletPg.style.zIndex = 150;
     colorPalletPg.style.visibility = "visible";
 
@@ -125,8 +123,6 @@ const showColorPanel = (colorType) => {
 const setThisColor = (objRef) => {
     let color = objRef.id;
 
-    console.log(color);
-
     let selection = window.getSelection();
 
     // if (!selection.rangeCount) return;
@@ -139,24 +135,19 @@ const setThisColor = (objRef) => {
         if (foreColor) {
             // document.execCommand("foreColor", false, color);
             span.style.color = color;
-            console.log("Fore color is set");
             foreColor = !foreColor;
         } else {
             // document.execCommand("backColor", false, "#783f04");
             span.style.background = color;
-            console.log("Back color is set");
             backColor = !backColor;
         }
 
         //some error here. Rectify it. 
 
         let selectedContent = range.extractContents().textContent.toString();
-
-        console.log(typeof(selectedContent));
-        console.log(selectedContent);   
+   
         span.innerText = selectedContent;
 
-        console.log(span);
         range.insertNode(span);
         selection.collapseToEnd();
     }
@@ -169,7 +160,6 @@ const imgUploadFun = (event) => {
     let img = document.createElement("img");
     // img.src = URL.createObjectURL(uploadImgBtn.files[0]);
     selectedFile = event.target.files[0];
-    console.log(selectedFile);
     imageUrl = URL.createObjectURL(selectedFile);
     img.src = imageUrl;
 
@@ -249,7 +239,6 @@ const selectedImgFun = (uploadType) => {
         var formData = new FormData();
         formData.append("file", selectedFile);
         formData.append("folder_name", dbName);
-        // console.log(formData)
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '../major-project/php-ajax/upload_img.php', true);
@@ -429,16 +418,9 @@ const uploadBlog = (blogType) => {
     }
     imageInfoArray.forEach((ele) => {
         if ( blogContent.includes(ele["imageUrl"]) ) {
-            console.log("Yes it includes");
             blogContent = blogContent.replace(ele["imageUrl"], ele["imagePath"]);
         }
     });
-
-    console.log(blogContent);
-    console.log(blogHeading);
-    // console.log(blog_content);
-    console.log(dbName);
-    console.log(blogType);
 
     //sending blog content to php to be saved in the database
     $.ajax({

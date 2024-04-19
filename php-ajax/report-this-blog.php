@@ -23,7 +23,7 @@ try {
     }
 }
 catch (Exception $some_exc) {
-    echo $some_exc;
+    echo 'An error occured. Please try again later.';
 }
 
 ?>

@@ -37,7 +37,7 @@ try {
     }
 }
 catch (Exception $some_exc) {
-    echo "Some Error Occured. Please try again later";
+    echo "Some error occured. Please try again later.";
 }
 
 

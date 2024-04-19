@@ -6,12 +6,8 @@
     <title>Home</title>
     <script src="https://kit.fontawesome.com/0595897d0f.js" crossorigin="anonymous"></script>
     <style>
-    <?php include './css/common-styles.css';
-    ?>
-    </style>
-    <style>
-    <?php include './css/styles.css';
-    ?>
+    <?php include './css/common-styles.css'; ?>
+    <?php include './css/styles.css'; ?>
     </style>
 </head>
 <body>
@@ -27,7 +23,7 @@
             </div>
 
             <div id="nav-action-links">
-                <a href="./login.php"><button style="background: var(--main-white); color: var(--main-balck); margin-right: 20px;">Log In</button></a>
+                <a href="./login.php"><button style="background: var(--main-white); color: var(--main-black); margin-right: 20px;">Log In</button></a>
                 <a href="./signup.php"><button>Sign Up</button></a>
             </div> 
         </div>

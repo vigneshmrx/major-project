@@ -196,7 +196,10 @@ try {
                     continue;
                 }
 
-                $content = $content . '<tr class="info-row ' . $row["SNo"] . '"><td>' . $count . '</td><td class="admin-name">' . $row["Name"] . '</td><td class="admin-email">' . $row["Email"] . '</td><td class="admin-join-date">' . $row["JoinDate"] . '</td><td class="action-cell">' . '<abbr title="Delete admin" onclick="toggleAdminDeleteAlert(true, this);"><img src="./icons/icons8-trash-48.png" alt=""></abbr></td></tr>';
+                $row["Name"] == "" ? $name = "-" : $name = $row["Name"];
+                $row["JoinDate"] == "0000-00-00" ? $join_date = "-" : $join_date = $row["JoinDate"];
+
+                $content = $content . '<tr class="info-row ' . $row["SNo"] . '"><td>' . $count . '</td><td class="admin-name">' . $name . '</td><td class="admin-email">' . $row["Email"] . '</td><td class="admin-join-date">' . $join_date . '</td><td class="action-cell">' . '<abbr title="Delete admin" onclick="toggleAdminDeleteAlert(true, this);"><img src="./icons/icons8-trash-48.png" alt=""></abbr></td></tr>';
 
                 $count++;
 

@@ -54,7 +54,6 @@ button {
     background: var(--main-black);
     border: 2px solid var(--main-black);
     color: var(--main-white);
-    /* font-family: "Roboto Mono"; */
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
 }
