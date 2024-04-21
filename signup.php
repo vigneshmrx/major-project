@@ -197,7 +197,7 @@ session_start();
 
         function emailSpellingCheck($email) {
 
-            if (str_contains($email, ".in") || str_contains($email, ".com") || str_contains($email, ".org")) {
+            if (preg_match('/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,3}$/', $email)) {
                 $pos_of_a = strpos($email, "@");
 
                 if ($email[$pos_of_a + 1] == 'o') {
@@ -224,11 +224,11 @@ session_start();
                     } else {
                         die("<script>emailMistake();</script>");
                     }
-
                 }
 
                 die("<script>emailMistake();</script>");
             } else {
+                echo "Failed at preg_match";
                 die("<script>emailMistake();</script>");
             }
         }
