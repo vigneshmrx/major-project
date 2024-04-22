@@ -208,8 +208,6 @@ const editThisExp = (objRef) => {
     const cost = parseFloat(objRef.parentElement.previousElementSibling.lastElementChild.firstChild.innerHTML);
     const expCategory = objRef.parentElement.previousElementSibling.lastElementChild.id;
 
-    console.log(expDate + "\n" + expDesc + "\n" + cost + "\n" + recUniqueId + "\n" + expCategory);
-
     showLogExpensePopup(recUniqueId, expDate, expDesc, cost, expCategory);
 }
 

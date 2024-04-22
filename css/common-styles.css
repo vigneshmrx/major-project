@@ -694,10 +694,11 @@ label {
 
 .account-details-flex-line div {
     cursor: pointer;
+    border-bottom: 2px solid var(--main-white);
 }
 
 .account-details-flex-line div:hover {
-    text-decoration: underline;
+    border-color: var(--main-black);
 }
 
 .change-name-area {

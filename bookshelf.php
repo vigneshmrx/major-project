@@ -62,7 +62,7 @@
 
             <hr class="popup-box-hr">
 
-            <form action="#">
+            <form action="#" class="add-book-form">
                 <label for="bkName">Book Name:</label> <br>
                 <input type="text" name="bkName" id="bkName" required> <br><br>
                 <label for="author">Author:</label> <br>
@@ -72,10 +72,10 @@
                 <br><br>
                 <input type="button" value="ADD" id="addBtnOne"
                     style="width: 100px; margin-left: auto; margin-right: auto; display: block;"
-                    onclick="addBooktoDB('to read');">
+                    onclick="addBooktoDB('to read', this);">
                 <input type="button" value="ADD" id="addBtnTwo"
                     style="width: 100px; margin-left: auto; margin-right: auto; display: block;"
-                    onclick="addBooktoDB('completed');">
+                    onclick="addBooktoDB('completed', this);">
             </form>
         </div>
     </div>
@@ -308,7 +308,7 @@
 
     let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
 
-    const showAddBookPopUp = (btnToShow) => {
+    const showAddBookPopUp = (btnToShow, recUniqueId, bookName, authorName, bookStatus, bookYear) => {
         popUpBgFun();
 
         let addBookPopupPage = document.getElementById("add-book-popup-pg");
@@ -320,6 +320,9 @@
         let addBtnTwo = document.getElementById("addBtnTwo");
 
         let bkYearInputField = document.getElementById("bkYear");
+        let bookNameField = document.getElementById("bkName");
+        let bookAuthorField = document.getElementById("author");
+        let addBookForm = document.getElementsByClassName("add-book-form")[0];
 
         if (btnToShow == "one") {
             addBtnTwo.style.display = "none";
@@ -330,7 +333,11 @@
                 addBtnOne.style.display = "block";
             }
 
-        } else {
+            bookAuthorField.value = '';
+            bookNameField.value = '';
+            addBookForm.id = "none";
+
+        } else if (btnToShow == "two") {
             document.getElementById("addBtnOne").style.display = "none";
 
             if (addBtnTwo.style.display == "none") {
@@ -339,6 +346,34 @@
 
             if (bkYearInputField.style.display == "none") {
                 bkYearInputField.style.display = bkYearInputField.previousElementSibling.previousElementSibling.style.display =  bkYearInputField.nextElementSibling.nextElementSibling.style.display =  bkYearInputField.nextElementSibling.style.display = "block";
+            }
+
+            bookAuthorField.value = '';
+            bookNameField.value = '';
+            bkYearInputField.value = '';
+            addBookForm.id = "none";
+            bkYearInputField.disabled = false;
+        } else if (btnToShow == '') {
+            addBookForm.id = recUniqueId;
+            bookNameField.value = bookName;
+            bookAuthorField.value = authorName;
+
+            document.getElementById("addBtnOne").style.display = "none";
+
+            if (addBtnTwo.style.display == "none") {
+                addBtnTwo.style.display = "block";
+            }
+
+            if (bkYearInputField.style.display == "none") {
+                bkYearInputField.style.display = bkYearInputField.previousElementSibling.previousElementSibling.style.display =  bkYearInputField.nextElementSibling.nextElementSibling.style.display =  bkYearInputField.nextElementSibling.style.display = "block";
+            }
+
+            bkYearInputField.value = bookYear;
+
+            if (bookStatus == "toread") {
+                bkYearInputField.disabled = true;
+            } else {
+                bkYearInputField.disabled = false;
             }
         }
     }
@@ -352,6 +387,8 @@
         modifyReadingTargetBox.style.visibility = "visible";
         modifyReadingTargetBox.style.zIndex = 150;
     }
+
+    showAddBookPopUp 
 
     </script>
     <script src="./js/calendar.js"></script>

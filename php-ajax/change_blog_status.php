@@ -48,7 +48,7 @@ try {
     }
 }
 catch (Exception $some_exc) {
-    echo "Some technical error occured. Please try again later."
+    echo "Some technical error occured. Please try again later.";
 }
 
 ?>

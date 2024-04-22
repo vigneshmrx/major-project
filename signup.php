@@ -13,6 +13,42 @@ session_start();
     <?php include './css/common-styles.css'; ?>
     <?php include './css/signup.css'; ?>
     </style>
+    <style>
+        .custom-otp-verification-page {
+            z-index: -150;
+            position: fixed;
+            visibility: hidden;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+        }
+
+        .custom-otp-verification-box {
+            width: 400px;
+            background-color: var(--main-white);
+            box-shadow: 11px 11px  var(--main-black);
+            padding: var(--common-value);
+            border: 2px solid var(--main-black);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .otp-verification-btns-area {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .otp-verification-btn-area input[type=button] {
+            width: 120px;
+        }
+
+        #alert {
+            visibility: hidden;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script defer>
         function callErr(errorNo) {
             switch (errorNo) {
@@ -32,6 +68,9 @@ session_start();
                         break;
             }
         }
+
+        let unique_io = "0";
+        let sentCount = 1;
 
         function techErr() {
             let errorMsgArea = document.getElementsByClassName("common-error")[0];
@@ -61,6 +100,13 @@ session_start();
         function pwdErr() {
             let pwdArea = document.getElementsByClassName("repeat-pwd-error")[0];
             pwdArea.innerHTML = "The two passwords do not match";
+        }
+
+        function registrationCancelled() {
+            let errorMsgArea = document.getElementsByClassName("common-error")[0];
+            errorMsgArea.innerHTML = "Registration Cancelled";
+            showOtpInputPopup(false);
+            unique_io = "0";
         }
 
         function loginSuccess(type = "") {
@@ -102,6 +148,155 @@ session_start();
                 passwordAreaOne.type = passwordAreaTwo.type = "password";
             }
         }
+
+        const showAlert = (message) => {
+            let alert = document.getElementById("alert");
+
+            let alertMessage = document.getElementById("alert-message");
+
+            alertMessage.innerHTML = message;
+
+            alert.style.zIndex = 300;
+            alert.style.display = "block";
+
+            setTimeout(() => {
+                alert.style.zIndex = -300;
+                alert.style.display = "none";
+            }, 2100);
+        }
+
+        function sendOTP() {
+            let emailToSendOtp = document.getElementById("users-email");
+
+            $.ajax({
+                type: "POST",
+                url: "./php-ajax/send-otp.php",
+                data: {
+                    email: emailToSendOtp.value
+                },
+                success: function(response) {
+                    // unique_io = response;
+                    unique_io = response;
+                    sentCount++;
+                }
+            });
+
+        }
+
+        const startResendOTPTimer = () => {
+            let resendOTPArea = document.getElementById("resendOTPArea");
+
+            let secs = 10;
+
+            const timeoutId = setInterval(() => {
+                if (secs == 0) {
+                    resendOTPArea.innerHTML = "<div style='cursor: ponter;' onclick='sendOTP();'>RESEND OTP</div>";
+                    clearInterval(timeoutId);
+                } else {
+                    resendOTPArea.innerHTML = "Resend OTP in " + secs--;
+                }
+            }, 1000);
+        }
+
+        const showResendOTPOption = () => {
+            console.log("IN HERE");
+            let resendOTPArea = document.getElementById("resendOTPArea");
+            resendOTPArea.innerHTML = "RESEND OTP";
+        }
+
+        function showOtpInputPopup(toShow) {
+            let customOtpVerificationPage = document.getElementsByClassName("custom-otp-verification-page")[0];
+            let alertBox = document.getElementById("alert");
+
+            if (toShow == true) {
+                customOtpVerificationPage.style.visibility = "visible";
+                customOtpVerificationPage.style.zIndex = 150;
+                alertBox.style.visibility = "visible";
+                showAlert("Do not refresh this page!");
+                popUpBgFun();
+
+                sendOTP();
+                startResendOTPTimer();
+            } else {
+                customOtpVerificationPage.style.visibility = "hidden";
+                customOtpVerificationPage.style.zIndex = -150;
+                document.getElementById("unique-otp-number").value = "";
+            }
+        }
+
+        const popUpBgFun = () => {
+            let popUpBgPage = document.getElementById("pop-up-menu-bg");
+
+            if (popUpBgPage.style.visibility == "visible") {
+                popUpBgPage.style.zIndex = -100;
+                popUpBgPage.style.visibility = "hidden";
+            } else {
+                popUpBgPage.style.zIndex = 100;
+                popUpBgPage.style.visibility = "visible";
+            }
+        }
+
+        const verifyOTP = () => {
+            let enteredOTP = document.getElementById("unique-otp-number");
+
+            if (enteredOTP.value == "" || enteredOTP.value.length < 6) {
+                showAlert("Invalid OTP length");
+                return;
+            }
+
+            if (enteredOTP.value != unique_io) {
+                showAlert("Invalid OTP");
+            } else {
+                showAlert("OTP Verified Successfully!");
+
+                const pwd = document.getElementById("pass_one");
+                const fname = document.getElementById("f_name");
+                const lname = document.getElementById("l_name");
+                const email = document.getElementById("users-email");
+
+                $.ajax({
+                    type: "POST",
+                    url: "./php-ajax/sign-the-user-up.php",
+                    data: {
+                        password: pwd.value,
+                        email: email.value,
+                        fname: fname.value,
+                        lname: lname.value
+                    },
+                    success: function(response) {
+                        showOtpInputPopup(false);
+                        if (response.substr(response.length - 7) == "Success") {
+                            loginSuccess();
+                            localStorage.setItem('user-type', 'reader');
+                            localStorage.setItem('logged-in', true);
+
+                            let resArr = response.split(",");
+
+                            localStorage.setItem('userName', resArr[0]);
+                            localStorage.setItem('dbName', resArr[1]);
+                            localStorage.setItem('emailID', resArr[2]);
+                            localStorage.setItem('joinDate', resArr[3]);
+
+                        } else {
+                            // techErr();
+                            alert(response);
+                        }
+
+                        popUpBgFun();
+                    }
+                });
+            }
+        }
+
+        const cancelRegistration = () => {
+            popUpBgFun();
+            document.getElementById("f_name").value = "";
+            document.getElementById("l_name").value = "";
+            document.getElementById("users-email").value = "";
+            document.getElementById("pass_one").value = "";
+            document.getElementById("pass_two").value = "";
+            registrationCancelled();
+        }
     </script>
 </head>
 
@@ -122,6 +317,29 @@ session_start();
         }
     ?>
 
+    <div id="alert">
+        <div id="alert-message"></div>
+    </div>
+
+    <div id="pop-up-menu-bg"></div>
+
+    <div class="custom-otp-verification-page">
+        <div class="custom-otp-verification-box">
+            <div class="custom-otp-verification-text">
+                Please enter the OTP sent to the email:<br><br>
+                <?php echo '<div style="text-decoration: underline;">' . $email . '</div>'; ?>
+            </div><br><br>
+            <input type="number" name="unique-otp-number" id="unique-otp-number" minlength="6" maxlength="6">
+            <br><br>
+            <div class="otp-verification-btns-area">
+                <input type="button" value="SUBMIT" onclick="verifyOTP();">
+                <input type="button" value="CANCEL" onclick="cancelRegistration();">
+            </div>
+            <div id="resendOTPArea" style="margin-top: 20px;">
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="left-area">
             <div class="greeting-area">
@@ -136,17 +354,17 @@ session_start();
                     <div class="flex-line line" style="display: flex;">
                         <div class="fname">
                             FIRST NAME: <br>
-                            <input type="text" name="f_name" value="<?php echo $fname; ?>" required>
+                            <input type="text" name="f_name" id="f_name" value="<?php echo $fname; ?>" required>
                         </div>
                         <div class="lname">
                             LAST NAME: <br>
-                            <input type="text" name="l_name" value="<?php echo $lname; ?>" required>
+                            <input type="text" name="l_name" id="l_name" value="<?php echo $lname; ?>" required>
                         </div>
                     </div>
 
                     <div class="line">
                         EMAIL: <br>
-                        <input type="email" name="email" value="<?php echo $email; ?>" required>
+                        <input type="email" name="email" id="users-email" value="<?php echo $email; ?>" required>
                     </div>
 
                     <div class="line email-error">
@@ -155,7 +373,7 @@ session_start();
 
                     <div class="line">
                         PASSWORD: <br>
-                        <input type="password" name="pass_one" minlength="5" maxlength="30" value="<?php echo $passone; ?>" required>
+                        <input type="password" name="pass_one" id="pass_one" minlength="5" maxlength="30" value="<?php echo $passone; ?>" required>
                     </div>
 
                     <div class="line pwd-error">
@@ -164,7 +382,7 @@ session_start();
 
                     <div class="line">
                         REPEAT PASSWORD: <br>
-                        <input type="password" name="pass_two" minlength="5" maxlength="30" value="<?php echo $passtwo; ?>" required>
+                        <input type="password" name="pass_two" id="pass_two" minlength="5" maxlength="30" value="<?php echo $passtwo; ?>" required>
                     </div>
 
                     <div class="line repeat-pwd-error">
@@ -228,7 +446,6 @@ session_start();
 
                 die("<script>emailMistake();</script>");
             } else {
-                echo "Failed at preg_match";
                 die("<script>emailMistake();</script>");
             }
         }
@@ -328,79 +545,21 @@ session_start();
                 die("<script>callErr(2);</script>");
             }
 
-            try {
-                mysqli_select_db($con, "prodo_db");
-            } catch (Exception $e2) {
-                echo $e2;
-                die("<script>callErr(3);</script>");
-            }
+            // try {
+            //     mysqli_select_db($con, "prodo_db");
+            // } catch (Exception $e2) {
+            //     echo $e2;
+            //     die("<script>callErr(3);</script>");
+            // }
 
-            //hashing pwd
-            $hashed_pwd = password_hash($passone, PASSWORD_DEFAULT);
+            //otp validation
+            die("<script>showOtpInputPopup(true);</script>");
 
-            $full_name = $fname . " " . $lname;
-
-            //creating db for the new user along with tables
-            $pos_of_a = strpos($email, "@");
-            $extracted_part_of_email = substr($email, 0, $pos_of_a);
-
-            date_default_timezone_set('Asia/Kolkata');
-            $db_name = $extracted_part_of_email . "_" . (int) date("i") . (int) date("H") . (int) date("d") . "_user";
-            $db_name = str_replace(".", "_", $db_name);
-
-            //creating account for the user
-            $adding_user_query = "insert into users_list (name, email, password, role, reading_goals, join_date, db_name) values('$full_name', '$email', '$hashed_pwd', 'reader', 0, current_timestamp(), '$db_name')";
-            $adding_user_success = mysqli_query($con, $adding_user_query);
-
-            $user_type = "reader";
             
-            try {
-                $create_db_query = mysqli_query($con, "create database " . $db_name);
+            
+            
 
-                //selecting the user's DB
-                mysqli_select_db($con, $db_name);
-
-                //creating bookshelf table
-                try {
-                    $create_bookshelf_table_q = mysqli_query($con, "create table bookshelf(SNo int AUTO_INCREMENT PRIMARY KEY, BookName varchar(60) not null, Author varchar(30) not null, Status varchar(10) not null, Year int(4) not null);");
-                } catch (Exception $ef) {
-                    echo $ef;
-                    die("<script>callErr(3)</script>");
-                }
-
-                //creating finance table
-                try {
-                    $create_finance_table_q = mysqli_query($con, "create table finance(SNo int AUTO_INCREMENT PRIMARY KEY, Year int(4) not null, Month varchar(15) not null, Income double not null, FiftyPercent double not null, ThirtyPercent double not null, TwentyPercent double not null, Bonus double not null);");
-                    //creating monthly_expense table
-                    try {
-                        $create_monthly_expense_tab_q = mysqli_query($con, "create table monthly_expense(SNo int AUTO_INCREMENT PRIMARY KEY, Date date not null, Month varchar(15) not null, TitleOfExpense varchar(200) not null, Cost double not null, Category char(2) not null);");
-                    } catch (Exception $monthly_expense_exc) {
-                        echo $monthly_expense_exc;
-                    }
-                } catch (Exception $finance_creation_exc) {
-                    echo $finance_creation_exc;
-                    die("<script>callErr(3)</script>");
-                }
-            } catch (Exception $ee) {
-                echo $ee;
-                die("<script>callErr(3)</script>");
-            }
-
-            if ($adding_user_success) {
-                echo "<script>localStorage.setItem('user-type', 'reader');</script>";
-                echo "<script>localStorage.setItem('logged-in', true);</script>";
-
-                $today_date = date("Y") . "-" . date("m") . "-" . date("d");
-
-                echo "<script>localStorage.setItem('userName', '$full_name');</script>";
-                echo "<script>localStorage.setItem('dbName', '$db_name');</script>";
-                echo "<script>localStorage.setItem('emailID', '$email');</script>";
-                echo "<script>localStorage.setItem('joinDate', '$today_date');</script>";
-                
-                die("<script>loginSuccess();</script>");
-            } else {
-                echo "<script>callErr(3)</script>";
-            }
+            
         }
     ?>
 </body>

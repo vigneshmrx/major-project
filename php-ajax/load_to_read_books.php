@@ -13,9 +13,11 @@ $books_to_read_q = mysqli_query($con, "select * from bookshelf where Status = 't
 
 if ($books_to_read_q->num_rows > 0) {
     while ($row = mysqli_fetch_assoc($books_to_read_q)) {
+
+        $book_status = str_replace(" ", "", $row["Status"]);
         
         echo '<div class="book-info-box">
-        <div class="book-info">
+        <div class="book-info ' . $book_status . ' ' . $row["Year"] . '">
             <div class="book-info-name">' . ucwords($row["BookName"]) . '</div>
             <div class="book-info-author">' . $row["Author"] . '</div>
         </div>

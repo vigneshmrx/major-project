@@ -7,13 +7,14 @@ require '../phpmailer/src/Exception.php';
 require '../phpmailer/src/PHPMailer.php';
 require '../phpmailer/src/SMTP.php';
 
-$to = $_POST["to_email"];
-$subject = $_POST["subject"];
-$message = $_POST["message"];
-$header = "From: Team ProDo";
+$email = $_POST["email"];
+
+function generateOTP() {
+    $otp = rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9);
+    return $otp;
+}
 
 try {
-
     $mail = new PHPMailer(true);
 
     $mail->isSMTP();
@@ -26,21 +27,25 @@ try {
 
     $mail->setFrom('vs.prodowebapp@gmail.com');
 
-    $mail->addAddress($to);
+    $otp = generateOTP();
+
+    $mail->addAddress($email);
 
     $mail->isHTML(true);
 
-    $mail->Subject = $subject;
+    $message = "Greetings from ProDo.<br><br>Your OTP for registering in ProDo is $otp.<br><br>Thank You<br>Team ProDo";
+
+    $mail->Subject = "OTP for registration";
 
     $mail->Body = $message;
 
     $mail->send();
 
-    echo "Email Sent Successfully!";
+    echo $otp;
 }
 catch (Exception $some_exc) {
-    echo "Couldn't send mail. Please try again later.";
-    // echo $some_exc;
+    echo "0";
 }
+
 
 ?>

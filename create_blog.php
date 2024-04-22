@@ -38,7 +38,7 @@
                 <label for="upload-img-btn" id="upload-img-label">
                     <img src="../major-project/icons/icons8-upload-to-cloud-96.png" alt="" width="">
                     <!-- Upload An Image -->
-                    <input type="file" name="" id="upload-img-btn" accept="image/jpeg, image/jpg, img/png" onchange="imgUploadFun(event);">
+                    <input type="file" name="" id="upload-img-btn" accept="image/*" onchange="imgUploadFun(event);">
                 </label>
             </div>
 
@@ -269,7 +269,7 @@
 
         <div id="writable-area">
             <div id="editable-heading-area">
-                <input type="text" placeholder="Your Heading Here" id="editable-heading">
+                <input type="text" placeholder="Your Heading Here" id="editable-heading" maxlength="43">
             </div>
             <div id="editable-content-area" contenteditable="true">
             </div>
@@ -301,6 +301,7 @@
 
             let imageUploadPg = document.getElementById("image-upload-pg");
 
+            makeOtherBtnVisible();
             imageUploadPg.style.zIndex = 150;
             imageUploadPg.style.visibility = "visible";
         }

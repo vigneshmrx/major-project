@@ -219,7 +219,7 @@
             padding: var(--common-value);
             border: 2px solid var(--main-black);
             font-weight: bold;
-            text-align: center
+            text-align: center;
         }
 
         .confirm-btns-area {

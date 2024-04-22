@@ -13,7 +13,7 @@
         while ($row = mysqli_fetch_assoc($books_already_read_q)) {
 
             echo '<div class="book-info-box">
-            <div class="book-info" style="width: 95%;">
+            <div class="book-info ' . $row["Status"] . ' ' . $row["Year"] . '" style="width: 95%;">
                 <div class="book-info-name">' . ucwords($row["BookName"]) . '</div>
                 <div class="book-info-author">' . $row["Author"] . '</div>
             </div>

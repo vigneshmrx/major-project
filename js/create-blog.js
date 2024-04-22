@@ -176,9 +176,9 @@ const imgUploadFun = (event) => {
 }
 
 const  makeOtherBtnVisible = () => {
-    if (uploadedImgActionArea.firstElementChild.style.visibility == "hidden") {
-        uploadedImgActionArea.firstElementChild.style.visibility = "visible";
-        uploadedImgActionArea.lastElementChild.style.visibility = "visible";
+    if (uploadedImgActionArea.firstElementChild.style.display == "none") {
+        uploadedImgActionArea.firstElementChild.style.display = "block";
+        // uploadedImgActionArea.lastElementChild.style.visibility = "visible";
     }
 }
 
@@ -412,8 +412,8 @@ const uploadBlog = (blogType) => {
         imageUploadPg.style.zIndex = 150;
         imageUploadPg.style.visibility = "visible";
 
-        uploadedImgActionArea.firstElementChild.style.visibility = "hidden";
-        uploadedImgActionArea.lastElementChild.style.visibility = "hidden";
+        uploadedImgActionArea.firstElementChild.style.display = "none";
+        // uploadedImgActionArea.lastElementChild.style.visibility = "hidden";
         return;
     }
     imageInfoArray.forEach((ele) => {

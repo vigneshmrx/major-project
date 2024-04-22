@@ -3,7 +3,7 @@ const userName = localStorage.getItem("userName");
 const emailID = localStorage.getItem("emailID");
 
 //to add book to the DB
-const addBooktoDB = (bookStatus) => {
+const addBooktoDB = (bookStatus, objRef) => {
     let bookName = document.getElementById("bkName");
     let bookAuthor = document.getElementById("author");
 
@@ -23,6 +23,17 @@ const addBooktoDB = (bookStatus) => {
         }
     }
 
+    let recordId = document.getElementsByClassName("add-book-form")[0].id;
+
+    if (recordId == "none") {
+        recordId = 0;
+    } else {
+        recordId = parseInt(recordId);
+    }
+
+    console.log("New values:\n");
+    console.log(recordId, bookName.value, bookAuthor.value);
+
     $.ajax({
         type: "POST",
         url: "../major-project/php-ajax/add_book.php",
@@ -31,14 +42,18 @@ const addBooktoDB = (bookStatus) => {
             book_author: bookAuthor.value,
             status: bookStatus,
             year: bookYear.value,
-            db_name: dbName
+            db_name: dbName,
+            record_id: recordId
         },
         success: function(response) {
-            // showAlert(response);
-            showAlert("The book: <i>" + bookName.value.toUpperCase() + "</i>, added successfully");
+            showAlert(response);
             bookName.value = "";
             bookAuthor.value = "";
             bookYear.value = "";
+
+            if (recordId != 0) {
+                removePopUp(document.getElementsByClassName("close-pop-up-icon-area")[0], [2, 3])
+            }
 
             if (bookStatus == "completed") {
                 readingGoalModifierFun();
@@ -186,12 +201,24 @@ const modifyReadingTarget = () => {
         success: function(response) {
             targetCount.value = "";
             showAlert("Yearly reading goal modified successfully!");
-            // alert(response);
+            removePopUp(document.getElementsByClassName("close-pop-up-icon-area")[1], [1]);
         }, 
         error: function(error) {
             alert(error);
         }
     });
+}
+
+const editThisBook = (objRef) => {
+    const recUniqueId = objRef.parentElement.id;
+    const bookName = objRef.parentElement.parentElement.firstElementChild.firstElementChild.innerHTML;
+    const authorName = objRef.parentElement.parentElement.firstElementChild.lastElementChild.innerHTML;
+    const bookStatus = objRef.parentElement.previousElementSibling.classList[1];
+    const bookYear = parseInt(objRef.parentElement.previousElementSibling.classList[2]);
+
+    console.log(recUniqueId, bookName, authorName, bookStatus, bookYear);
+
+    showAddBookPopUp('', recUniqueId, bookName, authorName, bookStatus, bookYear);
 }
 
 //Initial page loading function calls
