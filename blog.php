@@ -12,8 +12,6 @@ session_start();
     <style>
     <?php include './css/common-styles.css';
     ?>
-    </style>
-    <style>
     <?php include './css/page-nav.css';
     ?>
     <?php include './css/blog.css';

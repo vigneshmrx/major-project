@@ -40,6 +40,11 @@ session_start();
             pwdArea.innerHTML = "Entered password is wrong";
         }
 
+        function emailMistake() {
+            let usrnamArea = document.getElementsByClassName("email-error")[0];
+            usrnamArea.innerHTML = "Please enter a valid email address";
+        }
+
         function loginSuccess(type = "") {
             let commonMsgArea = document.getElementsByClassName("common-error")[0];
             commonMsgArea.innerHTML = "Login Successful!!";
@@ -91,7 +96,7 @@ session_start();
                         <input type="email" name="email" value = "<?php echo $email; ?>" required>
                     </div>
 
-                    <div class="line username-error">
+                    <div class="line email-error">
                         <!-- User-name-error -->
                     </div>
 
@@ -123,6 +128,43 @@ session_start();
     </div>
 
     <?php
+
+        function emailSpellingCheck($email) {
+
+            if (preg_match('/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,3}$/', $email)) {
+                $pos_of_a = strpos($email, "@");
+
+                if ($email[$pos_of_a + 1] == 'o') {
+                    $pos_of_outlook_if_exists = strripos($email, "outlook");
+
+                    if ($pos_of_outlook_if_exists != false && $pos_of_outlook_if_exists - 1 == $pos_of_a) {
+                        return true;
+                    } else {
+                        die("<script>emailMistake();</script>");
+                    }
+                } else if ($email[$pos_of_a + 1] == 'y') {
+                    $pos_of_yahoo_if_exists = strripos($email, "yahoo");
+
+                    if ($pos_of_yahoo_if_exists != false && $pos_of_yahoo_if_exists - 1 == $pos_of_a) {
+                        return true;
+                    } else {
+                        die("<script>emailMistake();</script>");
+                    }
+                } else if ($email[$pos_of_a + 1] == 'g') {
+                    $pos_of_gmail_if_exists = strripos($email, "gmail");
+
+                    if ($pos_of_gmail_if_exists != false && $pos_of_gmail_if_exists - 1 == $pos_of_a) {
+                        return true;
+                    } else {
+                        die("<script>emailMistake();</script>");
+                    }
+                }
+
+                die("<script>emailMistake();</script>");
+            } else {
+                die("<script>emailMistake();</script>");
+            }
+        }
 
         function adminFunction($admin_email, $passone) {
             include "connect.php";
@@ -167,6 +209,8 @@ session_start();
             if (str_contains($email, ".prodoad")) {
                 adminFunction($email, $passone);
             }
+
+            emailSpellingCheck($email);
 
             //selecting the database
             try {

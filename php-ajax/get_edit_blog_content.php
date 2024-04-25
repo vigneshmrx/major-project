@@ -4,6 +4,7 @@ include '../connect.php';
 
 $ff1 = $_POST["ff1"];
 $ff2 = $_POST["ff2"];
+// $requested_data = $_POST["requested_data"];
 
 try {
 
@@ -17,14 +18,15 @@ try {
 
     $row = mysqli_fetch_assoc($get_the_blog);
 
-    $content = '<div id="editable-heading-area"><input type="text" placeholder="Your Heading Here" id="editable-heading" value="' . $row["BlogTitle"] . '"></div><div id="editable-content-area" contenteditable="true">' . $row["BlogContent"] . '</div><div id="editable-category-area"><input type="text" placeholder="Your category here. Ex: anime, space..." id="editable-category" value="' . $row["Category"] . '"></div>';
+    // $content = '<div id="editable-heading-area"><input type="text" placeholder="Your Heading Here" id="editable-heading" value="' . $row["BlogTitle"] . '"></div><div id="editable-content-area" contenteditable="true">' . $row["BlogContent"] . '</div><div id="editable-category-area"><input type="text" placeholder="Your category here. Ex: anime, space..." id="editable-category" value="' . $row["Category"] . '"></div>';
+
+    $content = $row["BlogTitle"] . '(_(__--==--__))' . $row["BlogContent"] . '(_(__--==--__))' . $row["Category"] . '(_(__--==--__))' . $row["CoverImage"];
 
     echo $content;
 
 }
-catch (Exception $someException) {
-    echo "Blog could not be fetched. Please try again later!";
-}
+catch (Exception $someException) {}
+// echo "Blog could not be fetched. Please try again later!";
 
 
 ?>

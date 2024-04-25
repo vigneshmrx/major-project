@@ -109,7 +109,7 @@ const logoutFromHere = () => {
         success: function() {
             sessionStorage.clear();
             localStorage.clear();
-            location.href = "login.php";
+            location.replace("login.php");
         }
     });
 }
@@ -265,11 +265,15 @@ const settingsBoxContentToggle = (firstItemShow, secondItemShow, thirdItemShow) 
         defaultContent.style.display = "none";
         changeNameContent.style.display = "block";
         changePwdContent.style.display = "none";
+        document.getElementById("new-first-name").value = "";
+        document.getElementById("new-last-name").value = "";
     }
     else if (thirdItemShow == true) {
         defaultContent.style.display = "none";
         changeNameContent.style.display = "none";
         changePwdContent.style.display = "block";
+        document.getElementById("new-password").value = "";
+        document.getElementById("repeat-new-password").value = "";
     }
 
 }
@@ -340,6 +344,9 @@ const changePwdOfUser = () => {
     if (newPwd.value == "" || repeatNewPwd.value == "") {
         showAlert("Please enter all the required details");
         return;
+    } else if (newPwd.value.length < 5 || newPwd.value.length > 60 || repeatNewPwd.value.length < 5 || repeatNewPwd.value.length > 60) {
+        showAlert("The password should be between 5 - 30 characters.");
+        return;
     }
     else if (newPwd.value != repeatNewPwd.value) {
         showAlert("The two passwords do not match!");
@@ -374,12 +381,16 @@ const changeSettingsBoxGreeting = () => {
 
 let settingsPage = '<div class="settings-page"><div class="settings-box"><div class="settings-box-heading-area"><div class="settings-box-heading">SETTINGS</div><div class="close-pop-up-icon-area" onclick="removePopUp(this, []);"><img src="./icons/icons8-close-32.png" alt=""></div></div><hr class="popup-box-hr"><div class="settings-box-greeting"></div><div class="settings-box-dynamic-content"><div id="settings-box-default-content"><div class="user-action"><div class="heading">Account Details</div></div><div class="underline-box"></div><div class="account-details"><div class="bold-details">NAME:</div><div class="det user-name-in-settings-box"></div><div class="bold-details">EMAIL:</div><div class="det user-email-in-settings-box"></div><div class="bold-details">JOINED ON:</div><div class="det user-join-date-in-settings"></div><div class="bold-details">BLOGGER:</div><div class="det user-blogger-status-in-settings"></div><div class="account-details-flex-line"><div onclick="settingsBoxContentToggle(false, true, false);">Change Name</div><div onclick="settingsBoxContentToggle(false, false, true);">Change Password</div><div onclick="toggleDeleteAccAlert(true);">Delete Account</div></div></div></div>';
 
-settingsPage += '<div id="change-name-content"><div class="back-btn-area" onclick="settingsBoxContentToggle(true, false, false);"><abbr title="Back"><img src="./icons/back-arrow.png" alt=""></abbr></div><div class="user-action"><div class="heading">Change Name</div></div><div class="underline-box"></div><div class="change-name-area"><div class="bold-details">NEW FIRST NAME:</div><div class="det"><input type="text" name="" id="new-first-name"></div><div class="bold-details">NEW LAST NAME:</div><div class="det"><input type="text" name="" id="new-last-name"></div><div class="user-action-btn-area"><input type="button" value="SUBMIT" onclick="changeNameOfUser();"><input type="button" value="CANCEL" onclick="settingsBoxContentToggle(true, false, false);"></div></div></div><div id="change-pwd-content"><div class="back-btn-area" onclick="settingsBoxContentToggle(true, false, false);"><abbr title="Back"><img src="./icons/back-arrow.png" alt=""></abbr></div><div class="user-action"><div class="heading">Change Password</div></div><div class="underline-box"></div><div class="change-name-area"><div class="bold-details">NEW PASSWORD:</div><div class="det"><input type="password" name="" id="new-password"></div><div class="bold-details">REPEAT NEW PASSWORD:</div><div class="det">' + '<input type="password" name="" id="repeat-new-password"></div><div class="user-action-btn-area"><input type="button" value="SUBMIT" onclick="changePwdOfUser();"><input type="button" value="CANCEL" onclick="settingsBoxContentToggle(true, false, false);"></div></div></div></div></div></div>';
+settingsPage += '<div id="change-name-content"><div class="back-btn-area" onclick="settingsBoxContentToggle(true, false, false);"><abbr title="Back"><img src="./icons/back-arrow.png" alt=""></abbr></div><div class="user-action"><div class="heading">Change Name</div></div><div class="underline-box"></div><div class="change-name-area"><div class="bold-details">NEW FIRST NAME:</div><div class="det"><input type="text" name="" id="new-first-name"></div><div class="bold-details">NEW LAST NAME:</div><div class="det"><input type="text" name="" id="new-last-name"></div><div class="user-action-btn-area"><input type="button" value="SUBMIT" onclick="changeNameOfUser();"><input type="button" value="CANCEL" onclick="settingsBoxContentToggle(true, false, false);"></div></div></div><div id="change-pwd-content"><div class="back-btn-area" onclick="settingsBoxContentToggle(true, false, false);"><abbr title="Back"><img src="./icons/back-arrow.png" alt=""></abbr></div><div class="user-action"><div class="heading">Change Password</div></div><div class="underline-box"></div><div class="change-name-area"><div class="bold-details">NEW PASSWORD:</div><div class="det"><input type="password" name="" id="new-password" minlength="5" maxlength="30"></div><div class="bold-details">REPEAT NEW PASSWORD:</div><div class="det">' + '<input type="password" name="" id="repeat-new-password" minlength="5" maxlength="30"></div><div class="user-action-btn-area"><input type="button" value="SUBMIT" onclick="changePwdOfUser();"><input type="button" value="CANCEL" onclick="settingsBoxContentToggle(true, false, false);"></div></div></div></div></div></div>';
 
 let confirmAccDeleteAlert = '<div class="confirm-delete-acc-page"><div class="confirm-delete-acc-box"><div class="confirm-delete-acc-text">Are you sure you want to delete this account? This action cannot be reversed!</div> <br><br><div class="confirm-delete-acc-action-area" style="display: flex; justify-content: center; align-items: center; gap: 20px;"><input type="button" value="YES" style="width: 100px;" onclick="deleteThisAcc();"><input type="button" value="NO" style="width: 100px;" onclick="toggleDeleteAccAlert(false);"></div></div></div>';
 
+
 document.body.innerHTML += settingsPage;
 document.body.innerHTML += confirmAccDeleteAlert;
+document.body.innerHTML += '<div class="dot-spinner"><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div></div>';
+
+let loader = document.getElementsByClassName("dot-spinner")[0];
 
 const toggleDeleteAccAlert = (toShow, showBg) => {
     let deleteAccConfirmPage = document.getElementsByClassName("confirm-delete-acc-page")[0];   
@@ -400,8 +411,14 @@ const toggleDeleteAccAlert = (toShow, showBg) => {
 }
 
 const deleteThisAcc = () => {
-
+    let loader = document.getElementsByClassName("dot-spinner")[0];
     let deleteUserEmail = localStorage.getItem("emailID");
+    // popUpBgFun();
+    secondaryMenuFun(false);
+    toggleDeleteAccAlert(false, false);
+    showSettings(false, false);
+    loader.style.visibility = "visible";
+    loader.style.zIndex = 160;
 
     $.ajax({
         type: "POST",
@@ -411,6 +428,9 @@ const deleteThisAcc = () => {
         },
         success: function(response) {
             if (response == "Account deleted successfully") {
+                popUpBgFun();
+                loader.style.visibility = "hidden";
+                loader.style.zIndex = -150;
                 showAlert(response);
                 setTimeout(() => {
                     logoutFromHere();
@@ -419,3 +439,4 @@ const deleteThisAcc = () => {
         }
     });
 }
+

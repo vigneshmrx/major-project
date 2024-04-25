@@ -35,7 +35,9 @@ try {
     
                     $upload_date = substr($upload_date, 8, 2) . " " . $months_array[((int) substr($upload_date, 5, 2)) - 1] . ", '" . substr($upload_date, 2, 2); 
     
-                    $content = $content . '<div class="blog-box ' . $row["SNo"] . '" id="' . $row_two["SNo"] . '"><div class="on-hover-extras"><div class="like-and-views"><div><img src="./icons/icons8-like-icon.png" alt=""><span class="money">' . $row_two["Likes"] . '</span></div><div><img src="./icons/icons8-eye-48.png" alt=""><span class="money">' . $row_two["Views"] . '</span></div></div></div>' . '<div class="blog-img" style="background: url(' . $row_two["CoverImage"] . '); background-size: cover; background-position: center;" onclick="showSelectedBlog(this);"></div><div class="blog-title">' . $row_two["BlogTitle"] . '</div><div class="blog-secondary-info"><span class="category">' . $row_two["Category"] . '</span></div><div class="blog-by-line">' . $row["Username"] . ' | ' . $upload_date . '</div></div>';
+                    // $username = ucwords($ro)
+
+                    $content = $content . '<div class="blog-box ' . $row["SNo"] . '" id="' . $row_two["SNo"] . '"><div class="on-hover-extras"><div class="like-and-views"><div><img src="./icons/icons8-like-icon.png" alt=""><span class="money">' . $row_two["Likes"] . '</span></div><div><img src="./icons/icons8-eye-48.png" alt=""><span class="money">' . $row_two["Views"] . '</span></div></div></div>' . '<div class="blog-img" style="background: url(' . $row_two["CoverImage"] . '); background-size: cover; background-position: center;" onclick="showSelectedBlog(this);"></div><div class="blog-title">' . $row_two["BlogTitle"] . '</div><div class="blog-secondary-info"><span class="category">' . $row_two["Category"] . '</span></div><div class="blog-by-line">' . ucwords($row["Username"]) . ' | ' . $upload_date . '</div></div>';
             } else {
                 continue;
             }

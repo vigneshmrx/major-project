@@ -4,38 +4,19 @@ const userEmail = localStorage.getItem("emailID");
 
 //undo and redo code begins here
 const editableDiv = document.getElementById('editable-content-area');
-const undoStack = [];
-let currentStateIndex = -1;
+const history = [];
+let historyIndex = -1;
 let imageInfoArray = [];
 let coverImgPath = null;
 let uploadedImgActionArea = document.getElementById("uploaded-image-action-area");
-let ci = "";
+// let ci = "";
 
-function saveState() {
-    const content = editableDiv.innerHTML;
-    if (currentStateIndex < undoStack.length - 1) {
-    // Clear redo stack if changes were made after undo
-        undoStack.splice(currentStateIndex + 1);
-    }
-    undoStack.push(content);
-    currentStateIndex = undoStack.length - 1;
-}
+// const config = { attributes: true, childList: true, subtree: true };
+// observer.observe(editableDiv, config);
 
-function undo() {
-    if (currentStateIndex > 0) {
-        currentStateIndex--;
-        editableDiv.innerHTML = undoStack[currentStateIndex];
-    }
-}
-
-function redo() {
-    if (currentStateIndex < undoStack.length - 1) {
-        currentStateIndex++;
-        editableDiv.innerHTML = undoStack[currentStateIndex];
-    }
-}
-
-editableDiv.addEventListener('beforeinput', saveState);
+// editableDiv.addEventListener('mouseup', saveState);
+// editableDiv.addEventListener('paste', saveState);
+// editableDiv.addEventListener('keydown', saveState);
 //redo and undo code ends here
 
 //controlling bold, italic, underline & strikethrough
@@ -102,58 +83,7 @@ function increaseFontSize(newFontSize) {
 
 fontChange.addEventListener("change", (e) => {
     increaseFontSize(e.target.value);
-})
-
-let foreColor = backColor = false;
-let colorPalletPg = document.getElementById("color-pallet-pg");
-
-const showColorPanel = (colorType) => {
-    popUpBgFun();
-
-    colorPalletPg.style.zIndex = 150;
-    colorPalletPg.style.visibility = "visible";
-
-    if (colorType == "forecolor") {
-        foreColor = !foreColor;
-    } else {
-        backColor = !backColor;
-    }
-}
-
-const setThisColor = (objRef) => {
-    let color = objRef.id;
-
-    let selection = window.getSelection();
-
-    // if (!selection.rangeCount) return;
-
-    if (selection.rangeCount > 0) {
-        let range = selection.getRangeAt(0);
-
-        let span = document.createElement("span");
-
-        if (foreColor) {
-            // document.execCommand("foreColor", false, color);
-            span.style.color = color;
-            foreColor = !foreColor;
-        } else {
-            // document.execCommand("backColor", false, "#783f04");
-            span.style.background = color;
-            backColor = !backColor;
-        }
-
-        //some error here. Rectify it. 
-
-        let selectedContent = range.extractContents().textContent.toString();
-   
-        span.innerText = selectedContent;
-
-        range.insertNode(span);
-        selection.collapseToEnd();
-    }
-
-    editableDiv.focus();
-}
+});
 
 //for uploading image
 const imgUploadFun = (event) => {
@@ -452,3 +382,12 @@ const uploadBlog = (blogType) => {
     })
 
 }
+
+let undoAndRedo = Array.from(document.getElementsByClassName("undo-and-redo"));
+
+undoAndRedo.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        document.execCommand(btn.id, false, btn.null);
+        // btn.value = "#000000";
+    });
+});

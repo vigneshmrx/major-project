@@ -41,6 +41,8 @@ try {
 
     $mail->send();
 
+    $otp = password_hash($otp, PASSWORD_DEFAULT);
+
     echo $otp;
 }
 catch (Exception $some_exc) {

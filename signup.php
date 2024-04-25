@@ -70,7 +70,7 @@ session_start();
         }
 
         let unique_io = "0";
-        let sentCount = 1;
+        let sentCount = 0;
 
         function techErr() {
             let errorMsgArea = document.getElementsByClassName("common-error")[0];
@@ -165,7 +165,7 @@ session_start();
             }, 2100);
         }
 
-        function sendOTP() {
+        function sendOTP(toShowOTPMessage) {
             let emailToSendOtp = document.getElementById("users-email");
 
             $.ajax({
@@ -178,30 +178,65 @@ session_start();
                     // unique_io = response;
                     unique_io = response;
                     sentCount++;
+                    if (sentCount == 2) {
+                        startResendOTPTimer(180);
+                    } else if (sentCount > 2) {
+                        showResendEmailOption();
+                    }
                 }
             });
 
+            if (toShowOTPMessage != undefined && toShowOTPMessage == true) {
+                showAlert("OTP sent successfully!");
+            }
+
+        }
+        
+        const showResendEmailOption = () => {
+            if (sentCount == 1) {
+                resendOTPArea.innerHTML = "<div style='cursor: pointer; text-decoration: underline;' onclick='sendOTP(true);'>RESEND OTP</div>";
+                // clearInterval(intervalId);
+            }
+            else if (sentCount == 2) {
+                resendOTPArea.innerHTML = "<div style='cursor: pointer; text-decoration: underline;' onclick='sendOTP(true);'>RESEND OTP</div>";
+                // clearInterval(intervalId);
+            } 
+            else if (sentCount > 2) {
+                resendOTPArea.innerHTML = "";
+                // clearInterval(timeoutId);
+            }
         }
 
-        const startResendOTPTimer = () => {
+        const startResendOTPTimer = (duration) => {
             let resendOTPArea = document.getElementById("resendOTPArea");
 
-            let secs = 10;
+            let secs = duration;
 
-            const timeoutId = setInterval(() => {
+            const intervalId = setInterval(() => {
                 if (secs == 0) {
-                    resendOTPArea.innerHTML = "<div style='cursor: ponter;' onclick='sendOTP();'>RESEND OTP</div>";
-                    clearInterval(timeoutId);
+                    clearInterval(intervalId);
+                    showResendEmailOption();
                 } else {
-                    resendOTPArea.innerHTML = "Resend OTP in " + secs--;
+                    resendOTPArea.innerHTML = "Resend OTP in " + secs;
+                    secs--;
                 }
             }, 1000);
+
         }
 
-        const showResendOTPOption = () => {
-            console.log("IN HERE");
-            let resendOTPArea = document.getElementById("resendOTPArea");
-            resendOTPArea.innerHTML = "RESEND OTP";
+        let expiryIntervalId;
+
+        const startOTPExpiryCountDown = () => {
+            console.log("Expiry timer started");
+            expiryIntervalId = setTimeout(() => {
+                showAlert("Session Timeout Reached");
+                cancelRegistration();
+            }, 300000);
+        }
+
+        const cancelOTPExpiryCountDown = () => {
+            clearTimeout(expiryIntervalId);
+            console.log("Timeout cancelled");
         }
 
         function showOtpInputPopup(toShow) {
@@ -213,15 +248,18 @@ session_start();
                 customOtpVerificationPage.style.zIndex = 150;
                 alertBox.style.visibility = "visible";
                 showAlert("Do not refresh this page!");
-                popUpBgFun();
+                // popUpBgFun();
 
                 sendOTP();
-                startResendOTPTimer();
+                startResendOTPTimer(60);
+                startOTPExpiryCountDown();
             } else {
                 customOtpVerificationPage.style.visibility = "hidden";
                 customOtpVerificationPage.style.zIndex = -150;
                 document.getElementById("unique-otp-number").value = "";
+                unique_io = "";
             }
+            popUpBgFun();
         }
 
         const popUpBgFun = () => {
@@ -236,65 +274,93 @@ session_start();
             }
         }
 
+        let verificationRes = "";
+
         const verifyOTP = () => {
             let enteredOTP = document.getElementById("unique-otp-number");
+            let loader = document.getElementsByClassName("dot-spinner")[0];
 
             if (enteredOTP.value == "" || enteredOTP.value.length < 6) {
                 showAlert("Invalid OTP length");
                 return;
             }
 
-            if (enteredOTP.value != unique_io) {
-                showAlert("Invalid OTP");
-            } else {
-                showAlert("OTP Verified Successfully!");
+            
+            //ajax to verify otp
+            $.ajax({
+                type: "POST",
+                url: "./php-ajax/verify_otp.php",
+                data: {
+                    value: unique_io,
+                    user_entered_otp: enteredOTP.value
+                },
+                success: function(response) {
+                    verificationRes = response;
 
-                const pwd = document.getElementById("pass_one");
-                const fname = document.getElementById("f_name");
-                const lname = document.getElementById("l_name");
-                const email = document.getElementById("users-email");
-
-                $.ajax({
-                    type: "POST",
-                    url: "./php-ajax/sign-the-user-up.php",
-                    data: {
-                        password: pwd.value,
-                        email: email.value,
-                        fname: fname.value,
-                        lname: lname.value
-                    },
-                    success: function(response) {
+                    if (response == "1") {
+                        showAlert("OTP Verified Successfully!");
                         showOtpInputPopup(false);
-                        if (response.substr(response.length - 7) == "Success") {
-                            loginSuccess();
-                            localStorage.setItem('user-type', 'reader');
-                            localStorage.setItem('logged-in', true);
-
-                            let resArr = response.split(",");
-
-                            localStorage.setItem('userName', resArr[0]);
-                            localStorage.setItem('dbName', resArr[1]);
-                            localStorage.setItem('emailID', resArr[2]);
-                            localStorage.setItem('joinDate', resArr[3]);
-
-                        } else {
-                            // techErr();
-                            alert(response);
-                        }
+                        cancelOTPExpiryCountDown();
 
                         popUpBgFun();
+                        loader.style.visibility = "visible";
+                        loader.style.zIndex = 160;
+
+                        const pwd = document.getElementById("pass_one");
+                        const fname = document.getElementById("f_name");
+                        const lname = document.getElementById("l_name");
+                        const email = document.getElementById("users-email");
+
+                        $.ajax({
+                            type: "POST",
+                            url: "./php-ajax/sign-the-user-up.php",
+                            data: {
+                                password: pwd.value,
+                                email: email.value,
+                                fname: fname.value,
+                                lname: lname.value
+                            },
+                            success: function(response) {
+                                if (response.substr(response.length - 7) == "Success") {
+                                    loginSuccess();
+                                    popUpBgFun();
+                                    loader.style.visibility = "hidden";
+                                    loader.style.zIndex = -150;
+                                    localStorage.setItem('user-type', 'reader');
+                                    localStorage.setItem('logged-in', true);
+
+                                    email.value = "";
+                                    pwd.value = "";
+                                    fname.value = "";
+                                    lname.value = "";
+                                    document.getElementById("pass_two").value = "";
+
+                                    let resArr = response.split(",");
+
+                                    localStorage.setItem('userName', resArr[0]);
+                                    localStorage.setItem('dbName', resArr[1]);
+                                    localStorage.setItem('emailID', resArr[2]);
+                                    localStorage.setItem('joinDate', resArr[3]);
+
+                                } else {
+                                    techErr();
+                                }
+                            }
+                        });
+                    } else {
+                        showAlert("Invalid OTP");   
                     }
-                });
-            }
+                }
+            });
         }
 
         const cancelRegistration = () => {
-            popUpBgFun();
             document.getElementById("f_name").value = "";
             document.getElementById("l_name").value = "";
             document.getElementById("users-email").value = "";
             document.getElementById("pass_one").value = "";
             document.getElementById("pass_two").value = "";
+            cancelOTPExpiryCountDown();
             registrationCancelled();
         }
     </script>
@@ -317,6 +383,17 @@ session_start();
         }
     ?>
 
+    <div class="dot-spinner">
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+    </div>
+
     <div id="alert">
         <div id="alert-message"></div>
     </div>
@@ -329,7 +406,7 @@ session_start();
                 Please enter the OTP sent to the email:<br><br>
                 <?php echo '<div style="text-decoration: underline;">' . $email . '</div>'; ?>
             </div><br><br>
-            <input type="number" name="unique-otp-number" id="unique-otp-number" minlength="6" maxlength="6">
+            <input type="text" name="unique-otp-number" id="unique-otp-number" pattern="[0-9]{1,6}">
             <br><br>
             <div class="otp-verification-btns-area">
                 <input type="button" value="SUBMIT" onclick="verifyOTP();">
@@ -545,21 +622,8 @@ session_start();
                 die("<script>callErr(2);</script>");
             }
 
-            // try {
-            //     mysqli_select_db($con, "prodo_db");
-            // } catch (Exception $e2) {
-            //     echo $e2;
-            //     die("<script>callErr(3);</script>");
-            // }
-
             //otp validation
             die("<script>showOtpInputPopup(true);</script>");
-
-            
-            
-            
-
-            
         }
     ?>
 </body>

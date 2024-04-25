@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4.6.4/dist/index.min.js"></script> -->
     <script>
         if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
             location.href = "login.php";
@@ -161,12 +162,12 @@
     <div id="write-blog-area-with-options">
         <div id="all-the-options-for-user">
             <div id="text-formatting-options-area">
-                <div onclick="undo();">
+                <div onclick="" class="undo-and-redo" id="undo">
                     <abbr title="Undo (Ctrl + Z)">
                         <img src="./icons/icons8-undo-48_grey.png" alt="">
                     </abbr>
                 </div>
-                <div onclick="redo();">
+                <div onclick="" class="undo-and-redo" id="redo">
                     <abbr title="Redo (Ctrl + Y)">
                         <img src="./icons/icons8-redo-48-grey.png" alt="">
                     </abbr>
@@ -212,14 +213,6 @@
                         <img src="./icons/icons8-strikethrough-50-grey.png" alt="">
                     </abbr>
                 </div>
-                <div id="fore-color-div" onclick="showColorPanel('forecolor');">
-                    <abbr title="Text Color">
-                        <img src="./icons/icons8-text-color-grey.png" alt="">
-                    </abbr>
-                </div>
-                <div onclick="showColorPanel('backcolor');">
-                    <img src="./icons/icons8-text-bg-color-60-grey.png" alt="">
-                </div>
 
                 <div class="seperator">
                     <img src="./icons/icons8-seperator-48-grey.png" alt="">
@@ -228,7 +221,7 @@
                 <div onclick="showImageUploadBox();">
                     <img src="./icons/icons8-image-48-grey.png" alt="">
                 </div>
-                <div>
+                <div id="emoji-btn">
                     <abbr title="Emoji (Win + .)">
                         <img src="./icons/icons8-smiley-48-grey.png" alt="">
                     </abbr>
@@ -274,14 +267,16 @@
             <div id="editable-content-area" contenteditable="true">
             </div>
             <div id="editable-category-area">
-                <input type="text" placeholder="Your category here. Ex: anime, space..." id="editable-category">
+                <input type="text" placeholder="Your category here. Ex: anime, space..." id="editable-category" maxlength="50">
             </div>
         </div>
     </div>
     <script src="./js/common-script.js"></script>
     <script src="./js/create-blog.js"></script>
     <script>
-        document.getElementsByClassName("greeting")[0].innerHTML = "Hello, " + localStorage.getItem("userName").split(" ")[0];
+        let name = localStorage.getItem("userName").split(" ")[0];
+        name = name.charAt(0).toUpperCase() + name.substring(1);
+        document.getElementsByClassName("greeting")[0].innerHTML = "Hello, " + name;
 
         let individualColorBoxes = Array.from(document.getElementsByClassName("individual-color-box"));
 
@@ -321,29 +316,57 @@
         }
 
         const inputUpdateBlogContent = () => {
-            let writableArea = document.getElementById("writable-area");
+            let editableHeading = document.getElementById("editable-heading");
+            let editableContent = document.getElementById("editable-content-area");
+            let editableCategory = document.getElementById("editable-category");
 
-            $.ajax({
-                type: "POST",
-                url: "../major-project/php-ajax/get_edit_blog_content.php",
-                data: {
-                    ff1: ff1,
-                    ff2: ff2
-                },
-                success: function(response) {
-                    // alert(response);
-                    writableArea.innerHTML = response;
-                },
-                error: function(response) {
-                    alert(response);
-                }
-            })
+                $.ajax({
+                    type: "POST",
+                    url: "../major-project/php-ajax/get_edit_blog_content.php",
+                    data: {
+                        ff1: ff1,
+                        ff2: ff2,
+                    },
+                    success: function(response) {
+                        
+                        let respArr = response.split('(_(__--==--__))');
+                        console.log(respArr);
+                        editableHeading.value = respArr[0];
+                        editableCategory.value = respArr[2];
+                        editableContent.innerHTML = respArr[1];
+                        coverImgPath = respArr[3];
+                    },
+                    error: function(response) {
+                        alert(response);
+                    }
+                })
         }
 
         if (ff1 != "" && ff2 != "") {
             inputUpdateBlogContent();
         }
 
+        // const picker = new EmojiButton();
+        // const trigger = document.querySelector('#emoji-btn');
+        // picker.on('emoji', selection => {
+        //     // handle the selected emoji here
+        //     console.log(selection.emoji);
+        // });
+        // trigger.addEventListener('click', () => picker.togglePicker(trigger));
+
     </script>
+    <!-- <script src="./js/Emoji.js"></script> -->
+    <!-- <script src="./js/emoji-picker.js" type="module"></script> -->
+    <!-- <script>
+        new EmojiPicker({
+            trigger: [
+                {
+                    selector: '#emoji-btn',
+                    insertInto: "#editable-content-area"
+                }
+            ],
+            closeButton: true,
+        });
+    </script> -->
 </body>
 </html>

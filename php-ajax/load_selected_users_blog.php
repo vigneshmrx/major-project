@@ -19,7 +19,7 @@ try {
         $row = mysqli_fetch_assoc($get_db_name_q);
 
         $db_name = $row["UserDbName"];
-        $user_name = $row["Username"];
+        $user_name = ucwords($row["Username"]);
 
         $get_unique_user_id_q = mysqli_query($con, "select SNo from prodo_db.users_list where db_name = '$liked_db_name';");
 

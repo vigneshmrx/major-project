@@ -32,7 +32,12 @@ const addNewIncomeToDb = () => {
 
     if (income.value == null || income.value == undefined || income.value == "") {
         showAlert("Please enter all the details");
-    } else {
+    } else if (income.value > 50000000) {
+        showAlert("Income should be less than 50 million");
+    } else if (bonus.value > 50000000) {
+        showAlert("Bonus should be less than 50 million");
+    }
+    else {
         if (bonus.value == null || bonus.value == undefined || bonus.value == "") {
             bonus = 0;
         } else {
@@ -54,6 +59,7 @@ const addNewIncomeToDb = () => {
                 income.value = "";
                 selectedMonth.value = months[new Date().getMonth()];
                 document.getElementById("bonus").value = "";
+                removePopUp(document.getElementsByClassName("close-pop-up-icon-area")[1], [5]);
                 loadMonthlyIncomeDisplayArea();
             },
             error: function(response) {
@@ -128,14 +134,20 @@ const loadLoggedExpense = () => {
     // let monthsArray = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
     let currentMonth = new Date().getMonth();
+    let getPresentYear = new Date().getFullYear();
 
     let expTrackHeaderContent = `<div>LOG EXPENSES</div><div><select id='expense-months' onchange='monthChangeFun(event);'>`;
 
     if (sessionStorage.getItem("selected-exp-month") == null || sessionStorage.getItem("selected-exp-month") == undefined) {
         sessionStorage.setItem("selected-exp-month", monthsArray[currentMonth]);
     }
+    if (sessionStorage.getItem("selected-exp-month-year") == null || sessionStorage.getItem("selected-exp-month-year") == undefined) {
+        sessionStorage.setItem("selected-exp-month-year", getPresentYear);
+    }
 
     let selectedExpMonth = sessionStorage.getItem("selected-exp-month");
+    let selectedExpMonthYear = sessionStorage.getItem("selected-exp-month-year");
+
 
     for (element in monthsArray) {
         if (monthsArray[element] == selectedExpMonth) {
@@ -144,13 +156,29 @@ const loadLoggedExpense = () => {
             expTrackHeaderContent += `<option value='${monthsArray[element]}'>${monthsArray[element]}</option>'`;
         }
 
-        if (monthsArray[currentMonth] == monthsArray[element]) {
+        if (monthsArray[currentMonth] == monthsArray[element] && selectedExpMonthYear != getPresentYear - 1) {
             break;
         }
     };
 
+    expTrackHeaderContent += `</select> - <select id="expense-months-year" onchange="monthYearChangeFun(event);">`;
+
+    let yearsArray = [getPresentYear - 1, getPresentYear];
+
+    yearsArray.forEach((year) => {
+
+        if (year == selectedExpMonthYear) {
+            expTrackHeaderContent += `<option value=${year} selected>${year}</option>`;
+        } else {
+            expTrackHeaderContent += `<option value=${year}>${year}</option>`;
+        }
+    });
+
+    expTrackHeaderContent += `</select></div>`;
+
     //final closing select tag for months
-    expTrackHeaderContent += `</select> - ` + new Date().getFullYear() + `</div>`;
+    
+    // expTrackHeaderContent += `<option value=${getPresentYear}>${getPresentYear}</option></select>` + `</div>`;
 
     selectedExpMonthBar.innerHTML = expTrackHeaderContent; //to fill exp-track-header
 
@@ -159,7 +187,8 @@ const loadLoggedExpense = () => {
         url: "../major-project/php-ajax/load_exp_info.php",
         data: {
             db_name: dbName,
-            selected_exp_month: selectedExpMonth
+            selected_exp_month: selectedExpMonth,
+            selected_exp_month_year: selectedExpMonthYear
         },
         success: function(response) {
             expInfoDisplayArea.innerHTML = response;
@@ -174,6 +203,11 @@ loadLoggedExpense();
 
 const monthChangeFun = (event) => {
     sessionStorage.setItem("selected-exp-month", event.target.value);
+    loadLoggedExpense();
+}
+
+const monthYearChangeFun = (event) => {
+    sessionStorage.setItem("selected-exp-month-year", event.target.value);
     loadLoggedExpense();
 }
 

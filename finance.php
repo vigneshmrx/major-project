@@ -21,15 +21,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-
         .individual-element-btn-area {
             height: 100%;
         }
     </style>
     <script>
-        if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
-            location.replace("login.php");
+        const loggedInFun = () => {
+            if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
+                location.replace("login.php");
+            }
         }
+        loggedInFun();
     </script>
 </head>
 
@@ -433,7 +435,9 @@
         displayQuote(quotesObj, "financePage");
 
         //show heading
-        document.getElementById("main-heading").innerHTML = localStorage.getItem("userName").split(" ")[0] + "'s Finance Manager";
+        let name = localStorage.getItem("userName").split(" ")[0];
+        name = name.charAt(0).toUpperCase() + name.substring(1);
+        document.getElementById("main-heading").innerHTML = name + "'s Finance Manager";
         
 
         const showModifyIncomeBox = () => {
@@ -444,6 +448,12 @@
 
             modifyIncomePopupPage.style.visibility = "visible";
             modifyIncomePopupPage.style.zIndex = 150;
+
+            document.getElementById("monthIncome").value = "";
+            document.getElementById("bonus").value = "";
+            const presentDate = new Date();
+            const presentMonth = presentDate.toLocaleString('default', {month: "long"});
+            document.getElementById("selectedMonth").value = presentMonth;
         }
 
         const showLogExpensePopup = (recUniqueId, expDate, expDesc, cost, expCategory) => {

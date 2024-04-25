@@ -25,8 +25,11 @@ try {
 
     $row = mysqli_fetch_assoc($get_q);
 
-    echo $row["NoOfRows"];
-
+    if ($row["NoOfRows"] == NULL) {
+        echo "0";
+    } else {
+        echo $row["NoOfRows"];
+    }
 }
 catch (Exception $some_exc) {
     echo "0";

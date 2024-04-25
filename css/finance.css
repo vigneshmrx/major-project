@@ -147,7 +147,8 @@
     /* height: calc(5vh - 15px); */
 }
 
-#expense-months {
+#expense-months,
+#expense-months-year {
     font-weight: bold;
     font-family: "Roboto Mono";
     border: none;

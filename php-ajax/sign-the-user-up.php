@@ -2,6 +2,13 @@
 
 include '../connect.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../phpmailer/src/Exception.php';
+require '../phpmailer/src/PHPMailer.php';
+require '../phpmailer/src/SMTP.php';
+
 $passone = $_POST["password"];
 $email = $_POST["email"];
 $fname = $_POST["fname"];
@@ -60,19 +67,40 @@ try {
 }
 
 if ($adding_user_success) {
-    // echo "<script>localStorage.setItem('user-type', 'reader');</script>";
-    // echo "<script>localStorage.setItem('logged-in', true);</script>";
 
     $today_date = date("Y") . "-" . date("m") . "-" . date("d");
 
-    // echo "<script>localStorage.setItem('userName', '$full_name');</script>";
-    // echo "<script>localStorage.setItem('dbName', '$db_name');</script>";
-    // echo "<script>localStorage.setItem('emailID', '$email');</script>";
-    // echo "<script>localStorage.setItem('joinDate', '$today_date');</script>";
-
     echo $full_name . "," . $db_name . "," . $email . "," . $today_date. ",";
     
-    die("Success");
+    echo("Success");
+
+    try {
+        $mail = new PHPMailer(true);
+
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'vs.prodowebapp@gmail.com';
+        $mail->Password = 'rwtydtnzgcxrfosu';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+
+        $mail->setFrom('vs.prodowebapp@gmail.com');
+
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+
+        $full_name = ucwords($full_name);
+
+        $message = "Greetings $full_name, <br><br>&nbsp;&nbsp;&nbsp;&nbsp;Your registration has been successful! Welcome to ProDo! Your Personal Productivity System. Enjoy managing your finance, bookshelf and share your ideas in the form of blogs all in one place.<br><br>Thank You<br>Team ProDo!";
+    
+        $mail->Subject = "Registration Successful";
+
+        $mail->Body = $message;
+
+        $mail->send();
+    } catch (Exception $some_exc) {}
 } else {
     echo "Error";
 }

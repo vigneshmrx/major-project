@@ -1,5 +1,7 @@
+// let loader = document.getElementsByClassName("dot-spinner")[0];
+
 const changeSearchBarVisibility = () => {
-    if (currentlySelectedOptionId == "4") {
+    if (currentlySelectedOptionId == "4" || currentlySelectedOptionId == "5") {
     searchBarDiv.style.display = "none";
     } else {
         searchBarDiv.style.display = "inline-block";
@@ -187,7 +189,9 @@ const sendEmail = () => {
     if (toEmail.value.includes("@")) {
         if (toEmail.value.includes(".in") || toEmail.value.includes(".com")) {
             
-            showAlert("Please wait");
+            popUpBgFun();
+            loader.style.zIndex = 160;
+            loader.style.visibility = "visible";
 
             $.ajax({
                 type: "POST",
@@ -200,12 +204,15 @@ const sendEmail = () => {
                 success: function(response) {
                     // alert(response);
                     if (response == "Email Sent Successfully!") {
+                        popUpBgFun();
+                        loader.style.zIndex = -150;
+                        loader.style.visibility = "hidden";
                         showAlert(response);
                         toEmail.value = "";
                         subject.value = "";
                         message.value = "";
                     } else {
-                        alert(response);
+                        showAlert("Email counldn't be sent. Please check the email address and try again.");
                     }
                 },
                 error: function(response) {
@@ -228,7 +235,9 @@ const modifyWriterRequest = (objRef, theNo) => {
     let requestId = objRef.parentElement.parentElement.classList[1];
     let userEmail = objRef.parentElement.parentElement.childNodes[2].innerHTML;
 
-    showAlert("Please wait");
+    popUpBgFun();
+    loader.style.visibility = "visible";
+    loader.style.zIndex = 160;
 
     $.ajax({
         type: "POST",
@@ -239,6 +248,9 @@ const modifyWriterRequest = (objRef, theNo) => {
             action_no: theNo
         },
         success: function(response) {
+            popUpBgFun();
+            loader.style.visibility = "hidden";
+            loader.style.zIndex = -150;
             showAlert(response);
             showSelectedOptionData("writer-requests");
         }
@@ -313,7 +325,9 @@ const getReasonDeleteBlog = () => {
 
     toggleEnterBlogReasonAlert(false, true);
 
-    showAlert("Please wait!");
+    popUpBgFun();
+    loader.style.visibility = "visible";
+    loader.style.zIndex = 160;
 
     $.ajax({
         type: "POST",
@@ -323,8 +337,11 @@ const getReasonDeleteBlog = () => {
             deletion_message: theReason
         },
         success: function(response) {
+            popUpBgFun();
+            loader.style.visibility = "hidden";
+            loader.style.zIndex = -150;
             showAlert(response);
-            showSelectedOptionData("reports");  
+            showSelectedOptionData("reports");
         }
     });
 }
@@ -401,8 +418,9 @@ const addNewAdmin = () => {
                     action: "add"
                 },
                 success: function(response) {
-                    alert(response);
+                    showAlert(response);
                     adminEmail.value = "";
+                    addAdminPopUpToggle(false);
                     showSelectedOptionData("manage-admins");
                 }
             });
@@ -413,3 +431,5 @@ const addNewAdmin = () => {
         showAlert("Please enter valid email before submitting");
     }
 }
+
+// document.body.innerHTML += '<div class="dot-spinner"><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div></div>';

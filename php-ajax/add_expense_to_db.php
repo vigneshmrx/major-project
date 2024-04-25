@@ -5,6 +5,7 @@ include '../connect.php';
 
 $exp_date = $_POST["exp_date"];
 $exp_title = $_POST["exp_title"];
+$exp_title = str_replace("'", "\'", $exp_title);
 $cost = $_POST["cost"];
 $exp_category = $_POST["exp_category"];
 $unique_id = $_POST["unique_id"];

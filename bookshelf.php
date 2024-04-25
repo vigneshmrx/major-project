@@ -304,7 +304,9 @@
     displayQuote(quotesObj, "bookshelfPage");
 
     //show heading
-    document.getElementById("main-heading").innerHTML = localStorage.getItem("userName").split(" ")[0] + "'s Bookshelf";
+    let name = localStorage.getItem("userName").split(" ")[0];
+    name = name.charAt(0).toUpperCase() + name.substring(1);
+    document.getElementById("main-heading").innerHTML = name + "'s Bookshelf";
 
     let toReadContentArea = document.getElementsByClassName("to-read-content-area")[0];
 

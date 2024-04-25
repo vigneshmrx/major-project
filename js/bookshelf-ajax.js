@@ -2,6 +2,19 @@ const dbName = localStorage.getItem("dbName");
 const userName = localStorage.getItem("userName");
 const emailID = localStorage.getItem("emailID");
 
+const updateToReadListIfNecessary = () => {
+    $.ajax({
+        type: "POST",
+        url: "../major-project/php-ajax/update-to-read-list.php",
+        data: {
+            db_name: dbName,
+            present_year: new Date().getFullYear()
+        }
+    });
+}
+
+updateToReadListIfNecessary();
+
 //to add book to the DB
 const addBooktoDB = (bookStatus, objRef) => {
     let bookName = document.getElementById("bkName");
@@ -17,7 +30,7 @@ const addBooktoDB = (bookStatus, objRef) => {
     if (bookYear.value == "" || bookYear.value == null || bookYear.value == undefined) {
         bookYear = new Date().getFullYear();
     } else {
-        if (bookYear.value > new Date().getFullYear()) {
+        if (bookYear.value > new Date().getFullYear() || bookYear.value < 1901) {
             showAlert("Enter an appropriated year!");
             return;
         }
@@ -30,9 +43,6 @@ const addBooktoDB = (bookStatus, objRef) => {
     } else {
         recordId = parseInt(recordId);
     }
-
-    console.log("New values:\n");
-    console.log(recordId, bookName.value, bookAuthor.value);
 
     $.ajax({
         type: "POST",
@@ -95,17 +105,57 @@ const loadAlreadyReadBooks = () => {
 
     let selectedDropDownYear = sessionStorage.getItem("selected-drop-down-year");
 
-    for (let i = presentYear - 2; i <= presentYear; i++) {
-        if (i == selectedDropDownYear) {
-            theContent += `<option value=${i} selected>${i}</option>`; 
-        } else {
-            theContent += `<option value=${i}>${i}</option>`;
+    // for (let i = presentYear - 2; i <= presentYear; i++) {
+    //     if (i == selectedDropDownYear) {
+    //         theContent += `<option value=${i} selected>${i}</option>`; 
+    //     } else {
+    //         theContent += `<option value=${i}>${i}</option>`;
+    //     }
+    // }
+
+    let distinctYears;
+    let distinctYearsArray = [];
+    let matchedSessionYearFlag = 0;
+
+    //to get the books of different years
+    $.ajax({
+        type: "POST",
+        url: "../major-project/php-ajax/get-distinct-book-year.php",
+        data: {
+            db_name: dbName,
+            present_year: presentYear
+        }, 
+        success: function(response) {
+            distinctYears = response;
+            if (distinctYears != "") {
+                distinctYearsArray = distinctYears.split(",");
+            }
+
+            distinctYearsArray.forEach(year => {
+                if (year != "" && year == selectedDropDownYear) {
+                    matchedSessionYearFlag = 1;
+                    theContent += `<option value=${year} selected>${year}</option>`;
+                } else if (year != "") {
+                    theContent += `<option value=${year}>${year}</option>`;
+                }
+            });
+
+            if (!matchedSessionYearFlag) {
+                theContent += `<option value=${presentYear} selected>${presentYear}</option>`;
+                sessionStorage.setItem("selected-drop-down-year", presentYear);
+            } else {
+                theContent += `<option value=${presentYear}>${presentYear}</option>`;
+            }
+
+            theContent += `</select>`;
+        
+            alreadyReadYearBar.innerHTML = theContent; //the current year is automatically selected here
         }
-    }
+    });
 
-    theContent += `</select>`;
+    // theContent += `</select>`;
 
-    alreadyReadYearBar.innerHTML = theContent; //the current year is automatically selected here
+    // alreadyReadYearBar.innerHTML = theContent; //the current year is automatically selected here
 
     $.ajax({
         type: "POST", 
@@ -215,8 +265,6 @@ const editThisBook = (objRef) => {
     const authorName = objRef.parentElement.parentElement.firstElementChild.lastElementChild.innerHTML;
     const bookStatus = objRef.parentElement.previousElementSibling.classList[1];
     const bookYear = parseInt(objRef.parentElement.previousElementSibling.classList[2]);
-
-    console.log(recUniqueId, bookName, authorName, bookStatus, bookYear);
 
     showAddBookPopUp('', recUniqueId, bookName, authorName, bookStatus, bookYear);
 }
