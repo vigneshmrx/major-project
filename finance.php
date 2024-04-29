@@ -31,7 +31,9 @@
                 location.replace("login.php");
             }
         }
-        loggedInFun();
+        setInterval(() => {
+            loggedInFun();
+        }, 100);
     </script>
 </head>
 
@@ -122,27 +124,16 @@
             <hr class="popup-box-hr">
 
             <form action="#">
-                <label for="monthIncome">Current Month Income:</label> <br>
-                <input type="number" name="monthIncome" id="monthIncome"> <br><br>
+                <label for="selectedMonthsYear">Select Year:</label>
+                <select name="selectedMonthsYear" id="selectedMonthsYear" onchange="loadMonthsInIncomeInputBox(this);" style="width: 100%; padding: 5px 10px; margin-top: 5px; margin-bottom: 10px; border: none; border-bottom: 2px solid; border-radius: 5px; color: black;font-weight: bold; font-size: 15px; background: var(--secondary-white);">
+                </select> <br><br>
 
                 <label for="selectedMonth">Select Month:</label>
                 <select name="selectedMonth" id="selectedMonth" style="width: 100%; padding: 5px 10px; margin-top: 5px; margin-bottom: 10px; border: none; border-bottom: 2px solid; border-radius: 5px; color: black;font-weight: bold; font-size: 15px; background: var(--secondary-white);">
-                        <?php 
-                            $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-                            $current_month = date("F");
-
-                            //for auto selecting the current month
-                            foreach($months as $month) {
-                                if ($month == $current_month) {
-                                    echo "<option value='$month' selected>$month</option>";
-                                    break;
-                                } else {
-                                    echo "<option value='$month'>$month</option>";
-                                }
-                            }
-                        ?>
                 </select> <br><br>
+
+                <label for="monthIncome">Selected Month's Income:</label> <br>
+                <input type="number" name="monthIncome" id="monthIncome"> <br><br>
                 
                 <label for="bonus">Bonus / Extra (if any):</label> <br>
                 <input type="number" id="bonus" name="bonus"> <br><br>
@@ -312,7 +303,7 @@
                             </div>
 
                             <div id="exp-track-content">
-                                <div class="exp-info-box">
+                                <!-- <div class="exp-info-box">
                                     <div class="exp-info-date">
                                         <div class="date-box">06-02-24 TUE</div>
                                     </div>
@@ -376,10 +367,10 @@
                                                 <abbr title="delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="exp-info-box">
-                                    <div class="exp-info-date">
+                                    </div> -->
+                                <!-- </div> -->
+                                <!-- <div class="exp-info-box"> -->
+                                    <!-- <div class="exp-info-date">
                                         <div class="date-box">06-02-24 TUE</div>
                                     </div>
                                     <div class="exp-info-area">
@@ -398,8 +389,12 @@
                                                 <abbr title="delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div> -->
+
+                                    
+                                        
+                                    
+                                <!-- </div> -->
                             </div>
 
                             <div id="exp-track-footer">
@@ -407,8 +402,10 @@
                                     <input type="button" value="ADD EXPENSE" style="font-size: 12px; padding: 5px 10px;" onclick="showLogExpensePopup();">
                                 </div>
 
+                                <div id="total-exp-amt-bar">Total: 5544</div>
+
                                 <div class="show-more-details" onclick="showFullDetailsBx('expense');">
-                                    See Detailed Expense Log
+                                    See Complete Log
                                     <img src="./icons/icons8-right-arrow-50_black.png" alt="" class="show-more-details-arrow">
                                 </div>
                             </div>
@@ -451,9 +448,11 @@
 
             document.getElementById("monthIncome").value = "";
             document.getElementById("bonus").value = "";
-            const presentDate = new Date();
-            const presentMonth = presentDate.toLocaleString('default', {month: "long"});
-            document.getElementById("selectedMonth").value = presentMonth;
+            // const presentDate = new Date();
+            // const presentMonth = presentDate.toLocaleString('default', {month: "long"});
+            // document.getElementById("selectedMonth").value = presentMonth;
+            loadMonthsInIncomeInputBox();
+            loadYearsInIncomeInputBox();
         }
 
         const showLogExpensePopup = (recUniqueId, expDate, expDesc, cost, expCategory) => {

@@ -50,6 +50,18 @@ session_start();
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script defer>
+        setInterval(() => {
+            let loggedIn = localStorage.getItem("logged-in");
+                let userType = localStorage.getItem("user-type");
+            if (loggedIn != null && loggedIn != undefined && loggedIn == "true") {
+                if (userType == "admin") {
+                    window.location.href = "admin.php";
+                } else {
+                    window.location.href = "finance.php";
+                }
+            }
+        }, 100);
+
         function callErr(errorNo) {
             switch (errorNo) {
                 case 1:

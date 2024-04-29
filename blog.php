@@ -21,10 +21,12 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
-            // location.replace("login.php");
-            location.href = "login.php";
-        }
+        setInterval(() => {
+            if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
+                location.href = "login.php";
+            }
+        }, 100);
+        
     </script>
     
 </head>

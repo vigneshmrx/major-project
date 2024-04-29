@@ -27,6 +27,7 @@ const addNewIncomeToDb = () => {
     let income = document.getElementById("monthIncome");
     let selectedMonth = document.getElementById("selectedMonth");
     let bonus = document.getElementById("bonus");
+    let selectedMonthsYear = document.getElementById("selectedMonthsYear");
 
     let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
@@ -36,6 +37,8 @@ const addNewIncomeToDb = () => {
         showAlert("Income should be less than 50 million");
     } else if (bonus.value > 50000000) {
         showAlert("Bonus should be less than 50 million");
+    } else if (income.value == 0) {
+        showAlert("Income should be greater than 0");
     }
     else {
         if (bonus.value == null || bonus.value == undefined || bonus.value == "") {
@@ -49,6 +52,7 @@ const addNewIncomeToDb = () => {
             type: "POST",
             url: "../major-project/php-ajax/add_monthly_income_to_db.php",
             data: {
+                year: selectedMonthsYear.value,
                 income: income.value,
                 month: selectedMonth.value,
                 bonus: bonus,
@@ -57,7 +61,7 @@ const addNewIncomeToDb = () => {
             success: function(response) {
                 showAlert("Monthly income updated successfully");
                 income.value = "";
-                selectedMonth.value = months[new Date().getMonth()];
+                // selectedMonth.value = months[new Date().getMonth()];
                 document.getElementById("bonus").value = "";
                 removePopUp(document.getElementsByClassName("close-pop-up-icon-area")[1], [5]);
                 loadMonthlyIncomeDisplayArea();
@@ -182,6 +186,8 @@ const loadLoggedExpense = () => {
 
     selectedExpMonthBar.innerHTML = expTrackHeaderContent; //to fill exp-track-header
 
+    let totalExpBar = document.getElementById("total-exp-amt-bar");
+
     $.ajax({
         type: "POST",
         url: "../major-project/php-ajax/load_exp_info.php",
@@ -191,12 +197,19 @@ const loadLoggedExpense = () => {
             selected_exp_month_year: selectedExpMonthYear
         },
         success: function(response) {
-            expInfoDisplayArea.innerHTML = response;
-        },
-        error: function(error) {
-            alert(error);
+            let respArr = response.split("//total:");
+            console.log(respArr);
+            expInfoDisplayArea.innerHTML = respArr[0];
+            if (respArr[1] == 0 || respArr[1] == undefined) {
+                totalExpBar.style.visibility = "hidden";
+                totalExpBar.style.zIndex = -150;
+            } else {
+                totalExpBar.innerHTML = "Total: " + respArr[1];
+                totalExpBar.style.visibility = "visible";
+                totalExpBar.style.zIndex = 50;
+            }
         }
-    })
+    });
 }
 
 loadLoggedExpense();
@@ -278,3 +291,48 @@ const loadRemainingIncome = () => {
 }
 
 loadRemainingIncome();
+
+
+const loadMonthsInIncomeInputBox = (objRef) => {
+    let selectedMonthDropDown = document.getElementById("selectedMonth");
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+
+    let tempContent = ``;
+    const arrLen = monthsArray.length;
+
+    if (objRef != null && objRef.value < currentYear) {
+        for (let i = 0; i < arrLen; i++) {
+            let monthInLoop = monthsArray[i];
+            if (monthInLoop == "January") {
+                tempContent += `<option value=${monthInLoop} selected>${monthInLoop}</option>`;
+            } else {
+                tempContent += `<option value=${monthInLoop}>${monthInLoop}</option>`;
+            }
+        }
+    }
+    else {
+        for (let i = 0; i < arrLen; i++) {
+            let monthInLoop = monthsArray[i];
+            if (currentMonth == i) {
+                tempContent += `<option value=${monthInLoop} selected>${monthInLoop}</option>`;
+                break;
+            } else {
+                tempContent += `<option value=${monthInLoop}>${monthInLoop}</option>`;
+            }
+        }
+    }
+
+    selectedMonthDropDown.innerHTML = tempContent;
+}
+
+const loadYearsInIncomeInputBox = () => {
+    let selectedMonthsYearDropDown = document.getElementById("selectedMonthsYear");
+    let currentYear = new Date().getFullYear();
+
+    let tempContent = ``;
+
+    tempContent = `<option value=${currentYear - 1}>${currentYear - 1}</option><option value=${currentYear} selected>${currentYear}</option>`;
+
+    selectedMonthsYearDropDown.innerHTML = tempContent;
+}

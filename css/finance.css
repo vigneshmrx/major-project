@@ -165,11 +165,12 @@
     border-bottom: 2px solid; */
     /* margin-top: 5px; */
     overflow: auto;
+    padding-bottom: 35px;
 }
 
 #exp-track-content::-webkit-scrollbar {
-    /* display: none; */
-    width: 7px;
+    display: none;
+    /* width: 7px; */
 }
 
 #exp-track-content::-webkit-scrollbar-track {
@@ -198,6 +199,7 @@
 #exp-track-footer {
     padding-left: var(--common-value);
     padding-right: var(--common-value);
+    position: relative;
 }
 
 /* .individual-element-btn-area {
@@ -212,6 +214,21 @@
     margin: 4px auto;
     position: relative;
     /* border: 1px solid; */
+}
+
+#total-exp-amt-bar {
+    position: absolute;
+    top: -20px;
+    width: auto;
+    background-color: var(--main-black);
+    color: var(--main-white);
+    padding: 5px 10px;
+    border-radius: var(--common-value);
+    font-weight: normal;
+    left: 50%;
+    /* right: 50%;  */
+    transform: translate(-50%, -50%);
+    margin: auto;
 }
 
 .exp-info-date {

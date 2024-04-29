@@ -8,9 +8,9 @@ include '../connect.php';
 $income = $_POST["income"];
 $month = $_POST["month"];
 $bonus = $_POST["bonus"];
-$year = date("Y");
 $db_name = $_POST["db_name"];
 $total_income = $income + $bonus;
+$year = $_POST["year"];
 
 $fifty_percent = ($total_income * 50) / 100;
 $thirty_percent = ($total_income * 30) / 100;

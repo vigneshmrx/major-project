@@ -13,12 +13,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4.6.4/dist/index.min.js"></script> -->
     <script>
-        if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
-            location.href = "login.php";
-        }
-        if (localStorage.getItem("user-type") != "writer") {
-            location.replace("finance.php");
-        }
+        setInterval(() => {
+            if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
+                location.href = "login.php";
+            }
+            if (localStorage.getItem("user-type") != "writer") {
+                location.replace("finance.php");
+            }
+        }, 100);
     </script>
 </head>
 <body>

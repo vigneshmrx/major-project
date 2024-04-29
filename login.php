@@ -12,6 +12,19 @@ session_start();
     <style><?php include './css/signup.css'; ?></style>
 
     <script defer>
+        setInterval(() => {
+            console.log("Called");
+            let loggedIn = localStorage.getItem("logged-in");
+                let userType = localStorage.getItem("user-type");
+            if (loggedIn != null && loggedIn != undefined && loggedIn == "true") {
+                if (userType == "admin") {
+                    window.location.href = "admin.php";
+                } else {
+                    window.location.href = "finance.php";
+                }
+            }
+        }, 100);
+
         function callErr(errorNo) {
             switch (errorNo) {
                 case 1: userNotExist();
@@ -63,13 +76,7 @@ session_start();
         let loggedIn = localStorage.getItem("logged-in");
         let userType = localStorage.getItem("user-type");
 
-        if (loggedIn != null && loggedIn != undefined && loggedIn == true) {
-            if (userType == "admin") {
-                window.location.href = "admin.php";
-            } else {
-                window.location.href = "finance.php";
-            }
-        }
+        
     </script>
 </head>
 <body>

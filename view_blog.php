@@ -16,9 +16,12 @@
     </style>
 
     <script>
-        if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
-            location.replace("login.php");
-        }
+        setInterval(() => {
+            if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
+                location.replace("login.php");
+            }
+        }, 100);
+        
     </script>
 
 </head>

@@ -21,9 +21,12 @@ session_start();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
     <script>
-        if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
-            location.replace("login.php");
-        }
+        setInterval(() => {
+            if (localStorage.getItem("logged-in") == null || localStorage.getItem("logged-in") == false) {
+                location.replace("login.php");
+            }
+        }, 100);
+        
     </script>
 </head>
 <body>
@@ -181,9 +184,11 @@ session_start();
 
     <script src="./js/common-script.js"></script>
     <script>
-        let userName = localStorage.getItem("userName");
-        let userNameArr = userName.split(" ");
-        document.getElementById("dashboard-greeting").innerHTML = userNameArr[0] + "'s Dashboard";
+        // let userName = localStorage.getItem("userName");
+        // let userNameArr = userName.split(" ");
+        let name = localStorage.getItem("userName").split(" ")[0];
+        name = name.charAt(0).toUpperCase() + name.substring(1);
+        document.getElementById("dashboard-greeting").innerHTML = name + "'s Dashboard";
 
         const redirectToWriteBlogPg = () => {
             location.href = "create_blog.php";
