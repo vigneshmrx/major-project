@@ -37,8 +37,6 @@ const addNewIncomeToDb = () => {
         showAlert("Income should be less than 50 million");
     } else if (bonus.value > 50000000) {
         showAlert("Bonus should be less than 50 million");
-    } else if (income.value == 0) {
-        showAlert("Income should be greater than 0");
     }
     else {
         if (bonus.value == null || bonus.value == undefined || bonus.value == "") {
@@ -84,6 +82,9 @@ const addExpenseToDb = () => {
 
     if (expTitle.value == "" || expTitle.value == null || expCost.value == null || expCost.value == "") {
         showAlert("Please enter all the necessary details correctly!");
+        return;
+    } else if (expCost.value > 1000000) {
+        showAlert("The cost of expense cannot be more than 1 million");
         return;
     }
 
@@ -252,8 +253,12 @@ const editThisExp = (objRef) => {
     const expDate = objRef.parentElement.parentElement.parentElement.firstChild.firstChild.innerHTML; //getting the expense date
 
     const expDesc = objRef.parentElement.previousElementSibling.firstElementChild.innerHTML;
-    const cost = parseFloat(objRef.parentElement.previousElementSibling.lastElementChild.firstChild.innerHTML);
+    let cost = objRef.parentElement.previousElementSibling.lastElementChild.firstChild.innerHTML;
+    cost = cost.replaceAll(",", "");
+    cost = parseFloat(cost);
     const expCategory = objRef.parentElement.previousElementSibling.lastElementChild.id;
+
+    console.log(cost);
 
     showLogExpensePopup(recUniqueId, expDate, expDesc, cost, expCategory);
 }

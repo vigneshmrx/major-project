@@ -134,7 +134,7 @@
         }
 
         .nothing-to-show img {
-            height: 70px;
+            height: 200px;
         }
 
         .hide {
@@ -296,6 +296,15 @@
             font-size: 15px;
             font-weight: normal;
         }
+
+        .request-links {
+            max-width: 200px;
+            overflow: auto;
+        }
+
+        /* .request-links::-webkit-scrollbar {
+            height: 20px;
+        } */
 
         .dot-spinner {
             --uib-size: 2.8rem;

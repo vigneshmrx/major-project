@@ -60,7 +60,7 @@ session_start();
                     window.location.href = "finance.php";
                 }
             }
-        }, 100);
+        }, 1400);
 
         function callErr(errorNo) {
             switch (errorNo) {
@@ -180,6 +180,14 @@ session_start();
         function sendOTP(toShowOTPMessage) {
             let emailToSendOtp = document.getElementById("users-email");
 
+            sentCount++;
+
+            if (sentCount == 2) {
+                startResendOTPTimer(180);
+            } else if (sentCount > 2) {
+                showResendEmailOption();
+            }
+
             $.ajax({
                 type: "POST",
                 url: "./php-ajax/send-otp.php",
@@ -189,12 +197,11 @@ session_start();
                 success: function(response) {
                     // unique_io = response;
                     unique_io = response;
-                    sentCount++;
-                    if (sentCount == 2) {
-                        startResendOTPTimer(180);
-                    } else if (sentCount > 2) {
-                        showResendEmailOption();
-                    }
+                    // if (sentCount == 2) {
+                    //     startResendOTPTimer(180);
+                    // } else if (sentCount > 2) {
+                    //     showResendEmailOption();
+                    // }
                 }
             });
 
@@ -310,7 +317,7 @@ session_start();
                     verificationRes = response;
 
                     if (response == "1") {
-                        showAlert("OTP Verified Successfully!");
+                        showAlert("OTP Verified Successfully! Registration Successful!");
                         showOtpInputPopup(false);
                         cancelOTPExpiryCountDown();
 
@@ -443,17 +450,21 @@ session_start();
                     <div class="flex-line line" style="display: flex;">
                         <div class="fname">
                             FIRST NAME: <br>
-                            <input type="text" name="f_name" id="f_name" value="<?php echo $fname; ?>" required>
+                            <input type="text" name="f_name" id="f_name" pattern="[A-Za-z\s.]*" minlength="3" value="<?php echo $fname; ?>" title="Only letters, spaces, and dots are allowed">
                         </div>
                         <div class="lname">
                             LAST NAME: <br>
-                            <input type="text" name="l_name" id="l_name" value="<?php echo $lname; ?>" required>
+                            <input type="text" name="l_name" id="l_name" pattern="[A-Za-z\s.]*" minlength="3" value="<?php echo $lname; ?>" title="Only letters, spaces, and dots are allowed" required>
                         </div>
                     </div>
+                    <!-- <div class="line name-error">
+                    </div> -->
+
+                    
 
                     <div class="line">
                         EMAIL: <br>
-                        <input type="email" name="email" id="users-email" value="<?php echo $email; ?>" required>
+                        <input type="email" name="email" id="users-email" minlength="10" value="<?php echo $email; ?>" required>
                     </div>
 
                     <div class="line email-error">
@@ -539,6 +550,18 @@ session_start();
             }
         }
 
+        function checkNameValidation($fname, $lname) {
+            $full_name = $fname . $lname;
+
+            $len = strlen($full_name);
+
+            for ($i = 0; $i < $len; $i++) {
+                if (is_numeric($full_name[$i])) {
+                    die("<script>showNameError();</script>");
+                }
+            }
+        }
+
         function adminFunction($admin_email, $passone, $passtwo, $fname, $lname) {
             include "connect.php";
 
@@ -601,6 +624,8 @@ session_start();
 
         if(isset($_POST["sign_up"])) {
             include "connect.php";
+
+            // checkNameValidation($fname, $lname);
 
             if (str_contains($email, ".prodoad")) {
                 adminFunction($email, $passone, $passtwo, $fname, $lname);

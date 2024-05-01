@@ -437,8 +437,8 @@
         document.getElementById("main-heading").innerHTML = name + "'s Finance Manager";
         
 
-        const showModifyIncomeBox = () => {
-            console.log("CAlled");
+        const showModifyIncomeBox = (objRef) => {
+            // console.log("CAlled");   
             popUpBgFun();
 
             let modifyIncomePopupPage = document.getElementById("modify-income-popup-pg");
@@ -446,7 +446,11 @@
             modifyIncomePopupPage.style.visibility = "visible";
             modifyIncomePopupPage.style.zIndex = 150;
 
-            document.getElementById("monthIncome").value = "";
+            let presentMonthlyIncome = objRef.parentElement.previousElementSibling.firstChild.innerHTML;
+            presentMonthlyIncome = presentMonthlyIncome.replaceAll(",", "");
+            presentMonthlyIncome = parseFloat(presentMonthlyIncome);
+
+            document.getElementById("monthIncome").value = presentMonthlyIncome;
             document.getElementById("bonus").value = "";
             // const presentDate = new Date();
             // const presentMonth = presentDate.toLocaleString('default', {month: "long"});

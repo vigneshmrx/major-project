@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Create Blog</title>
     <style>
         <?php include './css/common-styles.css'; ?>
         <?php include './css/create-blog.css'; ?>
@@ -223,11 +223,11 @@
                 <div onclick="showImageUploadBox();">
                     <img src="./icons/icons8-image-48-grey.png" alt="">
                 </div>
-                <div id="emoji-btn">
+                <!-- <div id="emoji-btn">
                     <abbr title="Emoji (Win + .)">
                         <img src="./icons/icons8-smiley-48-grey.png" alt="">
                     </abbr>
-                </div>
+                </div> -->
 
                 <div class="seperator">
                     <img src="./icons/icons8-seperator-48-grey.png" alt="">

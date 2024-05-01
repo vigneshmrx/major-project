@@ -46,8 +46,6 @@ const showSelectedOptionData = (type) => {
 
     if (type != "send-mail") {
 
-
-
         $.ajax({
             type: "POST",
             url: "../major-project/php-ajax/show-admin-selected-option.php",

@@ -124,10 +124,12 @@ input[type=submit] {
 .email-error,
 .pwd-error,
 .repeat-pwd-error,
-.common-error {
-    font-size: 11px;
+.common-error,
+.name-error {
+    font-size: 12px;
     min-height: 10px;
     padding: 0px 15px;
+    font-weight: bold;
 }
 
 .common-error {

@@ -74,12 +74,16 @@ session_start();
 
             <br><br>
 
+            &nbsp;&nbsp;&nbsp;If you have never written blogs before and want to give it a try, type "NEW".
+
+            <br><br>
+
             &nbsp;&nbsp;&nbsp;If already requested, please wait for the response from our team.
             </div>
 
             <br><br>
 
-            <textarea name="" id="upload-links-textarea" cols="30" rows="5" placeholder="Website links, drive links etc." ></textarea>
+            <textarea name="" id="upload-links-textarea" cols="30" rows="5" maxlength="100" placeholder="Website links, drive links etc." ></textarea>
 
             <br><br>
 

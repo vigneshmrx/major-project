@@ -12,18 +12,7 @@ session_start();
     <style><?php include './css/signup.css'; ?></style>
 
     <script defer>
-        setInterval(() => {
-            console.log("Called");
-            let loggedIn = localStorage.getItem("logged-in");
-                let userType = localStorage.getItem("user-type");
-            if (loggedIn != null && loggedIn != undefined && loggedIn == "true") {
-                if (userType == "admin") {
-                    window.location.href = "admin.php";
-                } else {
-                    window.location.href = "finance.php";
-                }
-            }
-        }, 100);
+        
 
         function callErr(errorNo) {
             switch (errorNo) {
@@ -61,6 +50,9 @@ session_start();
         function loginSuccess(type = "") {
             let commonMsgArea = document.getElementsByClassName("common-error")[0];
             commonMsgArea.innerHTML = "Login Successful!!";
+            document.getElementsByName("email")[0].value = "";
+            document.getElementsByName("pass_one")[0].value = "";
+
 
             if (type == "admin") {
                 setTimeout(() => {
@@ -72,6 +64,19 @@ session_start();
                 }, 1400);
             }
         }
+
+        setInterval(() => {
+            console.log("Called");
+            let loggedIn = localStorage.getItem("logged-in");
+                let userType = localStorage.getItem("user-type");
+            if (loggedIn != null && loggedIn != undefined && loggedIn == "true") {
+                if (userType == "admin") {
+                    window.location.href = "admin.php";
+                } else {
+                    window.location.href = "finance.php";
+                }
+            }
+        }, 1400);
 
         let loggedIn = localStorage.getItem("logged-in");
         let userType = localStorage.getItem("user-type");

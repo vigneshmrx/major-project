@@ -20,10 +20,10 @@
             // $cost = number_format($row["Cost"]);
             $total += $row["Cost"];
 
-            $content = $content . '<div class="exp-info-box"><div class="exp-info-date"><div class="date-box">' . $row["Date"] . '</div></div>' . '<div class="exp-info-area"><div class="exp-info-left-area"><div>' . $row["TitleOfExpense"] . '</div><div class="cost-box" id="' . $category . '"><span class="money" style="font-weight: normal;">' . $row["Cost"]. '</span></div></div>' . '<div class="exp-info-right-area" id="' . $row["SNo"] . '"><div class="modify-exp-icon" style="height: 30px;" onclick="editThisExp(this)">' . '<abbr title="Edit"><img src="./icons/icons8-edit-60.png" alt="" style="width: 30px;"></abbr>' . '</div>' . '<div class="remove-exp-icon" style="height: 30px;" onclick="removeThisExpFromDb(this);"><abbr title="Delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>' . '</div></div></div></div>';
+            $content = $content . '<div class="exp-info-box"><div class="exp-info-date"><div class="date-box">' . $row["Date"] . '</div></div>' . '<div class="exp-info-area"><div class="exp-info-left-area"><div>' . $row["TitleOfExpense"] . '</div><div class="cost-box" id="' . $category . '"><span class="money" style="font-weight: normal;">' . number_format($row["Cost"], 2) . '</span></div></div>' . '<div class="exp-info-right-area" id="' . $row["SNo"] . '"><div class="modify-exp-icon" style="height: 30px;" onclick="editThisExp(this)">' . '<abbr title="Edit"><img src="./icons/icons8-edit-60.png" alt="" style="width: 30px;"></abbr>' . '</div>' . '<div class="remove-exp-icon" style="height: 30px;" onclick="removeThisExpFromDb(this);"><abbr title="Delete"><img src="./icons/icons8-close-64.png" alt="" style="width: 30px;"><abbr>' . '</div></div></div></div>';
 
         }
-        $content = $content . '//total:' . $total;
+        $content = $content . '//total:' . number_format($total, 2);
 
         echo $content;
     } else {

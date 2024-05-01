@@ -23,13 +23,13 @@ try {
 
         if ($total_pending_requests > 0) {
 
-            $content = $content . '<div id="dynamic-table"><table cellspacing="0"><tr><th>SNo</th><th>User</th><th>Email</th><th>Work Links</th><th>Requested On</th><th>Status</th><th>Action</th></tr>';
+            $content = $content . '<div id="dynamic-table"><table cellspacing="0"><tr><th>SNo</th><th>User</th><th>Email</th><th class="request-links-col">Work Links</th><th>Requested On</th><th>Status</th><th>Action</th></tr>';
 
             $count = 1;
 
             while ($row = mysqli_fetch_assoc($get_requests_q)) {
 
-                $content = $content . '<tr class="info-row ' . $row["SNo"] . '"><td>' . $count . '</td><td class="request-username">' . $row["UserName"] . '</td><td class="request-email">' . $row["EmailId"] . '</td><td class="request-links">' . $row["WorksLinks"] . '</td><td class="request-requested-date">' . $row["RequestedDate"] . '</td><td class="request-status">' . $row["Status"] . '</td><td class="action-cell">' . '<abbr title="Accept Request" onclick="modifyWriterRequest(this, 1);"><img src="./icons/accept-request.png" alt=""></abbr>
+                $content = $content . '<tr class="info-row ' . $row["SNo"] . '"><td>' . $count . '</td><td class="request-username">' . $row["UserName"] . '</td><td class="request-email">' . $row["EmailId"] . '</td><td class="request-links" style="width: 50px; overflow: auto;">' . $row["WorksLinks"] . '</td><td class="request-requested-date">' . $row["RequestedDate"] . '</td><td class="request-status">' . $row["Status"] . '</td><td class="action-cell">' . '<abbr title="Accept Request" onclick="modifyWriterRequest(this, 1);"><img src="./icons/new-tick-48.png" alt=""></abbr>
                 <abbr title="Reject Request" onclick="modifyWriterRequest(this, 2);">
                 <img src="./icons/reject-request.png" alt=""></abbr></td></tr>';
 
@@ -41,7 +41,7 @@ try {
 
         } else {
 
-            $content = $content . '<div class="nothing-to-show"><img src="./icons/icons8-grinning-face-with-smiling-eyes-96.png"><br>Nothing to see here!</div>';
+            $content = $content . '<div class="nothing-to-show"><img src="./images/nothing-to-see-here.png"><br>Nothing to see here!</div>';
 
         }
 
@@ -49,7 +49,7 @@ try {
 
         if ($total_nonpending_requests > 0) {
 
-            $content = $content . '<div id="dynamic-table"><table cellspacing="0"><tr><th>SNo</th><th>User</th><th>Email</th><th>Work Links</th><th>Requested On</th><th>Status</th><th>Action</th></tr>';
+            $content = $content . '<div id="dynamic-table"><table cellspacing="0"><tr><th>SNo</th><th>User</th><th>Email</th><th class="request-links-col">Work Links</th><th>Requested On</th><th>Status</th><th>Action</th></tr>';
 
             $count = 1;
 
@@ -65,7 +65,7 @@ try {
 
         }
         else {
-            $content = $content . '<div class="nothing-to-show"><img src="./icons/icons8-grinning-face-with-smiling-eyes-96.png"><br>Nothing to see here!</div>';
+            $content = $content . '<div class="nothing-to-show"><img src="./images/nothing-to-see-here.png"><br>Nothing to see here!</div>';
         }
 
         die($content);
@@ -73,7 +73,7 @@ try {
     }
     else if ($requested_data_type == "reports") {
 
-        $get_reported_blogs_q = mysqli_query($con, "select * from prodo_db.users_blog_posts_list where Reports > 0");
+        $get_reported_blogs_q = mysqli_query($con, "select * from prodo_db.users_blog_posts_list where Reports > 0 order by Reports desc;");
 
         $get_nonreported_blogs_q = mysqli_query($con, "select * from prodo_db.users_blog_posts_list where Reports = 0");
 
@@ -102,7 +102,7 @@ try {
 
         }
         else {
-            $content = $content . '<div class="nothing-to-show"><img src="./icons/icons8-grinning-face-with-smiling-eyes-96.png"><br>Nothing to see here!</div>';
+            $content = $content . '<div class="nothing-to-show"><img src="./images/nothing-to-see-here.png"><br>Nothing to see here!</div>';
         }
 
         $content = $content . '<div class="sub-headings">Other Blogs:</div>';
@@ -170,7 +170,7 @@ try {
         }
         else 
         {
-            $content = $content . '<div class="nothing-to-show"><img src="./icons/icons8-grinning-face-with-smiling-eyes-96.png"><br>Nothing to see here!</div>';
+            $content = $content . '<div class="nothing-to-show"><img src="./images/nothing-to-see-here.png"><br>Nothing to see here!</div>';
         }
 
         die($content);
@@ -211,7 +211,7 @@ try {
         else 
         {
 
-            $content = $content . '<div class="nothing-to-show"><img src="./icons/icons8-grinning-face-with-smiling-eyes-96.png"><br>Nothing to see here!</div>';
+            $content = $content . '<div class="nothing-to-show"><img src="./images/nothing-to-see-here.png"><br>Nothing to see here!</div>';
 
         }
 

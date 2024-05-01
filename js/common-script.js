@@ -109,7 +109,7 @@ const logoutFromHere = () => {
         success: function() {
             sessionStorage.clear();
             localStorage.clear();
-            location.replace("login.php");
+            location.href = "login.php";
         }
     });
 }
@@ -138,7 +138,7 @@ const showAlert = (message) => {
     setTimeout(() => {
         alert.style.zIndex = -300;
         alert.style.display = "none";
-    }, 2100);
+    }, 2500);
 }
 
 const dismissableAlertFun = (message) => {
